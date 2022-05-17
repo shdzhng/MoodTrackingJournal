@@ -1,7 +1,7 @@
 import React, { useState, useRef, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { PriorityButton, FormButton } from './todoListInput.styles';
-import { addTask, clearAllCompleted } from './todoListSlice';
+import { addTask, clearAllCompleted, clearTodoList } from './todoListSlice';
 import { v4 as uuidv4 } from 'uuid';
 import {} from './todoListSlice';
 
@@ -25,6 +25,10 @@ export function TodoListInput() {
 
   const handleClearAllCompleted = useCallback((e) => {
     dispatch(clearAllCompleted());
+  });
+
+  const handleClearTodoList = useCallback((e) => {
+    dispatch(clearTodoList());
   });
 
   const handlePriorityChange = useCallback((e) => {
@@ -70,13 +74,19 @@ export function TodoListInput() {
         Add Task
       </FormButton>
       <FormButton
-        onClick={(e) => {
+        onClick={() => {
           handleClearAllCompleted();
         }}
       >
         Clear Completed Tasks
       </FormButton>
-      <FormButton>Clear All Tasks</FormButton>
+      <FormButton
+        onClick={() => {
+          handleClearTodoList();
+        }}
+      >
+        Clear All Tasks
+      </FormButton>
     </div>
   );
 }
