@@ -1,9 +1,10 @@
 import styled, { css } from 'styled-components';
+import colors from '../../constants/Colors';
 
 const buttonVariants = {
-  low: '#199237',
-  medium: '#ed7200',
-  high: '#d62629',
+  low: colors.green600,
+  medium: colors.yellow600,
+  high: colors.red500,
 };
 
 const PriorityButton = styled('button')`

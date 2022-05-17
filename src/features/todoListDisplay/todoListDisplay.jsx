@@ -1,14 +1,31 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
-import { UnorderedList, ListItem } from './todoListDisplay.styles';
+import React, { useCallback } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import {
+  toggleTodoComplete,
+} from '../todoListInput/todoListSlice';
+import { UnorderedList, ListItem, TodoItem } from './todoListDisplay.styles';
 
 function TodoListDisplay() {
+  const dispatch = useDispatch();
   const todoList = useSelector((state) => state.todoList.tasks);
+  const handleCheck = useCallback((e) => {
+    const todoId = e.target.id;
+    dispatch(toggleTodoComplete(todoId));
+  });
 
   return (
     <UnorderedList>
       {todoList.map((task, i) => (
-        <ListItem key={i}>{task.name}</ListItem>
+        <TodoItem key={i}>
+          <input
+            id={task.id}
+            onClick={(e) => {
+              handleCheck(e);
+            }}
+            type="checkbox"
+          ></input>
+          <ListItem>{task.name}</ListItem>
+        </TodoItem>
       ))}
     </UnorderedList>
   );

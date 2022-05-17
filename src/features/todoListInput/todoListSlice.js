@@ -10,11 +10,21 @@ export const todoListSlice = createSlice({
 
   reducers: {
     addTask: (state, action) => {
+      if (!action.payload.name || !action.payload.priority) return;
       state.tasks.push(action.payload);
+    },
+    toggleTodoComplete: (state, action) => {
+      const todoId = action.payload;
+      const todoItem = state.tasks.find((todo) => todoId === todo.id);
+      todoItem.completed = !todoItem.completed;
+    },
+    clearAllCompleted: (state, action) => {
+      state.tasks = state.tasks.filter((todo) => !todo.completed);
     },
   },
 });
 
-export const { addTask } = todoListSlice.actions;
+export const { addTask, toggleTodoComplete, clearAllCompleted } =
+  todoListSlice.actions;
 
 export default todoListSlice.reducer;

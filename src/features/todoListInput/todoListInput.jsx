@@ -1,7 +1,8 @@
 import React, { useState, useRef, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { PriorityButton, FormButton } from './todoListInput.styles';
-import { addTask } from './todoListSlice';
+import { addTask, clearAllCompleted } from './todoListSlice';
+import { v4 as uuidv4 } from 'uuid';
 import {} from './todoListSlice';
 
 export function TodoListInput() {
@@ -14,11 +15,16 @@ export function TodoListInput() {
     const name = todoNameRef.current.value;
     todoNameRef.current.value = '';
     const newTask = {
+      id: uuidv4(),
       name,
       completed: false,
       priority,
     };
     dispatch(addTask(newTask));
+  });
+
+  const handleClearAllCompleted = useCallback((e) => {
+    dispatch(clearAllCompleted());
   });
 
   const handlePriorityChange = useCallback((e) => {
@@ -63,7 +69,13 @@ export function TodoListInput() {
       >
         Add Task
       </FormButton>
-      <FormButton>Clear Completed Tasks</FormButton>
+      <FormButton
+        onClick={(e) => {
+          handleClearAllCompleted();
+        }}
+      >
+        Clear Completed Tasks
+      </FormButton>
       <FormButton>Clear All Tasks</FormButton>
     </div>
   );

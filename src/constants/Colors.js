@@ -1,4 +1,4 @@
-export default colors = {
+const colors = {
   // neutrals
   gray700: '#141312',
   gray600: '#4E4E4E',
@@ -36,3 +36,5 @@ export default colors = {
   deepPurple: '#5656BF',
   darkBlue: '#1E294D',
 };
+
+export default colors;

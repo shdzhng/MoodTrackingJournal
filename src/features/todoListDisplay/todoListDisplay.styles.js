@@ -1,7 +1,14 @@
 import styled from 'styled-components';
+import { colors } from '../../constants/Colors';
 
 const UnorderedList = styled.ul``;
 
-const ListItem = styled.li``;
+const ListItem = styled.li`
+  list-style: none;
+`;
 
-export { UnorderedList, ListItem };
+const TodoItem = styled.div`
+  display: flex;
+`;
+
+export { UnorderedList, ListItem, TodoItem };
