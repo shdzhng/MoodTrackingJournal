@@ -1,5 +1,5 @@
 import React, { useState, useRef, useCallback } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { PriorityButton, FormButton } from './todoListInput.styles';
 import { addTask, clearAllCompleted, clearTodoList } from './todoListSlice';
 import { v4 as uuidv4 } from 'uuid';

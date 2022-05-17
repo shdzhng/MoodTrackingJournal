@@ -1,9 +1,13 @@
 import React, { useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { toggleTodoComplete } from '../todoListInput/todoListSlice';
 import {
-  toggleTodoComplete,
-} from '../todoListInput/todoListSlice';
-import { UnorderedList, ListItem, TodoItem } from './todoListDisplay.styles';
+  Table,
+  TableData,
+  TableRow,
+  TableHead,
+  TableBody,
+} from './todoListDisplay.styles';
 
 function TodoListDisplay() {
   const dispatch = useDispatch();
@@ -14,20 +18,32 @@ function TodoListDisplay() {
   });
 
   return (
-    <UnorderedList>
-      {todoList.map((task, i) => (
-        <TodoItem key={i}>
-          <input
-            id={task.id}
-            onClick={(e) => {
-              handleCheck(e);
-            }}
-            type="checkbox"
-          ></input>
-          <ListItem>{task.name}</ListItem>
-        </TodoItem>
-      ))}
-    </UnorderedList>
+    <Table>
+      <TableHead>
+        <TableRow>
+          <TableData></TableData>
+          <TableData>Task</TableData>
+          <TableData>Priority</TableData>
+        </TableRow>
+      </TableHead>
+      <TableBody>
+        {todoList.map((task, i) => (
+          <TableRow key={i}>
+            <TableData>
+              <input
+                id={task.id}
+                onClick={(e) => {
+                  handleCheck(e);
+                }}
+                type="checkbox"
+              ></input>
+            </TableData>
+            <TableData>{task.name}</TableData>
+            <TableData>{task.priority}</TableData>
+          </TableRow>
+        ))}
+      </TableBody>
+    </Table>
   );
 }
 

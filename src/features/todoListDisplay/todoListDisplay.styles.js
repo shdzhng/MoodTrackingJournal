@@ -1,14 +1,19 @@
 import styled from 'styled-components';
-import { colors } from '../../constants/Colors';
+import colors from '../../constants/Colors';
 
-const UnorderedList = styled.ul``;
-
-const ListItem = styled.li`
-  list-style: none;
+const Table = styled.table`
+  border-collapse: collapse;
+  border: 1px solid ${colors.gray700};
 `;
 
-const TodoItem = styled.div`
-  display: flex;
+const TableHead = styled.thead``;
+
+const TableBody = styled.tbody``;
+
+const TableRow = styled.tr``;
+
+const TableData = styled.td`
+  border: 1px solid ${colors.gray700};
 `;
 
-export { UnorderedList, ListItem, TodoItem };
+export { Table, TableData, TableRow, TableHead, TableBody };

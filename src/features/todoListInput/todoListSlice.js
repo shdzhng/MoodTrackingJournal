@@ -10,15 +10,18 @@ export const todoListSlice = createSlice({
 
   reducers: {
     addTask: (state, action) => {
+      console.log(action.type);
       if (!action.payload.name || !action.payload.priority) return;
       state.tasks.push(action.payload);
     },
     toggleTodoComplete: (state, action) => {
+      console.log(action.type);
       const todoId = action.payload;
       const todoItem = state.tasks.find((todo) => todoId === todo.id);
       todoItem.completed = !todoItem.completed;
     },
-    clearAllCompleted: (state) => {
+    clearAllCompleted: (state, action) => {
+      console.log(action.type);
       state.tasks = state.tasks.filter((todo) => !todo.completed);
     },
     clearTodoList: (state) => {
