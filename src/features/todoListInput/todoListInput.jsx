@@ -5,7 +5,7 @@ import { addTask, clearAllCompleted, clearTodoList } from './todoListSlice';
 import { v4 as uuidv4 } from 'uuid';
 import {} from './todoListSlice';
 
-export function TodoListInput() {
+export default function TodoListInput() {
   const dispatch = useDispatch();
   const todoNameRef = useRef('');
   const [priority, setPriority] = useState('');

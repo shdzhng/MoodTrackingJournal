@@ -1,15 +1,16 @@
 import React, { useCallback } from 'react';
-import { TodoListInput } from './features/todoListInput/todoListInput';
 import GlobalStyles from './Global.styles';
-import TodoListDisplay from './features/todoListDisplay/todoListDisplay';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Home from './views/Home';
 
 function App() {
   return (
-    <>
+    <Router>
       <GlobalStyles />
-      <TodoListInput />
-      <TodoListDisplay />
-    </>
+      <Routes>
+        <Route path="/" element={<Home />}></Route>
+      </Routes>
+    </Router>
   );
 }
 
