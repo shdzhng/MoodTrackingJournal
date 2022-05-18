@@ -12,10 +12,33 @@ import {
 function TodoListDisplay() {
   const dispatch = useDispatch();
   const todoList = useSelector((state) => state.todoList.tasks);
+
   const handleCheck = useCallback((e) => {
     const todoId = e.target.id;
     dispatch(toggleTodoComplete(todoId));
   });
+
+  function GenerateTableRow(task, i) {
+    return (
+      <TableRow key={i}>
+        <TableData>
+          <input
+            id={task.id}
+            onChange={(e) => {
+              handleCheck(e);
+            }}
+            type="checkbox"
+            checked={task.completed ? true : false}
+          ></input>
+        </TableData>
+        <TableData>{task.name}</TableData>
+        <TableData>{task.priority}</TableData>
+        <TableData>
+          <button>Edit</button>
+        </TableData>
+      </TableRow>
+    );
+  }
 
   function GenerateTable() {
     return (
@@ -28,21 +51,7 @@ function TodoListDisplay() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {todoList.map((task, i) => (
-            <TableRow key={i}>
-              <TableData>
-                <input
-                  id={task.id}
-                  onClick={(e) => {
-                    handleCheck(e);
-                  }}
-                  type="checkbox"
-                ></input>
-              </TableData>
-              <TableData>{task.name}</TableData>
-              <TableData>{task.priority}</TableData>
-            </TableRow>
-          ))}
+          {todoList.map((task, i) => GenerateTableRow(task, i))}
         </TableBody>
       </Table>
     );
