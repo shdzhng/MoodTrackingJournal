@@ -17,34 +17,38 @@ function TodoListDisplay() {
     dispatch(toggleTodoComplete(todoId));
   });
 
-  return (
-    <Table>
-      <TableHead>
-        <TableRow>
-          <TableData></TableData>
-          <TableData>Task</TableData>
-          <TableData>Priority</TableData>
-        </TableRow>
-      </TableHead>
-      <TableBody>
-        {todoList.map((task, i) => (
-          <TableRow key={i}>
-            <TableData>
-              <input
-                id={task.id}
-                onClick={(e) => {
-                  handleCheck(e);
-                }}
-                type="checkbox"
-              ></input>
-            </TableData>
-            <TableData>{task.name}</TableData>
-            <TableData>{task.priority}</TableData>
+  function GenerateTable() {
+    return (
+      <Table>
+        <TableHead>
+          <TableRow>
+            <TableData></TableData>
+            <TableData>Task</TableData>
+            <TableData>Priority</TableData>
           </TableRow>
-        ))}
-      </TableBody>
-    </Table>
-  );
+        </TableHead>
+        <TableBody>
+          {todoList.map((task, i) => (
+            <TableRow key={i}>
+              <TableData>
+                <input
+                  id={task.id}
+                  onClick={(e) => {
+                    handleCheck(e);
+                  }}
+                  type="checkbox"
+                ></input>
+              </TableData>
+              <TableData>{task.name}</TableData>
+              <TableData>{task.priority}</TableData>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    );
+  }
+
+  return todoList.length ? GenerateTable() : null;
 }
 
 export default TodoListDisplay;

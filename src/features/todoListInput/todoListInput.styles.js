@@ -7,7 +7,7 @@ const buttonVariants = {
   high: colors.red500,
 };
 
-const PriorityButton = styled('button')`
+const PriorityButton = styled.button`
   padding: 1rem 1rem;
   border-radius: 2.5rem;
   color: white;
