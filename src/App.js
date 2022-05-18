@@ -18,7 +18,6 @@ function App() {
 
   useEffect(() => {
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(todoList));
-    console.log(todoList);
   }, [todoList]);
 
   return (

@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { toggleTodoComplete } from '../todoListInput/todoListSlice';
 import {
@@ -18,7 +18,7 @@ function TodoListDisplay() {
     dispatch(toggleTodoComplete(todoId));
   });
 
-  function GenerateTableRow(task, i) {
+  const ReadOnlyRow = (task, i, toggleEditMode) => {
     return (
       <TableRow key={i}>
         <TableData>
@@ -34,10 +34,26 @@ function TodoListDisplay() {
         <TableData>{task.name}</TableData>
         <TableData>{task.priority}</TableData>
         <TableData>
-          <button>Edit</button>
+          <button
+            onClick={() => {
+              toggleEditMode();
+            }}
+          >
+            Edit
+          </button>
         </TableData>
       </TableRow>
     );
+  };
+
+  function TodoRow(task, i) {
+    let editMode = false;
+    const toggleEditMode = () => {
+      editMode = !editMode;
+      console.log(editMode);
+    };
+
+    return ReadOnlyRow(task, i, { toggleEditMode });
   }
 
   function GenerateTable() {
@@ -50,9 +66,7 @@ function TodoListDisplay() {
             <TableData>Priority</TableData>
           </TableRow>
         </TableHead>
-        <TableBody>
-          {todoList.map((task, i) => GenerateTableRow(task, i))}
-        </TableBody>
+        <TableBody>{todoList.map((task, i) => TodoRow(task, i))}</TableBody>
       </Table>
     );
   }
