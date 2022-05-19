@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import colors from '../../constants/Colors';
 import Button from '@mui/material/Button';
+import { Modal } from '@mui/material';
 
 const variantMap = {
   loved: `#ef8cee`,
@@ -13,6 +14,11 @@ const variantMap = {
   daring: `#ebb756`,
   average: `#5a8fac`,
 };
+
+const EntryWindow = styled(Modal)(() => [
+  // { width: 300 },
+  // { backgroundColor: `${colors.blue1} !important` },
+]);
 
 const JournalEntryContainer = styled.div`
   display: flex;
@@ -84,6 +90,7 @@ const FormButtonContainer = styled.div`
 const SubmitEntryButton = styled(Button)(() => [
   { width: 300 },
   { backgroundColor: `${colors.blue1} !important` },
+  { color: `white !important` },
 ]);
 
 export {
@@ -94,4 +101,5 @@ export {
   FormButtonContainer,
   EntryTitleInput,
   EntryInput,
+  EntryWindow,
 };

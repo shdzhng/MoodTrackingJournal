@@ -1,4 +1,4 @@
-import React, { useState, useRef, useCallback, useEffect } from 'react';
+import React, { useState, useRef, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import {
   FeelingButton,
@@ -8,16 +8,33 @@ import {
   FormButtonContainer,
   EntryTitleInput,
   EntryInput,
+  EntryWindow,
 } from './EntryForm.styles';
 import { addEntry } from '../journal/journalSlice';
 import { v4 as uuidv4 } from 'uuid';
+import EntryPopUp from './PopUp';
+
+const feelingList = [
+  { key: 'loved', label: 'Loved', variant: 'loved' },
+  { key: 'happy', label: 'Happy', variant: 'happy' },
+  { key: 'daring', label: 'Daring', variant: 'daring' },
+  { key: 'calm', label: 'Calm', variant: 'calm' },
+  { key: 'average', label: 'Average', variant: 'average' },
+  { key: 'angry', label: 'Angry', variant: 'angry' },
+  { key: 'sad', label: 'Sad', variant: 'sad' },
+  { key: 'anxious', label: 'Anxious', variant: 'anxious' },
+];
 
 export default function EntryForm() {
+  const dispatch = useDispatch();
   const entryContent = useRef('');
   const todoNameRef = useRef('');
+  const modalRef = useRef('');
   const [feeling, setFeeling] = useState('');
 
-  const dispatch = useDispatch();
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   const handleSubmit = useCallback((e) => {
     e.preventDefault();
@@ -41,17 +58,6 @@ export default function EntryForm() {
     setFeeling(selectedFeeling);
   });
 
-  const feelingList = [
-    { key: 'loved', label: 'Loved', variant: 'loved' },
-    { key: 'happy', label: 'Happy', variant: 'happy' },
-    { key: 'daring', label: 'Daring', variant: 'daring' },
-    { key: 'calm', label: 'Calm', variant: 'calm' },
-    { key: 'average', label: 'Average', variant: 'average' },
-    { key: 'angry', label: 'Angry', variant: 'angry' },
-    { key: 'sad', label: 'Sad', variant: 'sad' },
-    { key: 'anxious', label: 'Anxious', variant: 'anxious' },
-  ];
-
   const renderFeelingButtons = ({ key, label, variant }) => {
     return (
       <FeelingButton
@@ -66,10 +72,6 @@ export default function EntryForm() {
       </FeelingButton>
     );
   };
-
-  const handleNewEntryPopUp = useCallback((e) => {
-    console.log('clicked');
-  });
 
   return (
     <JournalEntryContainer>
@@ -90,14 +92,9 @@ export default function EntryForm() {
         >
           Add To Journal
         </SubmitEntryButton>
-        <SubmitEntryButton
-          variant="contained"
-          onClick={(e) => {
-            handleNewEntryPopUp(e);
-          }}
-        >
-          New Entry
-        </SubmitEntryButton>
+      </FormButtonContainer>
+      <FormButtonContainer>
+        <EntryPopUp />
       </FormButtonContainer>
     </JournalEntryContainer>
   );
