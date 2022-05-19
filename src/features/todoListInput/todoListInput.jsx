@@ -9,7 +9,7 @@ import {
   EntryTitleInput,
   EntryInput,
 } from './todoListInput.styles';
-import { addTask } from './todoListSlice';
+import { addEntry } from './todoListSlice';
 import { v4 as uuidv4 } from 'uuid';
 
 export default function TodoListInput() {
@@ -24,14 +24,13 @@ export default function TodoListInput() {
     const entry = entryContent.current.value;
     entryContent.current.value = '';
     todoNameRef.current.value = '';
-    const newTask = {
+    const newEntry = {
       id: uuidv4(),
       entry,
       name,
-      completed: false,
       feeling,
     };
-    dispatch(addTask(newTask));
+    dispatch(addEntry(newEntry));
   });
 
   const handlefeelingChange = useCallback((e) => {
