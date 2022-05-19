@@ -1,6 +1,12 @@
 import styled from 'styled-components';
 import colors from '../../constants/Colors';
 
+const variantMap = {
+  happy: colors.red1,
+  medium: colors.yellow500,
+  sad: colors.green600,
+};
+
 const InputContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -32,7 +38,7 @@ const PriorityButtonContainer = styled.div`
   margin: 1rem auto 0 auto;
 `;
 
-const PriorityButton = styled.button`
+const FeelingButton = styled.button`
   padding: 1rem 1rem;
   border-radius: 2.5rem;
   border: 0;
@@ -56,7 +62,7 @@ const FormButton = styled.button`
 `;
 
 export {
-  PriorityButton,
+  FeelingButton,
   FormButton,
   InputContainer,
   PriorityButtonContainer,

@@ -1,7 +1,7 @@
 import React, { useState, useRef, useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  PriorityButton,
+  FeelingButton,
   FormButton,
   InputContainer,
   PriorityButtonContainer,
@@ -47,15 +47,15 @@ export default function TodoListInput() {
     setPriority(selectedPriortity);
   });
 
-  const priorityList = [
-    { key: 'low', label: 'Low', variant: 'low' },
+  const feelingList = [
+    { key: 'sad', label: 'Sad', variant: 'sad' },
     { key: 'medium', label: 'Medium', variant: 'medium' },
-    { key: 'high', label: 'High', variant: 'high' },
+    { key: 'happy', label: 'Happy', variant: 'happy' },
   ];
 
-  const renderPriorityButtons = ({ key, label, variant }) => {
+  const renderFeelingButtons = ({ key, label, variant }) => {
     return (
-      <PriorityButton
+      <FeelingButton
         selected={priority === key}
         key={key}
         variant={variant}
@@ -64,7 +64,7 @@ export default function TodoListInput() {
         }}
       >
         {label}
-      </PriorityButton>
+      </FeelingButton>
     );
   };
 
@@ -73,8 +73,8 @@ export default function TodoListInput() {
       <TaskNameInput ref={todoNameRef} type="text" />
       <TaskDescriptionInput ref={todoDescription} type="textarea" />
       <PriorityButtonContainer>
-        {priorityList.map((item) => {
-          return renderPriorityButtons(item);
+        {feelingList.map((item) => {
+          return renderFeelingButtons(item);
         })}
       </PriorityButtonContainer>
       <FormButtonContainer>
@@ -84,9 +84,9 @@ export default function TodoListInput() {
             handleSubmit(e);
           }}
         >
-          Add Task
+          Add To Journal
         </FormButton>
-        <FormButton
+        {/* <FormButton
           onClick={() => {
             handleClearAllCompleted();
           }}
@@ -99,7 +99,7 @@ export default function TodoListInput() {
           }}
         >
           Clear All Tasks
-        </FormButton>
+        </FormButton> */}
       </FormButtonContainer>
     </InputContainer>
   );

@@ -8,6 +8,7 @@
     "@material/card": "^14.0.0",
     "@material/data-table": "^14.0.0",
     "@mui/icons-material": "^5.8.0",
+    "@mui/lab": "^5.0.0-alpha.82",
     "@mui/material": "^5.8.0",
     "@mui/styled-engine-sc": "^5.8.0",
     "@reduxjs/toolkit": "^1.8.1",

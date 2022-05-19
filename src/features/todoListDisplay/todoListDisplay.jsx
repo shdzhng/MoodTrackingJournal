@@ -1,14 +1,9 @@
 import React, { useCallback, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { toggleTodoComplete } from '../todoListInput/todoListSlice';
-import {
-  ListContainer,
-  TaskName,
-  Priority,
-  TaskContainer,
-  TaskBubble,
-} from './todoListDisplay.styles';
+import { MasonryContainer } from './todoListDisplay.styles';
 import SingleTodoCard from './SingleTodoCard';
+import Masonry from '@mui/lab/Masonry';
 
 function TodoListDisplay() {
   const dispatch = useDispatch();
@@ -21,11 +16,13 @@ function TodoListDisplay() {
 
   function TodoListCards() {
     return (
-      <ListContainer>
-        {todoList.map((task) => (
-          <SingleTodoCard task={task} key={task.id} />
-        ))}
-      </ListContainer>
+      <MasonryContainer>
+        <Masonry columns={3} spacing={3} sx={{ p: 0 }}>
+          {todoList.map((task) => (
+            <SingleTodoCard task={task} key={task.id} />
+          ))}
+        </Masonry>
+      </MasonryContainer>
     );
   }
 

@@ -1,4 +1,5 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
+import Masonry from '@mui/lab/Masonry';
 import colors from '../../constants/Colors';
 
 const variantMap = {
@@ -7,16 +8,9 @@ const variantMap = {
   low: colors.green600,
 };
 
-const ListContainer = styled.div`
-  display: flex;
-  width: 100vh;
-  margin: 0 auto;
-  flex-direction: column;
-  background-color: red;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  height: 100vh;
-  overflow-x: auto;
+const MasonryContainer = styled.div`
+  width: 75%;
+  margin: 1rem auto 0 auto;
 `;
 
 const TaskContainer = styled.div`
@@ -55,4 +49,11 @@ const TaskDescription = styled.p`
   font-size: 1.1rem;
 `;
 
-export { ListContainer, TaskContainer, TaskName, TaskDescription, TaskBubble };
+export {
+  Masonry,
+  TaskContainer,
+  TaskName,
+  TaskDescription,
+  TaskBubble,
+  MasonryContainer,
+};
