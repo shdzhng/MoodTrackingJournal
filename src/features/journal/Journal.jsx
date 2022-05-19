@@ -1,10 +1,11 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { MasonryContainer } from './Journal.style';
 import SingleEntryCard from './SingleEntry';
 import Masonry from '@mui/lab/Masonry';
+import { removeEntry } from '../journal/journalSlice';
 
-function Journal() {
+export default function Journal() {
   const journal = useSelector((state) => state.journal.entries);
 
   function renderEntryCards() {
@@ -21,5 +22,3 @@ function Journal() {
 
   return journal.length ? renderEntryCards() : null;
 }
-
-export default Journal;

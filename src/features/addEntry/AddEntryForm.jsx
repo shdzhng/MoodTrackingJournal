@@ -13,11 +13,11 @@ import { addEntry } from '../journal/journalSlice';
 import { v4 as uuidv4 } from 'uuid';
 
 export default function EntryForm() {
-  const dispatch = useDispatch();
   const entryContent = useRef('');
   const todoNameRef = useRef('');
   const [feeling, setFeeling] = useState('');
-
+  
+  const dispatch = useDispatch();
   const handleSubmit = useCallback((e) => {
     e.preventDefault();
     const name = todoNameRef.current.value;
@@ -39,9 +39,13 @@ export default function EntryForm() {
   });
 
   const feelingList = [
-    { key: 'sad', label: 'Sad', variant: 'sad' },
-    { key: 'medium', label: 'Medium', variant: 'medium' },
     { key: 'happy', label: 'Happy', variant: 'happy' },
+    { key: 'average', label: 'Average', variant: 'average' },
+    { key: 'annoyed', label: 'Annoyed', variant: 'annoyed' },
+    { key: 'angry', label: 'Angry', variant: 'angry' },
+    { key: 'sad', label: 'Sad', variant: 'sad' },
+    { key: 'anxious', label: 'Anxious', variant: 'anxious' },
+    { key: 'sick', label: 'Sick', variant: 'sick' },
   ];
 
   const renderFeelingButtons = ({ key, label, variant }) => {

@@ -21,9 +21,12 @@ export const todoListSlice = createSlice({
     importEntries: (state, action) => {
       state.entries = action.payload;
     },
+    removeEntry: (state, action) => {
+      console.log(action.payload);
+    },
   },
 });
 
-export const { addEntry, importEntries } = todoListSlice.actions;
+export const { addEntry, removeEntry, importEntries } = todoListSlice.actions;
 
 export default todoListSlice.reducer;

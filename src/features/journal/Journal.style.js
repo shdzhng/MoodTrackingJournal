@@ -1,6 +1,7 @@
 import styled, { css } from 'styled-components';
 import Masonry from '@mui/lab/Masonry';
 import colors from '../../constants/Colors';
+import IconButton from '@mui/material/IconButton';
 
 const variantMap = {
   happy: colors.red1,
@@ -20,6 +21,10 @@ const EntryContainer = styled.div`
   -moz-box-shadow: 2px 2px 3px 0px ${colors.blue1};
   box-shadow: 2px 2px 3px 0px ${colors.blue1};
   position: relative;
+`;
+
+const IconButtonStyled = styled(IconButton)`
+  position: absolute;
 `;
 
 const FeelingBubble = styled.div`
@@ -53,4 +58,5 @@ export {
   Entry,
   FeelingBubble,
   MasonryContainer,
+  IconButtonStyled,
 };
