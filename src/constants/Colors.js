@@ -1,4 +1,12 @@
 const colors = {
+  variantMap: {
+    loved: `#ef8cee`,
+    happy: `#dec800`,
+    calm: `#6ba26b`,
+    sad: `#23BEB6`,
+    anxious: `#9a1e84`,
+    angry: `#cb2222`,
+  },
   background: '#f8f2e0',
   accent: '#E9D8A6',
   blue1: '#005F73',

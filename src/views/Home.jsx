@@ -1,11 +1,11 @@
 import React from 'react';
-import AddEntryForm from '../features/addEntry/AddEntryForm';
+import EntryPopUp from '../features/entryPopUp/PopUp';
 import Journal from '../features/journal/Journal';
 
 function Home() {
   return (
     <>
-      <AddEntryForm />
+      <EntryPopUp />
       <Journal />
     </>
   );

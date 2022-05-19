@@ -3,18 +3,6 @@ import Masonry from '@mui/lab/Masonry';
 import colors from '../../constants/Colors';
 import IconButton from '@mui/material/IconButton';
 
-const variantMap = {
-  loved: `#ef8cee`,
-  happy: `#dec800`,
-  calm: `#6ba26b`,
-  sad: `#23BEB6`,
-  anxious: `#E06D65`,
-  sick: `#4D1F84`,
-  angry: `#cb2222`,
-  daring: `#ebb756`,
-  average: `#5a8fac`,
-};
-
 const MasonryContainer = styled.div`
   width: 90%;
   margin: 2rem auto 0 auto;
@@ -37,7 +25,7 @@ const IconButtonStyled = styled(IconButton)`
 
 const FeelingBubble = styled.div`
   position: absolute;
-  background-color: ${({ variant }) => variantMap[variant]};
+  background-color: ${({ variant }) => colors.variantMap[variant]};
   -webkit-box-shadow: 0px 0px 0px 3px rgba(248, 242, 224, 1);
   -moz-box-shadow: 0px 0px 0px 3px rgba(248, 242, 224, 1);
   box-shadow: 0px 0px 0px 3px rgba(248, 242, 224, 1);
@@ -49,7 +37,7 @@ const FeelingBubble = styled.div`
 `;
 
 const EntryName = styled.p`
-  font-size: 1.25rem;
+  font-size: 2rem;
   font-weight: 900;
   margin-top: 0.75rem;
   margin-bottom: 0;
@@ -57,14 +45,14 @@ const EntryName = styled.p`
 `;
 
 const EntryDate = styled.p`
-  font-size: 0.75rem;
+  font-size: 1rem;
   margin: 0;
   color: ${colors.blue1};
 `;
 
 const Entry = styled.p`
   color: ${colors.blue1};
-  font-size: 1.1rem;
+  font-size: 1.5rem;
 `;
 
 export {
