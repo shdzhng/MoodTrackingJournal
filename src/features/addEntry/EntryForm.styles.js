@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import colors from '../../constants/Colors';
 import Button from '@mui/material/Button';
-import { Modal } from '@mui/material';
 
 const variantMap = {
   loved: `#ef8cee`,
@@ -15,10 +14,18 @@ const variantMap = {
   average: `#5a8fac`,
 };
 
-const EntryWindow = styled(Modal)(() => [
-  // { width: 300 },
-  // { backgroundColor: `${colors.blue1} !important` },
-]);
+const EntryWindow = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 50%;
+  height: 60%;
+  padding: 4;
+  background-color: ${colors.accent};
+  border: 2px solid ${colors.background};
+  padding: 2rem;
+`;
 
 const JournalEntryContainer = styled.div`
   display: flex;

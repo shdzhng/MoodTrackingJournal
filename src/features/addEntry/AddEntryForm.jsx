@@ -8,7 +8,6 @@ import {
   FormButtonContainer,
   EntryTitleInput,
   EntryInput,
-  EntryWindow,
 } from './EntryForm.styles';
 import { addEntry } from '../journal/journalSlice';
 import { v4 as uuidv4 } from 'uuid';
