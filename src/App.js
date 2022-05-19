@@ -3,7 +3,7 @@ import GlobalStyles from './Global.styles';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Home from './views/Home';
 import { useSelector, useDispatch } from 'react-redux';
-import { importEntries } from './features/todoListInput/todoListSlice';
+import { importEntries } from './features/journal/journalSlice';
 
 const LOCAL_STORAGE_KEY = 'todoApp.todos';
 

@@ -8,11 +8,11 @@ import {
   FormButtonContainer,
   EntryTitleInput,
   EntryInput,
-} from './todoListInput.styles';
-import { addEntry } from './todoListSlice';
+} from './EntryForm.styles';
+import { addEntry } from '../journal/journalSlice';
 import { v4 as uuidv4 } from 'uuid';
 
-export default function TodoListInput() {
+export default function EntryForm() {
   const dispatch = useDispatch();
   const entryContent = useRef('');
   const todoNameRef = useRef('');
