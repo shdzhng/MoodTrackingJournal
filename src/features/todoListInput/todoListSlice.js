@@ -1,7 +1,7 @@
 import { createSlice, current } from '@reduxjs/toolkit';
 
 const initialState = {
-  tasks: [],
+  entries: [],
 };
 
 export const todoListSlice = createSlice({
@@ -16,10 +16,10 @@ export const todoListSlice = createSlice({
         !action.payload.entry
       )
         return;
-      state.tasks.push(action.payload);
+      state.entries.push(action.payload);
     },
     importEntries: (state, action) => {
-      state.tasks = action.payload;
+      state.entries = action.payload;
     },
   },
 });

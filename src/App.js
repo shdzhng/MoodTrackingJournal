@@ -8,7 +8,7 @@ import { importEntries } from './features/todoListInput/todoListSlice';
 const LOCAL_STORAGE_KEY = 'todoApp.todos';
 
 function App() {
-  const todoList = useSelector(({ todoList }) => todoList.tasks);
+  const todoList = useSelector((state) => state.journal.entries);
   const dispatch = useDispatch();
 
   useEffect(() => {
