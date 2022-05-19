@@ -5,15 +5,15 @@ const initialState = {
 };
 
 export const todoListSlice = createSlice({
-  name: 'todoList',
+  name: 'journal',
   initialState,
 
   reducers: {
     addTask: (state, action) => {
       if (
         !action.payload.name ||
-        !action.payload.priority ||
-        !action.payload.description
+        !action.payload.feeling ||
+        !action.payload.entry
       )
         return;
       state.tasks.push(action.payload);

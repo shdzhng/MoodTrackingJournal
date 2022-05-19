@@ -1,50 +1,42 @@
 import React, { useState, useRef, useCallback, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import {
   FeelingButton,
-  FormButton,
-  InputContainer,
-  PriorityButtonContainer,
+  SubmitEntryButton,
+  JournalEntryContainer,
+  FeelingButtonContainer,
   FormButtonContainer,
-  TaskNameInput,
-  TaskDescriptionInput,
+  EntryTitleInput,
+  EntryInput,
 } from './todoListInput.styles';
-import { addTask, clearAllCompleted, clearTodoList } from './todoListSlice';
+import { addTask } from './todoListSlice';
 import { v4 as uuidv4 } from 'uuid';
 
 export default function TodoListInput() {
   const dispatch = useDispatch();
-  const todoDescription = useRef('');
+  const entryContent = useRef('');
   const todoNameRef = useRef('');
-  const [priority, setPriority] = useState('');
+  const [feeling, setFeeling] = useState('');
 
   const handleSubmit = useCallback((e) => {
     e.preventDefault();
     const name = todoNameRef.current.value;
-    const description = todoDescription.current.value;
-    todoDescription.current.value = '';
+    const entry = entryContent.current.value;
+    entryContent.current.value = '';
     todoNameRef.current.value = '';
     const newTask = {
       id: uuidv4(),
-      description,
+      entry,
       name,
       completed: false,
-      priority,
+      feeling,
     };
     dispatch(addTask(newTask));
   });
 
-  const handleClearAllCompleted = useCallback((e) => {
-    dispatch(clearAllCompleted());
-  });
-
-  const handleClearTodoList = useCallback((e) => {
-    dispatch(clearTodoList());
-  });
-
-  const handlePriorityChange = useCallback((e) => {
-    const selectedPriortity = e.target.innerText.toLowerCase();
-    setPriority(selectedPriortity);
+  const handlefeelingChange = useCallback((e) => {
+    const selectedFeeling = e.target.innerText.toLowerCase();
+    setFeeling(selectedFeeling);
   });
 
   const feelingList = [
@@ -56,11 +48,11 @@ export default function TodoListInput() {
   const renderFeelingButtons = ({ key, label, variant }) => {
     return (
       <FeelingButton
-        selected={priority === key}
+        selected={feeling === key}
         key={key}
         variant={variant}
         onClick={(e) => {
-          handlePriorityChange(e);
+          handlefeelingChange(e);
         }}
       >
         {label}
@@ -69,38 +61,24 @@ export default function TodoListInput() {
   };
 
   return (
-    <InputContainer>
-      <TaskNameInput ref={todoNameRef} type="text" />
-      <TaskDescriptionInput ref={todoDescription} type="textarea" />
-      <PriorityButtonContainer>
+    <JournalEntryContainer>
+      <EntryTitleInput ref={todoNameRef} type="text" />
+      <EntryInput ref={entryContent} type="textarea" />
+      <FeelingButtonContainer>
         {feelingList.map((item) => {
           return renderFeelingButtons(item);
         })}
-      </PriorityButtonContainer>
+      </FeelingButtonContainer>
       <FormButtonContainer>
-        <FormButton
+        <SubmitEntryButton
           type="submit"
           onClick={(e) => {
             handleSubmit(e);
           }}
         >
           Add To Journal
-        </FormButton>
-        {/* <FormButton
-          onClick={() => {
-            handleClearAllCompleted();
-          }}
-        >
-          Clear Completed Tasks
-        </FormButton>
-        <FormButton
-          onClick={() => {
-            handleClearTodoList();
-          }}
-        >
-          Clear All Tasks
-        </FormButton> */}
+        </SubmitEntryButton>
       </FormButtonContainer>
-    </InputContainer>
+    </JournalEntryContainer>
   );
 }

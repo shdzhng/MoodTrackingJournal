@@ -4,18 +4,18 @@ import {
   toggleTodoEditMode,
 } from '../todoListInput/todoListSlice';
 import {
-  TaskContainer,
-  TaskName,
-  TaskDescription,
-  TaskBubble,
+  EntryContainer,
+  EntryName,
+  Entry,
+  FeelingBubble,
 } from './todoListDisplay.styles';
 
 export default function SingleTodoCard({ task }) {
   return (
-    <TaskContainer>
-      <TaskName variant={task.priority}>{task.name}</TaskName>
-      <TaskDescription>{task.description}</TaskDescription>
-      <TaskBubble variant={task.priority}> </TaskBubble>
-    </TaskContainer>
+    <EntryContainer>
+      <EntryName variant={task.feeling}>{task.name}</EntryName>
+      <Entry>{task.entry}</Entry>
+      <FeelingBubble variant={task.feeling}> </FeelingBubble>
+    </EntryContainer>
   );
 }

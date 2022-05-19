@@ -9,11 +9,6 @@ function TodoListDisplay() {
   const dispatch = useDispatch();
   const todoList = useSelector((state) => state.todoList.tasks);
 
-  const handleCheck = useCallback((e) => {
-    const todoId = e.target.id;
-    dispatch(toggleTodoComplete(todoId));
-  });
-
   function TodoListCards() {
     return (
       <MasonryContainer>

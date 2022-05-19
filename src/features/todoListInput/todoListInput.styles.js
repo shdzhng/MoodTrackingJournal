@@ -7,14 +7,14 @@ const variantMap = {
   sad: colors.green600,
 };
 
-const InputContainer = styled.div`
+const JournalEntryContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 80vw;
   margin: 1rem auto 0 auto;
 `;
 
-const TaskNameInput = styled.input`
+const EntryTitleInput = styled.input`
   border: 1px solid ${colors.blue2};
   color: ${colors.blue2};
   margin: 0.5rem auto;
@@ -23,7 +23,7 @@ const TaskNameInput = styled.input`
   font-size: 1.5rem;
 `;
 
-const TaskDescriptionInput = styled.textarea`
+const EntryInput = styled.textarea`
   border: 1px solid ${colors.blue2};
   color: ${colors.blue2};
   margin: 0.5rem auto;
@@ -34,7 +34,7 @@ const TaskDescriptionInput = styled.textarea`
   font-size: 1rem;
 `;
 
-const PriorityButtonContainer = styled.div`
+const FeelingButtonContainer = styled.div`
   margin: 1rem auto 0 auto;
 `;
 
@@ -52,7 +52,7 @@ const FormButtonContainer = styled.div`
   margin: 1rem auto 0 auto;
 `;
 
-const FormButton = styled.button`
+const SubmitEntryButton = styled.button`
   background-color: ${colors.red3};
   color: white;
   border: 0;
@@ -63,10 +63,10 @@ const FormButton = styled.button`
 
 export {
   FeelingButton,
-  FormButton,
-  InputContainer,
-  PriorityButtonContainer,
+  SubmitEntryButton,
+  JournalEntryContainer,
+  FeelingButtonContainer,
   FormButtonContainer,
-  TaskNameInput,
-  TaskDescriptionInput,
+  EntryTitleInput,
+  EntryInput,
 };
