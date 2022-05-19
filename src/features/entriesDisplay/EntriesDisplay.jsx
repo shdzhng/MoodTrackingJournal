@@ -1,8 +1,8 @@
 import React, { useCallback, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { toggleTodoComplete } from '../todoListInput/todoListSlice';
-import { MasonryContainer } from './todoListDisplay.styles';
-import SingleTodoCard from './SingleTodoCard';
+import { MasonryContainer } from './Entries.style';
+import SingleTodoCard from './SingleEntry';
 import Masonry from '@mui/lab/Masonry';
 
 function TodoListDisplay() {

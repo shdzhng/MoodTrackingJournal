@@ -8,7 +8,7 @@ import {
   EntryName,
   Entry,
   FeelingBubble,
-} from './todoListDisplay.styles';
+} from './Entries.style';
 
 export default function SingleTodoCard({ task }) {
   return (

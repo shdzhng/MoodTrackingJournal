@@ -1,6 +1,6 @@
 import React from 'react';
 import TodoListInput from '../features/todoListInput/todoListInput';
-import TodoListDisplay from '../features/todoListDisplay/todoListDisplay';
+import TodoListDisplay from '../features/entriesDisplay/EntriesDisplay';
 
 
 function Home() {
