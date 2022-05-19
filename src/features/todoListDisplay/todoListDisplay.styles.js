@@ -1,13 +1,22 @@
 import styled from 'styled-components';
 import colors from '../../constants/Colors';
 
+const variantMap = {
+  high: colors.red1,
+  medium: colors.yellow500,
+  low: colors.green600,
+};
+
 const ListContainer = styled.div`
   display: flex;
-  width: 90%;
-  margin: 1rem auto 0 auto;
+  width: 100vh;
+  margin: 0 auto;
   flex-direction: column;
+  background-color: red;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: flex-start;
+  height: 100vh;
+  overflow-x: auto;
 `;
 
 const TaskContainer = styled.div`
@@ -25,16 +34,7 @@ const TaskContainer = styled.div`
 
 const TaskBubble = styled.div`
   position: absolute;
-  background-color: ${({ variant }) => {
-    switch (variant) {
-      case 'high':
-        return colors.red1;
-      case 'medium':
-        return colors.yellow500;
-      case 'low':
-        return colors.green600;
-    }
-  }};
+  background-color: ${({ variant }) => variantMap[variant]};
   -webkit-box-shadow: 0px 0px 0px 3px rgba(248, 242, 224, 1);
   -moz-box-shadow: 0px 0px 0px 3px rgba(248, 242, 224, 1);
   box-shadow: 0px 0px 0px 3px rgba(248, 242, 224, 1);
@@ -48,17 +48,11 @@ const TaskName = styled.p`
   font-size: 1.25rem;
   font-weight: 900;
   margin-top: 2.5rem;
-  color: ${({ variant }) => {
-    switch (variant) {
-      case 'high':
-        return colors.blue1;
-      case 'medium':
-        return colors.blue1;
-      case 'low':
-        return colors.blue1;
-    }
-  }};
+  color: ${colors.blue1};
 `;
-const TaskDescription = styled.p``;
+const TaskDescription = styled.p`
+  color: ${colors.blue1};
+  font-size: 1.1rem;
+`;
 
 export { ListContainer, TaskContainer, TaskName, TaskDescription, TaskBubble };
