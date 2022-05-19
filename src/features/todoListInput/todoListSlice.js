@@ -10,7 +10,12 @@ export const todoListSlice = createSlice({
 
   reducers: {
     addTask: (state, action) => {
-      if (!action.payload.name || !action.payload.priority) return;
+      if (
+        !action.payload.name ||
+        !action.payload.priority ||
+        !action.payload.description
+      )
+        return;
       state.tasks.push(action.payload);
     },
     toggleTodoComplete: (state, action) => {

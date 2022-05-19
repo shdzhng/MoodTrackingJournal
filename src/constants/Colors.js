@@ -1,4 +1,14 @@
 const colors = {
+  background: '#f8f2e0',
+  accent: '#E9D8A6',
+  blue1: '#005F73',
+  blue2: '#0A9396',
+  blue3: '#94D2BD',
+  red1: '#9B2226',
+  red2: '#AE2012',
+  red3: '#BB3E03',
+  orange1: '#CA6702',
+  orange2: '#EE9B00',
   // neutrals
   gray700: '#141312',
   gray600: '#4E4E4E',
