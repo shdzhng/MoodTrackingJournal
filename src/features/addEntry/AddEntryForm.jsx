@@ -28,12 +28,7 @@ export default function EntryForm() {
   const dispatch = useDispatch();
   const entryContent = useRef('');
   const todoNameRef = useRef('');
-  const modalRef = useRef('');
   const [feeling, setFeeling] = useState('');
-
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
 
   const handleSubmit = useCallback((e) => {
     e.preventDefault();
@@ -74,24 +69,6 @@ export default function EntryForm() {
 
   return (
     <JournalEntryContainer>
-      <EntryTitleInput ref={todoNameRef} type="text" />
-      <EntryInput ref={entryContent} type="textarea" />
-      <FeelingButtonContainer>
-        {feelingList.map((item) => {
-          return renderFeelingButtons(item);
-        })}
-      </FeelingButtonContainer>
-      <FormButtonContainer>
-        <SubmitEntryButton
-          variant="contained"
-          type="submit"
-          onClick={(e) => {
-            handleSubmit(e);
-          }}
-        >
-          Add To Journal
-        </SubmitEntryButton>
-      </FormButtonContainer>
       <FormButtonContainer>
         <EntryPopUp />
       </FormButtonContainer>
