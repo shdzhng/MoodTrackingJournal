@@ -16,12 +16,13 @@ export default function EntryForm() {
   const entryContent = useRef('');
   const todoNameRef = useRef('');
   const [feeling, setFeeling] = useState('');
-  
+
   const dispatch = useDispatch();
   const handleSubmit = useCallback((e) => {
     e.preventDefault();
     const name = todoNameRef.current.value;
     const entry = entryContent.current.value;
+    const date = new Date().toLocaleString();
     entryContent.current.value = '';
     todoNameRef.current.value = '';
     const newEntry = {
@@ -29,6 +30,7 @@ export default function EntryForm() {
       entry,
       name,
       feeling,
+      date,
     };
     dispatch(addEntry(newEntry));
   });
@@ -39,13 +41,15 @@ export default function EntryForm() {
   });
 
   const feelingList = [
+    { key: 'loved', label: 'Loved', variant: 'loved' },
     { key: 'happy', label: 'Happy', variant: 'happy' },
+    { key: 'daring', label: 'Daring', variant: 'daring' },
+    { key: 'calm', label: 'Calm', variant: 'calm' },
     { key: 'average', label: 'Average', variant: 'average' },
-    { key: 'annoyed', label: 'Annoyed', variant: 'annoyed' },
+
     { key: 'angry', label: 'Angry', variant: 'angry' },
     { key: 'sad', label: 'Sad', variant: 'sad' },
     { key: 'anxious', label: 'Anxious', variant: 'anxious' },
-    { key: 'sick', label: 'Sick', variant: 'sick' },
   ];
 
   const renderFeelingButtons = ({ key, label, variant }) => {

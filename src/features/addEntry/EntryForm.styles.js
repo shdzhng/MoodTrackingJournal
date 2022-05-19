@@ -2,9 +2,15 @@ import styled from 'styled-components';
 import colors from '../../constants/Colors';
 
 const variantMap = {
-  happy: colors.red1,
-  medium: colors.yellow500,
-  sad: colors.green600,
+  loved: `#ef8cee`,
+  happy: `#dec800`,
+  calm: `#6ba26b`,
+  sad: `#23BEB6`,
+  anxious: `#E06D65`,
+  sick: `#4D1F84`,
+  angry: `#cb2222`,
+  daring: `#ebb756`,
+  average: `#5a8fac`,
 };
 
 const JournalEntryContainer = styled.div`
@@ -41,11 +47,9 @@ const FeelingButtonContainer = styled.div`
 const FeelingButton = styled.button`
   padding: 1rem 1rem;
   border-radius: 2.5rem;
-  border: 0;
+  border: ${({ selected }) => (selected ? `1px solid black` : 'none')};
   color: white;
-  background-color: ${colors.blue2};
-  background-color: ${({ selected }) =>
-    selected ? `${colors.blue1}` : 'none'};
+  background-color: ${({ variant }) => variantMap[variant]};
 `;
 
 const FormButtonContainer = styled.div`
@@ -57,8 +61,12 @@ const SubmitEntryButton = styled.button`
   color: white;
   border: 0;
   margin: 0 0.5rem;
-  padding: 0 1rem;
-  border-radius: 1rem;
+  padding: 3rem 1rem;
+  border-radius: 4rem;
+
+  &hover {
+    background-color: black;
+  }
 `;
 
 export {

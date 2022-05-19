@@ -4,8 +4,15 @@ import colors from '../../constants/Colors';
 import IconButton from '@mui/material/IconButton';
 
 const variantMap = {
-  happy: colors.red1,
-  low: colors.green600,
+  loved: `#ef8cee`,
+  happy: `#dec800`,
+  calm: `#6ba26b`,
+  sad: `#23BEB6`,
+  anxious: `#E06D65`,
+  sick: `#4D1F84`,
+  angry: `#cb2222`,
+  daring: `#ebb756`,
+  average: `#5a8fac`,
 };
 
 const MasonryContainer = styled.div`
@@ -44,8 +51,16 @@ const EntryName = styled.p`
   font-size: 1.25rem;
   font-weight: 900;
   margin-top: 0.75rem;
+  margin-bottom: 0;
   color: ${colors.blue1};
 `;
+
+const EntryDate = styled.p`
+  font-size: 0.75rem;
+  margin: 0;
+  color: ${colors.blue1};
+`;
+
 const Entry = styled.p`
   color: ${colors.blue1};
   font-size: 1.1rem;
@@ -55,6 +70,7 @@ export {
   Masonry,
   EntryContainer,
   EntryName,
+  EntryDate,
   Entry,
   FeelingBubble,
   MasonryContainer,
