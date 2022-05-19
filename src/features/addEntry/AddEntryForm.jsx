@@ -18,6 +18,7 @@ export default function EntryForm() {
   const [feeling, setFeeling] = useState('');
 
   const dispatch = useDispatch();
+
   const handleSubmit = useCallback((e) => {
     e.preventDefault();
     const name = todoNameRef.current.value;
@@ -46,7 +47,6 @@ export default function EntryForm() {
     { key: 'daring', label: 'Daring', variant: 'daring' },
     { key: 'calm', label: 'Calm', variant: 'calm' },
     { key: 'average', label: 'Average', variant: 'average' },
-
     { key: 'angry', label: 'Angry', variant: 'angry' },
     { key: 'sad', label: 'Sad', variant: 'sad' },
     { key: 'anxious', label: 'Anxious', variant: 'anxious' },
@@ -67,6 +67,10 @@ export default function EntryForm() {
     );
   };
 
+  const handleNewEntryPopUp = useCallback((e) => {
+    console.log('clicked');
+  });
+
   return (
     <JournalEntryContainer>
       <EntryTitleInput ref={todoNameRef} type="text" />
@@ -78,12 +82,21 @@ export default function EntryForm() {
       </FeelingButtonContainer>
       <FormButtonContainer>
         <SubmitEntryButton
+          variant="contained"
           type="submit"
           onClick={(e) => {
             handleSubmit(e);
           }}
         >
           Add To Journal
+        </SubmitEntryButton>
+        <SubmitEntryButton
+          variant="contained"
+          onClick={(e) => {
+            handleNewEntryPopUp(e);
+          }}
+        >
+          New Entry
         </SubmitEntryButton>
       </FormButtonContainer>
     </JournalEntryContainer>

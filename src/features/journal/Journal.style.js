@@ -28,6 +28,7 @@ const EntryContainer = styled.div`
   -moz-box-shadow: 2px 2px 3px 0px ${colors.blue1};
   box-shadow: 2px 2px 3px 0px ${colors.blue1};
   position: relative;
+  word-wrap: break-word;
 `;
 
 const IconButtonStyled = styled(IconButton)`

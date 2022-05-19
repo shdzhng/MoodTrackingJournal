@@ -9,20 +9,19 @@ export const todoListSlice = createSlice({
   initialState,
 
   reducers: {
-    addEntry: (state, action) => {
-      if (
-        !action.payload.name ||
-        !action.payload.feeling ||
-        !action.payload.entry
-      )
-        return;
-      state.entries.push(action.payload);
+    addEntry: (state, { payload }) => {
+      if (!payload.name || !payload.feeling || !payload.entry) return;
+      state.entries.push(payload);
     },
-    importEntries: (state, action) => {
-      state.entries = action.payload;
+    importEntries: (state, { payload }) => {
+      state.entries = payload;
     },
-    removeEntry: (state, action) => {
-      console.log(action.payload);
+    removeEntry: (state, { payload }) => {
+      const entryId = payload.id;
+      const filteredEntry = state.entries.filter(
+        (entry) => entry.id !== entryId
+      );
+      state.entries = filteredEntry;
     },
   },
 });

@@ -11,7 +11,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { removeEntry } from '../journal/journalSlice';
 
 export default function SingleEntryCard({ entry }) {
-  const dispatch = useDispatch;
+  const dispatch = useDispatch();
   const handleRemove = (entry) => {
     dispatch(removeEntry(entry));
   };
@@ -25,8 +25,8 @@ export default function SingleEntryCard({ entry }) {
       <FeelingBubble variant={entry.feeling}> </FeelingBubble>
       <IconButtonStyled
         aria-label="delete"
-        onClick={(e) => {
-          handleRemove(e);
+        onClick={() => {
+          handleRemove(entry);
         }}
         size="small"
       >
