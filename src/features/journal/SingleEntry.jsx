@@ -20,7 +20,11 @@ export default function SingleEntryCard({ entry }) {
   return (
     <EntryContainer>
       <EntryName variant={entry.feeling}>{entry.name}</EntryName>
-      <EntryDate>{entry.date.split(', ')[0]}</EntryDate>
+      <EntryDate>posted on: {entry.date.split(', ')[0]}</EntryDate>
+      {entry.editDate ? (
+        <EntryDate>last edited on: {entry.editDate.split(', ')[0]}</EntryDate>
+      ) : null}
+
       <Entry>{entry.entry}</Entry>
       <FeelingBubble variant={entry.feeling}> </FeelingBubble>
       <IconButtonStyled

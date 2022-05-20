@@ -42,15 +42,16 @@ export default function EditPopUp({ entry }) {
     e.preventDefault();
     const newName = todoNameRef.current.value;
     const newEntry = entryContent.current.value;
-    const date = new Date().toLocaleString();
+    const editDate = new Date().toLocaleString();
     entryContent.current.value = '';
     todoNameRef.current.value = '';
     const editedEntry = {
       id: entry.id,
       entry: newEntry,
       name: newName,
-      feeling,
-      date,
+      feeling: entry.feeling,
+      date: entry.date,
+      editDate,
     };
     dispatch(updateEntry(editedEntry));
   });
