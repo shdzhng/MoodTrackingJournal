@@ -1,4 +1,4 @@
-import React, { useState, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import Modal from '@mui/material/Modal';
 import { useDispatch } from 'react-redux';
 import {
@@ -27,35 +27,49 @@ const feelingList = [
 
 export default function EntryPopUp() {
   const dispatch = useDispatch();
-  const entryContent = useRef('');
-  const todoNameRef = useRef('');
+  const entryContentRef = useRef('');
+  const entryTitleRef = useRef('');
 
   const [feeling, setFeeling] = useState('');
+  const [title, setTitle] = useState('');
+  const [content, setContent] = useState('');
   const [open, setOpen] = React.useState(false);
+
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
   const handleSubmit = useCallback((e) => {
     e.preventDefault();
-    const name = todoNameRef.current.value;
-    const entry = entryContent.current.value;
     const date = new Date().toLocaleString();
-    entryContent.current.value = '';
-    todoNameRef.current.value = '';
+    entryContentRef.current.value = '';
+    entryTitleRef.current.value = '';
+
     const newEntry = {
       id: uuidv4(),
-      entry,
-      name,
+      entry: content,
+      name: title,
       feeling,
       date,
     };
+    setTitle(null);
+    setContent(null);
     dispatch(addEntry(newEntry));
   });
 
-  const handlefeelingChange = useCallback((e) => {
+  const handleFeelingChange = useCallback((e) => {
     const selectedFeeling = e.target.innerText.toLowerCase();
     setFeeling(selectedFeeling);
   });
+
+  const handleContentChange = useCallback(({ target }) => {
+    setContent(target.value);
+  });
+
+  const handleTitleChange = useCallback(({ target }) => {
+    setTitle(target.value);
+  });
+
+  const disableButtonCheck = !feeling || !title || !content ? false : true;
 
   const renderFeelingButtons = ({ key, label, variant }) => {
     return (
@@ -64,7 +78,7 @@ export default function EntryPopUp() {
         key={key}
         variant={variant}
         onClick={(e) => {
-          handlefeelingChange(e);
+          handleFeelingChange(e);
         }}
       >
         {label}
@@ -82,12 +96,14 @@ export default function EntryPopUp() {
         <EntryWindow>
           <InputContainer>
             <EntryTitleInput
-              ref={todoNameRef}
+              ref={entryTitleRef}
               type="text"
               placeholder="Entry Title"
+              onChange={handleTitleChange}
             />
             <EntryInput
-              ref={entryContent}
+              ref={entryContentRef}
+              onChange={handleContentChange}
               type="textarea"
               placeholder="A Journal of a Thousand Entries Begins with a Single Word"
             />
@@ -105,6 +121,7 @@ export default function EntryPopUp() {
               <SubmitEntryButton
                 variant="contained"
                 type="submit"
+                disabled={!disableButtonCheck}
                 onClick={(e) => {
                   handleSubmit(e);
                   handleClose();
