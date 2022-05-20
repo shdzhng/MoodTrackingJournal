@@ -1,4 +1,5 @@
-import * as React from 'react';
+import React from 'react';
+import { useDispatch } from 'react-redux';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -13,13 +14,41 @@ import MenuItem from '@mui/material/MenuItem';
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
 import colors from '../../constants/Colors';
-
-const pages = ['Journal', 'Analytics'];
-const settings = ['Download Journal', 'Delete Journal'];
+import { StyledLinkWhite, StyledLinkBlack } from './NavBar.styles';
+import { useSelector } from 'react-redux';
+import { removeJournal } from '../journal/journalSlice';
 
 const NavigationBar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const journal = useSelector((state) => state.journal.entries);
+  const dispatch = useDispatch();
+
+  const deleteJournal = () => {
+    dispatch(removeJournal());
+  };
+
+  const downloadJournal = () => {
+    const blob = new Blob([JSON.stringify(journal)], {
+      type: 'application/json',
+    });
+    const journalDownloadUrl = URL.createObjectURL(blob);
+    let a = document.createElement('a');
+    a.download = 'journal.txt';
+    a.href = journalDownloadUrl;
+    a.click();
+    URL.revokeObjectURL(journalDownloadUrl);
+  };
+
+  const settings = [
+    { name: 'Download Journal', function: downloadJournal },
+    { name: 'Delete Journal', function: deleteJournal },
+  ];
+
+  const pages = [
+    { name: 'Journal', route: '/' },
+    { name: 'Analytics', route: '/analytics' },
+  ];
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -89,8 +118,12 @@ const NavigationBar = () => {
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
+                <MenuItem key={page.name} onClick={handleCloseUserMenu}>
+                  <Typography textAlign="center">
+                    <StyledLinkBlack to={page.route}>
+                      {page.name}
+                    </StyledLinkBlack>
+                  </Typography>
                 </MenuItem>
               ))}
             </Menu>
@@ -117,11 +150,11 @@ const NavigationBar = () => {
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
               <Button
-                key={page}
+                key={page.name}
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
-                {page}
+                <StyledLinkWhite to={page.route}>{page.name}</StyledLinkWhite>
               </Button>
             ))}
           </Box>
@@ -149,8 +182,8 @@ const NavigationBar = () => {
               onClose={handleCloseUserMenu}
             >
               {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
+                <MenuItem key={setting.name} onClick={() => setting.function()}>
+                  <Typography textAlign="center">{setting.name}</Typography>
                 </MenuItem>
               ))}
             </Menu>

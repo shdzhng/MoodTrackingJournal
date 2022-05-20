@@ -14,6 +14,10 @@ export const todoListSlice = createSlice({
       state.entries.push(payload);
     },
 
+    removeJournal: (state) => {
+      state.entries = [];
+    },
+
     importEntries: (state, { payload }) => {
       state.entries = payload;
     },
@@ -26,7 +30,6 @@ export const todoListSlice = createSlice({
       state.entries = filteredEntry;
       state.entries.push(payload);
     },
-
     removeEntry: (state, { payload }) => {
       const entryId = payload.id;
       const filteredEntry = state.entries.filter(
@@ -34,7 +37,6 @@ export const todoListSlice = createSlice({
       );
       state.entries = filteredEntry;
     },
-
     sortEntries: (state, { payload }) => {
       const feelingKey = {
         loved: 6,
@@ -91,6 +93,7 @@ export const {
   sortEntries,
   importEntries,
   updateEntry,
+  removeJournal,
 } = todoListSlice.actions;
 
 export default todoListSlice.reducer;

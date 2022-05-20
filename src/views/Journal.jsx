@@ -1,9 +1,8 @@
 import React from 'react';
-import EntryPopUp from '../features/popUp/EntryPopUp';
 import Journal from '../features/journal/Journal';
 import NavigationBar from '../features/navBar/NavBar';
 
-function Home() {
+function JournalView() {
   return (
     <>
       <NavigationBar />
@@ -12,4 +11,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default JournalView;

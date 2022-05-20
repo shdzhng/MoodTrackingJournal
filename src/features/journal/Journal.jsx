@@ -13,10 +13,6 @@ export default function Journal() {
     return (
       <>
         <MasonryContainer>
-          <FlexContainer>
-            <SelectLabels />
-            <EntryPopUp />
-          </FlexContainer>
           <Masonry columns={3} spacing={3} sx={{ p: 0 }}>
             {journal.map((entry) => (
               <SingleEntryCard entry={entry} key={entry.id} />
@@ -27,5 +23,13 @@ export default function Journal() {
     );
   }
 
-  return journal.length ? renderEntryCards() : null;
+  return (
+    <>
+      <FlexContainer>
+        <SelectLabels />
+        <EntryPopUp />
+      </FlexContainer>
+      {journal.length ? renderEntryCards() : null}
+    </>
+  );
 }
