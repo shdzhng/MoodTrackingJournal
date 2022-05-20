@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { importEntries } from './features/journal/journalSlice';
 import GlobalStyles from './Global.styles';
-import JournalView from './views/Journal';
+import JournalView from './views/JournalView';
 import AnalyticView from './views/Analytics';
 
 const LOCAL_STORAGE_KEY = 'todoApp.todos';
