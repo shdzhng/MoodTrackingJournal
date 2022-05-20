@@ -1,5 +1,5 @@
 import React from 'react';
-import EntryPopUp from '../features/entryPopUp/PopUp';
+import EntryPopUp from '../features/popUp/EntryPopUp';
 import Journal from '../features/journal/Journal';
 
 function Home() {

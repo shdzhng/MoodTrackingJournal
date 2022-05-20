@@ -12,9 +12,11 @@ import {
   EntryInput,
   EntryWindow,
 } from './PopUp.styles';
-import { addEntry } from '../journal/journalSlice';
+import { IconButtonStyled } from '../journal/Journal.style';
+import { updateEntry } from '../journal/journalSlice';
 import { v4 as uuidv4 } from 'uuid';
 import ButtonGroup from '@mui/material/ButtonGroup';
+import EditIcon from '@mui/icons-material/Edit';
 
 const feelingList = [
   { key: 'loved', label: 'Loved', variant: 'loved' },
@@ -25,97 +27,66 @@ const feelingList = [
   { key: 'angry', label: 'Angry', variant: 'angry' },
 ];
 
-const feelingKey = {
-  loved: 6,
-  happy: 5,
-  calm: 4,
-  anxious: 3,
-  sad: 2,
-  angry: 1,
-};
-
-export default function EntryPopUp() {
+export default function EditPopUp({ entry }) {
   const dispatch = useDispatch();
   const entryContent = useRef('');
   const todoNameRef = useRef('');
-
-  const [feeling, setFeeling] = useState('');
   const [open, setOpen] = React.useState(false);
+  const [newEntry, setNewEntry] = React.useState(entry.entry);
+  const [newName, setNewName] = React.useState(entry.name);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const feeling = entry.feeling;
 
   const handleSubmit = useCallback((e) => {
     e.preventDefault();
-    const name = todoNameRef.current.value;
-    const entry = entryContent.current.value;
-    const date = new Date().toLocaleString();
+    const newName = todoNameRef.current.value;
+    const newEntry = entryContent.current.value;
+    const editDate = new Date().toLocaleString();
     entryContent.current.value = '';
     todoNameRef.current.value = '';
-    const newEntry = {
-      id: uuidv4(),
-      entry,
-      name,
-      feeling,
-      date,
-      feelingKey: feelingKey[feeling],
+    const editedEntry = {
+      id: entry.id,
+      entry: newEntry,
+      name: newName,
+      feeling: entry.feeling,
+      date: entry.date,
+      editDate,
     };
-    dispatch(addEntry(newEntry));
+    dispatch(updateEntry(editedEntry));
   });
 
-  const handlefeelingChange = useCallback((e) => {
-    const selectedFeeling = e.target.innerText.toLowerCase();
-    setFeeling(selectedFeeling);
+  const handleEntryChange = useCallback(({ target }) => {
+    setNewEntry(target.value);
   });
 
-  const renderFeelingButtons = ({ key, label, variant }) => {
-    return (
-      <FeelingButton
-        selected={feeling === key}
-        key={key}
-        variant={variant}
-        onClick={(e) => {
-          handlefeelingChange(e);
-        }}
-      >
-        {label}
-      </FeelingButton>
-    );
-  };
+  const handleNameChange = useCallback(({ target }) => {
+    setNewName(target.value);
+  });
 
   return (
     <div>
-      <PopUpButtonContainer>
-        <PopUpButton onClick={handleOpen}>New Entry</PopUpButton>
-      </PopUpButtonContainer>
+      <IconButtonStyled aria-label="edit" onClick={handleOpen} size="small">
+        <EditIcon fontSize="inherit" />
+      </IconButtonStyled>
 
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
+      <Modal open={open} onClose={handleClose}>
         <EntryWindow>
           <InputContainer>
             <EntryTitleInput
               ref={todoNameRef}
+              onChange={handleNameChange}
               type="text"
-              placeholder="Entry Title"
+              value={newName}
             />
             <EntryInput
               ref={entryContent}
               type="textarea"
-              placeholder="A Journal of a Thousand Entries Begins with a Single Word"
+              value={newEntry}
+              onChange={(e) => {
+                handleEntryChange(e);
+              }}
             />
-
-            <ButtonGroup
-              variant="contained"
-              aria-label="outlined primary button group"
-              sx={{ my: 2 }}
-            >
-              {feelingList.map((item) => {
-                return renderFeelingButtons(item);
-              })}
-            </ButtonGroup>
             <CenterButton>
               <SubmitEntryButton
                 variant="contained"
@@ -125,7 +96,7 @@ export default function EntryPopUp() {
                   handleClose();
                 }}
               >
-                Add To Journal
+                Save Edit
               </SubmitEntryButton>
             </CenterButton>
           </InputContainer>
