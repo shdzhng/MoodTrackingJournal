@@ -12,6 +12,7 @@ const EntryWindow = styled.div`
   height: 60%;
   padding: 4;
   background-color: #fff8e5;
+  border-radius: 2rem;
   border: 2px solid ${colors.background};
   padding: 2rem;
   display: flex;
@@ -21,11 +22,6 @@ const InputContainer = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-`;
-
-const FeelingButtonContainer = styled.div`
-  margin: 1rem 1rem 0 0;
-  display: flex;
 `;
 
 const PopUpButton = styled(Button)({
@@ -74,6 +70,7 @@ const FeelingButton = styled.button`
   border: none;
   color: white;
   opacity: 0.8;
+  width: 20%;
 
   background-color: ${({ variant }) => colors.variantMap[variant]};
   transition-duration: 200ms;
@@ -110,7 +107,6 @@ export {
   FeelingButton,
   PopUpButtonContainer,
   SubmitEntryButton,
-  FeelingButtonContainer,
   CenterButton,
   EntryTitleInput,
   EntryInput,

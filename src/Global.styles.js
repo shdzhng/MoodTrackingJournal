@@ -9,7 +9,7 @@ const GlobalStyle = createGlobalStyle`
     margin: 0px;
     width: 100vw;
     height: 100vh;
-     background-color: ${colors.background};
+    background-color: ${colors.background};
 }`;
 
 export default GlobalStyle;

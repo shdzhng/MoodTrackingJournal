@@ -5,6 +5,7 @@ import Select from '@mui/material/Select';
 import { useDispatch } from 'react-redux';
 import { sortEntries } from './journalSlice';
 import InputLabel from '@mui/material/InputLabel';
+import colors from '../../constants/Colors';
 
 export default function SelectLabels() {
   const dispatch = useDispatch();

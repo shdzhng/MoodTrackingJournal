@@ -108,15 +108,12 @@ export default function EntryPopUp() {
               placeholder="A Journal of a Thousand Entries Begins with a Single Word"
             />
 
-            <ButtonGroup
-              variant="contained"
-              aria-label="outlined primary button group"
-              sx={{ my: 2 }}
-            >
+            <ButtonGroup variant="contained" sx={{ my: 2 }}>
               {feelingList.map((item) => {
                 return renderFeelingButtons(item);
               })}
             </ButtonGroup>
+
             <CenterButton>
               <SubmitEntryButton
                 variant="contained"

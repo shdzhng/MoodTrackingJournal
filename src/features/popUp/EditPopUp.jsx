@@ -1,31 +1,18 @@
-import React, { useState, useRef, useCallback } from 'react';
+import React, { useRef, useCallback } from 'react';
 import Modal from '@mui/material/Modal';
 import { useDispatch } from 'react-redux';
 import {
-  FeelingButton,
   SubmitEntryButton,
   InputContainer,
   CenterButton,
   EntryTitleInput,
-  PopUpButton,
-  PopUpButtonContainer,
   EntryInput,
   EntryWindow,
 } from './PopUp.styles';
 import { IconButtonStyled } from '../journal/Journal.style';
 import { updateEntry } from '../journal/journalSlice';
-import { v4 as uuidv4 } from 'uuid';
-import ButtonGroup from '@mui/material/ButtonGroup';
 import EditIcon from '@mui/icons-material/Edit';
-
-const feelingList = [
-  { key: 'loved', label: 'Loved', variant: 'loved' },
-  { key: 'happy', label: 'Happy', variant: 'happy' },
-  { key: 'calm', label: 'Calm', variant: 'calm' },
-  { key: 'anxious', label: 'Anxious', variant: 'anxious' },
-  { key: 'sad', label: 'Sad', variant: 'sad' },
-  { key: 'angry', label: 'Angry', variant: 'angry' },
-];
+import colors from '../../constants/Colors';
 
 export default function EditPopUp({ entry }) {
   const dispatch = useDispatch();
@@ -36,7 +23,6 @@ export default function EditPopUp({ entry }) {
   const [newName, setNewName] = React.useState(entry.name);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const feeling = entry.feeling;
 
   const handleSubmit = useCallback((e) => {
     e.preventDefault();
@@ -71,7 +57,12 @@ export default function EditPopUp({ entry }) {
       </IconButtonStyled>
 
       <Modal open={open} onClose={handleClose}>
-        <EntryWindow>
+        <EntryWindow
+          style={{
+            backgroundColor: `${colors.variantMap[entry.feeling]}`,
+            border: 'none',
+          }}
+        >
           <InputContainer>
             <EntryTitleInput
               ref={todoNameRef}
