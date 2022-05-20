@@ -89,7 +89,7 @@ export default function EntryPopUp() {
   return (
     <div>
       <PopUpButtonContainer>
-        <PopUpButton onClick={handleOpen}>New Entry</PopUpButton>
+        <PopUpButton onClick={handleOpen}>Add New Entry</PopUpButton>
       </PopUpButtonContainer>
 
       <Modal open={open} onClose={handleClose}>

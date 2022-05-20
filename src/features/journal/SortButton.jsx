@@ -5,7 +5,6 @@ import Select from '@mui/material/Select';
 import { useDispatch } from 'react-redux';
 import { sortEntries } from './journalSlice';
 import InputLabel from '@mui/material/InputLabel';
-import colors from '../../constants/Colors';
 
 export default function SelectLabels() {
   const dispatch = useDispatch();
@@ -24,10 +23,12 @@ export default function SelectLabels() {
       <FormControl sx={{ m: 1, minWidth: 200 }}>
         <InputLabel>Sort By</InputLabel>
         <Select value={sortMode} label="Sort By" onChange={handleSort}>
-          <MenuItem value="newstFirst">Newst First (default)</MenuItem>
+          <MenuItem value="newstFirst">Newst First</MenuItem>
           <MenuItem value="oldestFirst">Oldest First</MenuItem>
           <MenuItem value="positivesFirst">Positives First</MenuItem>
           <MenuItem value="negativesFirst">Negatives First</MenuItem>
+          <MenuItem value="longestFirst">Longest First</MenuItem>
+          <MenuItem value="shortestFirst">Shortest First</MenuItem>
         </Select>
       </FormControl>
     </>

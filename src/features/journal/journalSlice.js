@@ -70,6 +70,16 @@ export const todoListSlice = createSlice({
             return aFeelingKey > bFeelingKey ? 1 : -1;
           });
           break;
+        case 'longestFirst':
+          state.entries = state.entries.sort((a, b) => {
+            return a.entry.length < b.entry.length ? 1 : -1;
+          });
+          break;
+        case 'shortestFirst':
+          state.entries = state.entries.sort((a, b) => {
+            return a.entry.length > b.entry.length ? 1 : -1;
+          });
+          break;
       }
     },
   },

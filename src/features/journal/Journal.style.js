@@ -76,8 +76,14 @@ const ButtonContainer = styled.div`
   justify-content: flex-end;
 `;
 
+const FlexContainer = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
 export {
   Masonry,
+  FlexContainer,
   EntryContainer,
   EntryName,
   ButtonContainer,

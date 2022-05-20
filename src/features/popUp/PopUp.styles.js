@@ -25,8 +25,10 @@ const InputContainer = styled.div`
 `;
 
 const PopUpButton = styled(Button)({
-  width: 300,
+  height: `100%`,
   backgroundColor: `${colors.blue1} !important`,
+  borderRadius: `4rem !important`,
+  padding: `1rem !important`,
   color: `white !important`,
 });
 
