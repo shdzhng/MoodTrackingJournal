@@ -9,7 +9,7 @@ const MasonryContainer = styled.div`
 `;
 
 const EntryContainer = styled.div`
-  padding: 1rem;
+  padding: 2rem;
   background-color: ${colors.blue3};
   border-radius: 1rem;
   -webkit-box-shadow: 2px 2px 3px 0px ${colors.blue1};
@@ -42,6 +42,14 @@ const EntryName = styled.p`
   margin-top: 0.75rem;
   margin-bottom: 0;
   color: ${colors.blue1};
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  -ms-word-break: break-all;
+  word-break: break-word;
+  -ms-hyphens: auto;
+  -moz-hyphens: auto;
+  -webkit-hyphens: auto;
+  hyphens: auto;
 `;
 
 const EntryDate = styled.p`
@@ -52,13 +60,33 @@ const EntryDate = styled.p`
 
 const Entry = styled.p`
   color: ${colors.blue1};
-  font-size: 1.5rem;
+  font-size: 1.15rem;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  -ms-word-break: break-all;
+  word-break: break-word;
+  -ms-hyphens: auto;
+  -moz-hyphens: auto;
+  -webkit-hyphens: auto;
+  hyphens: auto;
+`;
+
+const ButtonContainer = styled.div`
+  display: flex;
+  justify-content: flex-end;
+`;
+
+const FlexContainer = styled.div`
+  display: flex;
+  align-items: center;
 `;
 
 export {
   Masonry,
+  FlexContainer,
   EntryContainer,
   EntryName,
+  ButtonContainer,
   EntryDate,
   Entry,
   FeelingBubble,

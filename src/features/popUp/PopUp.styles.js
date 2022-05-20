@@ -13,7 +13,6 @@ const EntryWindow = styled.div`
   padding: 4;
   background-color: #fff8e5;
   border-radius: 2rem;
-  border: 2px solid ${colors.background};
   padding: 2rem;
   display: flex;
 `;
@@ -25,13 +24,15 @@ const InputContainer = styled.div`
 `;
 
 const PopUpButton = styled(Button)({
-  width: 300,
+  height: `100%`,
   backgroundColor: `${colors.blue1} !important`,
+  borderRadius: `4rem !important`,
+  padding: `1rem !important`,
   color: `white !important`,
 });
 
 const EntryTitleInput = styled.input`
-  border: 1px solid ${colors.blue2};
+  border: 1px solid ${colors.accent};
   color: ${colors.blue2};
   margin: 0.5rem auto;
   width: 90%;
@@ -39,7 +40,7 @@ const EntryTitleInput = styled.input`
   font-size: 1.25rem;
   transition-duration: 200ms;
   &:focus-visible {
-    outline: 1px double ${colors.blue1};
+    outline: 1px double ${colors.orange2};
   }
   &::placeholder {
     color: #d6cfbc;
@@ -47,7 +48,7 @@ const EntryTitleInput = styled.input`
 `;
 
 const EntryInput = styled.textarea`
-  border: 1px solid ${colors.blue2};
+  border: 1px solid ${colors.accent};
   color: ${colors.blue2};
   margin: 0.5rem auto;
   width: 90%;
@@ -57,7 +58,7 @@ const EntryInput = styled.textarea`
   font-size: 1rem;
   resize: vertical;
   &:focus-visible {
-    outline: 1px double ${colors.blue1};
+    outline: 1px double ${colors.orange2};
     color: ${colors.blue1};
   }
   &::placeholder {

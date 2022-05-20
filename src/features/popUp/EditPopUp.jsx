@@ -59,7 +59,7 @@ export default function EditPopUp({ entry }) {
       <Modal open={open} onClose={handleClose}>
         <EntryWindow
           style={{
-            backgroundColor: `${colors.variantMap[entry.feeling]}`,
+            backgroundColor: `${colors.accent}`,
             border: 'none',
           }}
         >

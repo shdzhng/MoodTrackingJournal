@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react';
-import GlobalStyles from './Global.styles';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Home from './views/Home';
 import { useSelector, useDispatch } from 'react-redux';
 import { importEntries } from './features/journal/journalSlice';
+import GlobalStyles from './Global.styles';
+import JournalView from './views/Journal';
+import AnalyticView from './views/Analytics';
 
 const LOCAL_STORAGE_KEY = 'todoApp.todos';
 
@@ -24,7 +25,8 @@ function App() {
     <Router>
       <GlobalStyles />
       <Routes>
-        <Route path="/" element={<Home />}></Route>
+        <Route path="/" element={<JournalView />}></Route>
+        <Route path="/analytics" element={<AnalyticView />}></Route>
       </Routes>
     </Router>
   );
