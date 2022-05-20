@@ -28,6 +28,7 @@ export default function SingleEntryCard({ entry }) {
 
       <Entry>{entry.entry}</Entry>
       <FeelingBubble variant={entry.feeling}> </FeelingBubble>
+
       <ButtonContainer>
         <EditPopUp entry={entry}></EditPopUp>
         <IconButtonStyled

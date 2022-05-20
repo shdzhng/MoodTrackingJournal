@@ -25,10 +25,10 @@ export default function SelectLabels() {
         <Select value={sortMode} label="Sort By" onChange={handleSort}>
           <MenuItem value="newstFirst">Newst First</MenuItem>
           <MenuItem value="oldestFirst">Oldest First</MenuItem>
-          <MenuItem value="positivesFirst">Positives First</MenuItem>
-          <MenuItem value="negativesFirst">Negatives First</MenuItem>
           <MenuItem value="longestFirst">Longest First</MenuItem>
           <MenuItem value="shortestFirst">Shortest First</MenuItem>
+          <MenuItem value="positivesFirst">Happy First</MenuItem>
+          <MenuItem value="negativesFirst">Sad First</MenuItem>
         </Select>
       </FormControl>
     </>
