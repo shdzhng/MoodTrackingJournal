@@ -42,6 +42,14 @@ const EntryName = styled.p`
   margin-top: 0.75rem;
   margin-bottom: 0;
   color: ${colors.blue1};
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  -ms-word-break: break-all;
+  word-break: break-word;
+  -ms-hyphens: auto;
+  -moz-hyphens: auto;
+  -webkit-hyphens: auto;
+  hyphens: auto;
 `;
 
 const EntryDate = styled.p`
@@ -53,12 +61,26 @@ const EntryDate = styled.p`
 const Entry = styled.p`
   color: ${colors.blue1};
   font-size: 1.5rem;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  -ms-word-break: break-all;
+  word-break: break-word;
+  -ms-hyphens: auto;
+  -moz-hyphens: auto;
+  -webkit-hyphens: auto;
+  hyphens: auto;
+`;
+
+const ButtonContainer = styled.div`
+  display: flex;
+  justify-content: flex-end;
 `;
 
 export {
   Masonry,
   EntryContainer,
   EntryName,
+  ButtonContainer,
   EntryDate,
   Entry,
   FeelingBubble,

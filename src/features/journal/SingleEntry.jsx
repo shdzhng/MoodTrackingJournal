@@ -5,6 +5,7 @@ import {
   FeelingBubble,
   IconButtonStyled,
   EntryDate,
+  ButtonContainer,
 } from './Journal.style';
 import { useDispatch } from 'react-redux';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -27,16 +28,18 @@ export default function SingleEntryCard({ entry }) {
 
       <Entry>{entry.entry}</Entry>
       <FeelingBubble variant={entry.feeling}> </FeelingBubble>
-      <IconButtonStyled
-        aria-label="delete"
-        onClick={() => {
-          handleRemove(entry);
-        }}
-        size="small"
-      >
-        <DeleteIcon fontSize="inherit" />
-      </IconButtonStyled>
-      <EditPopUp entry={entry}></EditPopUp>
+      <ButtonContainer>
+        <EditPopUp entry={entry}></EditPopUp>
+        <IconButtonStyled
+          aria-label="delete"
+          onClick={() => {
+            handleRemove(entry);
+          }}
+          size="small"
+        >
+          <DeleteIcon fontSize="inherit" />
+        </IconButtonStyled>
+      </ButtonContainer>
     </EntryContainer>
   );
 }
