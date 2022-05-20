@@ -9,6 +9,7 @@ import {
 import { useDispatch } from 'react-redux';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { removeEntry } from '../journal/journalSlice';
+import EditPopUp from '../popUp/EditPopUp';
 
 export default function SingleEntryCard({ entry }) {
   const dispatch = useDispatch();
@@ -21,7 +22,6 @@ export default function SingleEntryCard({ entry }) {
       <EntryName variant={entry.feeling}>{entry.name}</EntryName>
       <EntryDate>{entry.date.split(', ')[0]}</EntryDate>
       <Entry>{entry.entry}</Entry>
-
       <FeelingBubble variant={entry.feeling}> </FeelingBubble>
       <IconButtonStyled
         aria-label="delete"
@@ -32,6 +32,7 @@ export default function SingleEntryCard({ entry }) {
       >
         <DeleteIcon fontSize="inherit" />
       </IconButtonStyled>
+      <EditPopUp entry={entry}></EditPopUp>
     </EntryContainer>
   );
 }
