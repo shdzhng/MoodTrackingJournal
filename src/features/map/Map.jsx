@@ -1,6 +1,7 @@
 import React from 'react';
 import { Map, TileLayer, Marker, Popup } from 'leaflet';
 import L from 'leaflet';
+import { GeoSearchControl, MapBoxProvider } from 'leaflet-geosearch';
 
 const LeafletMap = (props) => {
   const container = document.getElementById('map');

@@ -15,6 +15,10 @@ import {
 import { addEntry } from '../journal/journalSlice';
 import { v4 as uuidv4 } from 'uuid';
 import ButtonGroup from '@mui/material/ButtonGroup';
+import LocationInput from './LocationInput';
+import TextField from '@mui/material/TextField';
+import { OpenStreetMapProvider } from 'leaflet-geosearch';
+import { Autocomplete } from '@mui/material';
 
 const feelingList = [
   { key: 'loved', label: 'Loved', variant: 'loved' },
@@ -29,11 +33,14 @@ export default function EntryPopUp() {
   const dispatch = useDispatch();
   const entryContentRef = useRef('');
   const entryTitleRef = useRef('');
+  const entryLocationRef = useRef('');
+  const provider = new OpenStreetMapProvider();
 
   const [feeling, setFeeling] = useState('');
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [open, setOpen] = React.useState(false);
+  const [geoSearchResult, setGeoSearchResult] = useState([]);
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -68,6 +75,18 @@ export default function EntryPopUp() {
   const handleTitleChange = useCallback(({ target }) => {
     setTitle(target.value);
   });
+
+  ///geo-searching
+  const handleAddressChange = useCallback(async ({ target }) => {
+    const results = await provider.search({ query: target.value });
+    await setGeoSearchResult(results);
+  });
+
+  useEffect(() => {
+    const autoCompleteDisplay = document.getElementById('autoCompleteDisplay');
+
+    console.log(geoSearchResult);
+  }, [geoSearchResult]);
 
   const disableButtonCheck = !feeling || !title || !content ? false : true;
 
@@ -108,12 +127,23 @@ export default function EntryPopUp() {
               placeholder="A Journal of a Thousand Entries Begins with a Single Word"
             />
 
+            {/* Address Input */}
+
+            <EntryTitleInput
+              ref={entryLocationRef}
+              type="text"
+              placeholder="Entry Location"
+              onChange={handleAddressChange}
+            ></EntryTitleInput>
+
+            <div id="autoCompleteDisplay"></div>
+            {/**/}
+
             <ButtonGroup variant="contained" sx={{ my: 2 }}>
               {feelingList.map((item) => {
                 return renderFeelingButtons(item);
               })}
             </ButtonGroup>
-
             <CenterButton>
               <SubmitEntryButton
                 variant="contained"

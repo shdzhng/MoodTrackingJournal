@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { importEntries } from './features/journal/journalSlice';
 import GlobalStyles from './Global.styles';
 import JournalView from './views/JournalView';
-import AnalyticView from './views/Analytics';
+import AnalyticView from './views/AnalyticsView';
 
 const LOCAL_STORAGE_KEY = 'todoApp.todos';
 
