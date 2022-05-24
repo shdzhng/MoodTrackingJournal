@@ -136,7 +136,9 @@ export default function EntryPopUp() {
               placeholder="A Journal of a Thousand Entries Begins with a Single Word"
             />
 
-            <Autocomplete
+            <LocationInput></LocationInput>
+
+            {/* <Autocomplete
               disablePortal
               id="locationInput"
               sx={{ width: 300 }}
@@ -157,7 +159,7 @@ export default function EntryPopUp() {
                   </li>
                 );
               }}
-            />
+            /> */}
 
             <button
               onClick={() => {

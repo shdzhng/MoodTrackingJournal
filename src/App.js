@@ -5,6 +5,7 @@ import { importEntries } from './features/journal/journalSlice';
 import GlobalStyles from './Global.styles';
 import JournalView from './views/JournalView';
 import AnalyticView from './views/AnalyticsView';
+import { GoogleApiWrapper } from 'google-maps-react';
 
 const LOCAL_STORAGE_KEY = 'todoApp.todos';
 
