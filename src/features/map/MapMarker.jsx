@@ -16,12 +16,12 @@ import { removeEntry } from '../journal/journalSlice';
 export default function MapMarker({ entry }) {
   const dispatch = useDispatch();
   const svgMarker = {
-    path: 'm8.075 23.52c-6.811-9.878-8.075-10.891-8.075-14.52 0-4.971 4.029-9 9-9s9 4.029 9 9c0 3.629-1.264 4.64-8.075 14.516-.206.294-.543.484-.925.484s-.719-.19-.922-.48l-.002-.004z',
+    path: 'M44.5,15c0-8.271-6.729-15-15-15s-15,6.729-15,15c0,7.934,6.195,14.431,14,14.949V58c0,0.553,0.448,1,1,1s1-0.447,1-1V29.949C38.305,29.431,44.5,22.934,44.5,15z M24.5,15c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S26.706,15,24.5,15z',
     fillColor: colors.variantMap[entry.feeling],
     fillOpacity: 1,
-    strokeWeight: 0,
+    strokeWeight: 1,
     rotation: 0,
-    scale: 1.5,
+    scale: 0.5,
     anchor: new window.google.maps.Point(15, 30),
   };
 
