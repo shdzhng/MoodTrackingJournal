@@ -32,6 +32,10 @@ const GlobalStyle = createGlobalStyle`
   margin: 2rem auto;
   border: 2px solid ${colors.accent};
   };
+
+.relativeContainer{
+  position: relative;
+}
 `;
 
 export default GlobalStyle;

@@ -15,14 +15,18 @@ const MapComponent = () => {
   const entries = useSelector(({ journal }) => journal.entries);
 
   const containerStyle = {
-    width: '50vw',
-    height: '50vh',
-    margin: `2rem auto`,
+    width: '75vw',
+    height: '75vh',
+    margin: '2rem auto 0 auto',
   };
 
   const startLocation = {
     lat: 37.776596,
     lng: -122.391953,
+  };
+
+  const handleMapClick = (e) => {
+    console.log(e);
   };
 
   return (
@@ -33,6 +37,7 @@ const MapComponent = () => {
         center={startLocation}
         zoom={11}
         options={options}
+        onClick={handleMapClick}
       >
         {entries.map((entry, i) => (
           <MapMarker entry={entry} key={i} />
