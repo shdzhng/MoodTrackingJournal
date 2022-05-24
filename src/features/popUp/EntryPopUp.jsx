@@ -8,16 +8,18 @@ import {
   CenterButton,
   EntryTitleInput,
   PopUpButton,
+  AddressContainer,
   PopUpButtonContainer,
   EntryInput,
+  AddressInput,
   EntryWindow,
 } from './PopUp.styles';
 import { addEntry } from '../journal/journalSlice';
 import { v4 as uuidv4 } from 'uuid';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import { Autocomplete } from '@react-google-maps/api';
-import throttle from 'lodash/throttle';
-
+import GpsFixedIcon from '@mui/icons-material/GpsFixed';
+import IconButton from '@mui/material/IconButton';
 const feelingList = [
   { key: 'loved', label: 'Loved', variant: 'loved' },
   { key: 'happy', label: 'Happy', variant: 'happy' },
@@ -155,14 +157,17 @@ export default function EntryPopUp() {
               type="textarea"
               placeholder="A Journal of a Thousand Entries Begins with a Single Word"
             />
-            <input id="input"></input>
-            <button
-              onClick={(e) => {
-                handleGetCurrentLocation(e);
-              }}
-            >
-              Use My Location
-            </button>
+            <AddressContainer>
+              <AddressInput id="input"></AddressInput>
+              <IconButton
+                aria-label="use my location"
+                onClick={(e) => {
+                  handleGetCurrentLocation(e);
+                }}
+              >
+                <GpsFixedIcon />
+              </IconButton>
+            </AddressContainer>
             <ButtonGroup variant="contained" sx={{ my: 2 }}>
               {feelingList.map((item) => {
                 return renderFeelingButtons(item);

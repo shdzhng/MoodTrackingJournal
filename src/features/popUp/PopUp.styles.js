@@ -10,18 +10,17 @@ const EntryWindow = styled.div`
   transform: translate(-50%, -50%);
   width: 50%;
   height: 60%;
-  padding: 4;
   background-color: #fff8e5;
   border-radius: 2rem;
   padding: 2rem;
   display: flex;
-  z-index: -1;
 `;
 
 const InputContainer = styled.div`
-  width: 100%;
+  width: 80%;
   display: flex;
   flex-direction: column;
+  margin: 0 auto;
 `;
 
 const PopUpButton = styled(Button)({
@@ -36,7 +35,7 @@ const EntryTitleInput = styled.input`
   border: 1px solid ${colors.accent};
   color: ${colors.blue2};
   margin: 0.5rem auto;
-  width: 90%;
+  width: 100%;
   font-weight: 600;
   font-size: 1.25rem;
   transition-duration: 200ms;
@@ -52,7 +51,7 @@ const EntryInput = styled.textarea`
   border: 1px solid ${colors.accent};
   color: ${colors.blue2};
   margin: 0.5rem auto;
-  width: 90%;
+  width: 100%;
   height: 80%;
   word-wrap: break-word;
   word-break: break-all;
@@ -105,8 +104,30 @@ const PopUpButtonContainer = styled.div`
   margin: 2rem;
 `;
 
+const AddressInput = styled.input`
+  border: 1px solid ${colors.accent};
+  color: ${colors.blue2};
+  margin: 0.5rem auto;
+  width: 100%;
+  font-size: 1rem;
+  transition-duration: 200ms;
+  &:focus-visible {
+    outline: 1px double ${colors.orange2};
+  }
+  &::placeholder {
+    color: #d6cfbc;
+  }
+`;
+
+const AddressContainer = styled.div`
+  margin: 0 auto;
+  display: flex;
+  width: 100%;
+`;
+
 export {
   FeelingButton,
+  AddressInput,
   PopUpButtonContainer,
   SubmitEntryButton,
   CenterButton,
@@ -115,4 +136,5 @@ export {
   InputContainer,
   EntryWindow,
   PopUpButton,
+  AddressContainer,
 };
