@@ -28,7 +28,7 @@ export default function SingleEntryCard({ entry }) {
 
       <Entry>{entry.entry}</Entry>
       <FeelingBubble variant={entry.feeling}> </FeelingBubble>
-
+      <Entry>@{entry.location.label.split(',')[0]}</Entry>
       <ButtonContainer>
         <EditPopUp entry={entry}></EditPopUp>
         <IconButtonStyled
