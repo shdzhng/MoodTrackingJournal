@@ -1,22 +1,18 @@
 import React from 'react';
-import mapStyles from './mapStyles';
+import mapStyles from './Map.styles';
 import { useSelector } from 'react-redux';
-import { GoogleMap, Marker } from '@react-google-maps/api';
+import MapMarker from './MapMarker';
+import { GoogleMap, Marker, InfoWindow } from '@react-google-maps/api';
 
-export default function Map() {
+const MapComponent = () => {
   const options = {
     styles: mapStyles,
     disableDefaultUI: true,
+    clickableIcons: false,
+    zoomControl: true,
   };
 
   const entries = useSelector(({ journal }) => journal.entries);
-
-  const geocoder = new window.google.maps.Geocoder();
-
-  const getGeocode = async () => {
-    const location = await geocoder.geocode({ address: entries[0].location });
-    console.log(location);
-  };
 
   const containerStyle = {
     width: '50vw',
@@ -35,22 +31,15 @@ export default function Map() {
         id="mapContainer"
         mapContainerStyle={containerStyle}
         center={startLocation}
-        zoom={15}
+        zoom={11}
         options={options}
       >
-        {entries.map((entry, i) => {
-          const { lat, lng } = JSON.parse(entry.location).geometry.location;
-          return (
-            <Marker
-              key={i}
-              position={{
-                lat,
-                lng,
-              }}
-            />
-          );
-        })}
+        {entries.map((entry, i) => (
+          <MapMarker entry={entry} key={i} />
+        ))}
       </GoogleMap>
     </>
   );
-}
+};
+
+export default MapComponent;

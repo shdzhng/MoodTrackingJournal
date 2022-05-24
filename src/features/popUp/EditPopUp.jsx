@@ -26,6 +26,7 @@ export default function EditPopUp({ entry }) {
 
   const handleSubmit = useCallback((e) => {
     e.preventDefault();
+
     const newName = todoNameRef.current.value;
     const newEntry = entryContent.current.value;
     const editDate = new Date().toLocaleString();
@@ -38,6 +39,7 @@ export default function EditPopUp({ entry }) {
       feeling: entry.feeling,
       date: entry.date,
       editDate,
+      location: entry.location,
     };
     dispatch(updateEntry(editedEntry));
   });
