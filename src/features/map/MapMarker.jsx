@@ -41,11 +41,52 @@ export default function MapMarker({ entry }) {
     dispatch(removeEntry(entry));
   };
 
+  if (entry) {
+    return (
+      <Marker
+        name={entry.feeling}
+        icon={svgMarker}
+        title={entry.name}
+        onClick={handleOpen}
+        position={{
+          lat,
+          lng,
+        }}
+      >
+        {showInfoWindow && (
+          <InfoWindow
+            position={{
+              lat: lat,
+              lng: lng,
+            }}
+            onCloseClick={handleClose}
+          >
+            <div>
+              <InfoWindowTitle>{entry.name}</InfoWindowTitle>
+              <InfoWindowDate>{entry.date.split(',')[0]}</InfoWindowDate>
+              <InfoWindowText>{entry.entry}</InfoWindowText>
+              <ButtonContainer>
+                <EditPopUp entry={entry}></EditPopUp>
+                <IconButtonStyled
+                  aria-label="delete"
+                  onClick={() => {
+                    handleRemove(entry);
+                  }}
+                  size="small"
+                >
+                  <DeleteIcon fontSize="inherit" />
+                </IconButtonStyled>
+              </ButtonContainer>
+            </div>
+          </InfoWindow>
+        )}
+      </Marker>
+    );
+  }
+
   return (
     <Marker
-      name={entry.feeling}
       icon={svgMarker}
-      title={entry.name}
       onClick={handleOpen}
       position={{
         lat,
@@ -61,9 +102,6 @@ export default function MapMarker({ entry }) {
           onCloseClick={handleClose}
         >
           <div>
-            <InfoWindowTitle>{entry.name}</InfoWindowTitle>
-            <InfoWindowDate>{entry.date.split(',')[0]}</InfoWindowDate>
-            <InfoWindowText>{entry.entry}</InfoWindowText>
             <ButtonContainer>
               <EditPopUp entry={entry}></EditPopUp>
               <IconButtonStyled
