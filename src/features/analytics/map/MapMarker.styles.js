@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import colors from '../../constants/Colors';
+import colors from '../../../constants/Colors';
 
 const InfoWindowText = styled.p`
   color: ${colors.blue1};

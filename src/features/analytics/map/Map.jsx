@@ -1,6 +1,7 @@
 import React from 'react';
-import mapStyles from './Map.styles';
 import { useSelector } from 'react-redux';
+
+import mapStyles from './Map.styles';
 import MapMarker from './MapMarker';
 import { GoogleMap, Marker, InfoWindow } from '@react-google-maps/api';
 
@@ -15,8 +16,8 @@ const MapComponent = () => {
   const entries = useSelector(({ journal }) => journal.entries);
 
   const containerStyle = {
-    width: '75vw',
-    height: '75vh',
+    width: '100%',
+    height: '50vh',
     margin: '2rem auto 0 auto',
   };
 
