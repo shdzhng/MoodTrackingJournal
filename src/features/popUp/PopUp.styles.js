@@ -32,10 +32,6 @@ const PopUpButton = styled(Button)({
   color: `white !important`,
 });
 
-const StyledModal = styled(Modal)({
-  root: { zIndex: -45 },
-});
-
 const EntryTitleInput = styled.input`
   border: 1px solid ${colors.accent};
   color: ${colors.blue2};
@@ -115,7 +111,6 @@ export {
   SubmitEntryButton,
   CenterButton,
   EntryTitleInput,
-  StyledModal,
   EntryInput,
   InputContainer,
   EntryWindow,

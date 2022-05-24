@@ -11,14 +11,12 @@ import {
   PopUpButtonContainer,
   EntryInput,
   EntryWindow,
-  StyledModal,
 } from './PopUp.styles';
 import { addEntry } from '../journal/journalSlice';
 import { v4 as uuidv4 } from 'uuid';
 import ButtonGroup from '@mui/material/ButtonGroup';
-import { OpenStreetMapProvider } from 'leaflet-geosearch';
-import SearchBar from './LocationInput';
 import { Autocomplete } from '@react-google-maps/api';
+import throttle from 'lodash/throttle';
 
 const feelingList = [
   { key: 'loved', label: 'Loved', variant: 'loved' },
@@ -81,6 +79,7 @@ export default function EntryPopUp() {
         });
     });
   };
+
   /////////
 
   const handleOpen = () => setOpen(true);
@@ -141,8 +140,8 @@ export default function EntryPopUp() {
         <PopUpButton onClick={handleOpen}>Add New Entry</PopUpButton>
       </PopUpButtonContainer>
 
-      <StyledModal open={open} onClose={handleClose}>
-        <EntryWindow>
+      <Modal className="modal" open={open} onClose={handleClose}>
+        <EntryWindow className="modal">
           <InputContainer>
             <EntryTitleInput
               ref={entryTitleRef}
@@ -184,7 +183,7 @@ export default function EntryPopUp() {
             </CenterButton>
           </InputContainer>
         </EntryWindow>
-      </StyledModal>
+      </Modal>
     </div>
   );
 }

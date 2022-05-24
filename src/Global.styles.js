@@ -20,7 +20,7 @@ const GlobalStyle = createGlobalStyle`
     z-index: 20;
 }
 .modal{
-    z-index: 20;
+    z-index: 0 !important;
 }
 .modal-backdrop{
     z-index: 10;
