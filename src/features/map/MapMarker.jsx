@@ -1,11 +1,17 @@
 import React from 'react';
 import { GoogleMap, Marker, InfoWindow } from '@react-google-maps/api';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import colors from '../../constants/Colors';
+import {
+  InfoWindowText,
+  InfoWindowDate,
+  InfoWindowTitle,
+} from './MapMarker.styles';
+import EditPopUp from '../popUp/EditPopUp';
 
-export default function MapMarker({ entry, i }) {
+export default function MapMarker({ entry }) {
   const svgMarker = {
-    path: 'M10.453 14.016l6.563-6.609-1.406-1.406-5.156 5.203-2.063-2.109-1.406 1.406zM12 2.016q2.906 0 4.945 2.039t2.039 4.945q0 1.453-0.727 3.328t-1.758 3.516-2.039 3.070-1.711 2.273l-0.75 0.797q-0.281-0.328-0.75-0.867t-1.688-2.156-2.133-3.141-1.664-3.445-0.75-3.375q0-2.906 2.039-4.945t4.945-2.039z',
+    path: 'm8.075 23.52c-6.811-9.878-8.075-10.891-8.075-14.52 0-4.971 4.029-9 9-9s9 4.029 9 9c0 3.629-1.264 4.64-8.075 14.516-.206.294-.543.484-.925.484s-.719-.19-.922-.48l-.002-.004z',
     fillColor: colors.variantMap[entry.feeling],
     fillOpacity: 1,
     strokeWeight: 0,
@@ -28,7 +34,6 @@ export default function MapMarker({ entry, i }) {
 
   return (
     <Marker
-      key={i}
       name={entry.feeling}
       icon={svgMarker}
       title={entry.name}
@@ -47,9 +52,10 @@ export default function MapMarker({ entry, i }) {
           onCloseClick={handleClose}
         >
           <div>
-            <p>{entry.name}</p>
-            <p>{entry.feeling}</p>
-            <p>{entry.entry}</p>
+            <InfoWindowTitle>{entry.name}</InfoWindowTitle>
+            <InfoWindowDate>{entry.date.split(',')[0]}</InfoWindowDate>
+            <InfoWindowText>{entry.entry}</InfoWindowText>
+            <EditPopUp entry={entry} />
           </div>
         </InfoWindow>
       )}
