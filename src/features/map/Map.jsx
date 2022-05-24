@@ -1,7 +1,7 @@
 import React from 'react';
 import mapStyles from './mapStyles';
 import { useSelector } from 'react-redux';
-import { GoogleMap } from '@react-google-maps/api';
+import { GoogleMap, Marker } from '@react-google-maps/api';
 
 export default function Map() {
   const options = {
@@ -9,9 +9,19 @@ export default function Map() {
     disableDefaultUI: true,
   };
 
+  const entries = useSelector(({ journal }) => journal.entries);
+
+  const geocoder = new window.google.maps.Geocoder();
+
+  const getGeocode = async () => {
+    const location = await geocoder.geocode({ address: entries[0].location });
+    console.log(location);
+  };
+
   const containerStyle = {
     width: '50vw',
     height: '50vh',
+    margin: `2rem auto`,
   };
 
   const startLocation = {
@@ -20,12 +30,27 @@ export default function Map() {
   };
 
   return (
-    <GoogleMap
-      id="mapContainer"
-      mapContainerStyle={containerStyle}
-      center={startLocation}
-      zoom={15}
-      options={options}
-    ></GoogleMap>
+    <>
+      <GoogleMap
+        id="mapContainer"
+        mapContainerStyle={containerStyle}
+        center={startLocation}
+        zoom={15}
+        options={options}
+      >
+        {entries.map((entry, i) => {
+          const { lat, lng } = JSON.parse(entry.location).geometry.location;
+          return (
+            <Marker
+              key={i}
+              position={{
+                lat,
+                lng,
+              }}
+            />
+          );
+        })}
+      </GoogleMap>
+    </>
   );
 }

@@ -28,7 +28,9 @@ export default function SingleEntryCard({ entry }) {
 
       <Entry>{entry.entry}</Entry>
       <FeelingBubble variant={entry.feeling}> </FeelingBubble>
-      <Entry>@{entry.location.formatted_address}</Entry>
+      <Entry>
+        @{JSON.parse(entry.location).formatted_address.split(',')[0]}
+      </Entry>
       <ButtonContainer>
         <EditPopUp entry={entry}></EditPopUp>
         <IconButtonStyled

@@ -20,6 +20,7 @@ import ButtonGroup from '@mui/material/ButtonGroup';
 import { Autocomplete } from '@react-google-maps/api';
 import GpsFixedIcon from '@mui/icons-material/GpsFixed';
 import IconButton from '@mui/material/IconButton';
+
 const feelingList = [
   { key: 'loved', label: 'Loved', variant: 'loved' },
   { key: 'happy', label: 'Happy', variant: 'happy' },
@@ -33,26 +34,13 @@ export default function EntryPopUp() {
   const dispatch = useDispatch();
   const entryContentRef = useRef('');
   const entryTitleRef = useRef('');
+  const locationRef = useRef('');
   const [feeling, setFeeling] = useState('');
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [open, setOpen] = React.useState(false);
-  const [selectedLocation, setSelectedLocation] = useState({});
 
   //////
-
-  const handleAddressInputChange = useCallback(async (e) => {
-    e.preventDefault();
-    // const results = await provider.search({ query: e.target.value });
-    // await setGeoSearchResult(results);
-  }, []);
-
-  const handleAddressChange = useCallback((e) => {
-    e.preventDefault();
-    const newSelectedLocation = JSON.parse(e.target.getAttribute('value'));
-    setSelectedLocation(newSelectedLocation);
-    // setGeoSearchResult([]);
-  }, []);
 
   const input = document.getElementById('input');
   const options = {
@@ -77,21 +65,24 @@ export default function EntryPopUp() {
         .then((response) => response.json())
         .then((data) => {
           locationInputElement.value = data.results[0].formatted_address;
-          setSelectedLocation(data);
         });
     });
   };
 
-  /////////
+  const geocoder = new window.google.maps.Geocoder();
+
+  const getGeocode = async (address) => {
+    return await geocoder.geocode({ address });
+  };
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  const handleSubmit = useCallback((e) => {
+  const handleSubmit = useCallback(async (e) => {
     e.preventDefault();
+
     const date = new Date().toLocaleString();
-    entryContentRef.current.value = '';
-    entryTitleRef.current.value = '';
+    const geoLocationInfo = await getGeocode(locationRef.current.value);
 
     const newEntry = {
       id: uuidv4(),
@@ -99,8 +90,9 @@ export default function EntryPopUp() {
       name: title,
       feeling,
       date,
-      location: selectedLocation.results[0],
+      location: JSON.stringify(geoLocationInfo.results[0]),
     };
+
     setTitle(null);
     setContent(null);
     dispatch(addEntry(newEntry));
@@ -158,7 +150,7 @@ export default function EntryPopUp() {
               placeholder="A Journal of a Thousand Entries Begins with a Single Word"
             />
             <AddressContainer>
-              <AddressInput id="input"></AddressInput>
+              <input id="input" ref={locationRef}></input>
               <IconButton
                 aria-label="use my location"
                 onClick={(e) => {
