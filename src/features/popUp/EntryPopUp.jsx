@@ -19,6 +19,7 @@ import LocationInput from './LocationInput';
 import TextField from '@mui/material/TextField';
 import { OpenStreetMapProvider } from 'leaflet-geosearch';
 import { Autocomplete } from '@mui/material';
+import { Box } from '@mui/material';
 
 const feelingList = [
   { key: 'loved', label: 'Loved', variant: 'loved' },
@@ -41,6 +42,7 @@ export default function EntryPopUp() {
   const [content, setContent] = useState('');
   const [open, setOpen] = React.useState(false);
   const [geoSearchResult, setGeoSearchResult] = useState([]);
+  const [selectedLocation, setSelectedLocation] = useState({});
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -57,6 +59,7 @@ export default function EntryPopUp() {
       name: title,
       feeling,
       date,
+      location: selectedLocation,
     };
     setTitle(null);
     setContent(null);
@@ -76,17 +79,23 @@ export default function EntryPopUp() {
     setTitle(target.value);
   });
 
-  ///geo-searching
-  const handleAddressChange = useCallback(async ({ target }) => {
-    const results = await provider.search({ query: target.value });
-    await setGeoSearchResult(results);
-  });
-
   useEffect(() => {
-    const autoCompleteDisplay = document.getElementById('autoCompleteDisplay');
-
     console.log(geoSearchResult);
   }, [geoSearchResult]);
+
+  ///geo-searching
+  const handleAddressInputChange = useCallback(async (e) => {
+    e.preventDefault();
+    const results = await provider.search({ query: e.target.value });
+    await setGeoSearchResult(results);
+  }, []);
+
+  const handleAddressChange = useCallback((e) => {
+    e.preventDefault();
+    const newSelectedLocation = JSON.parse(e.target.getAttribute('value'));
+    setSelectedLocation(newSelectedLocation);
+    setGeoSearchResult([]);
+  }, []);
 
   const disableButtonCheck = !feeling || !title || !content ? false : true;
 
@@ -127,17 +136,41 @@ export default function EntryPopUp() {
               placeholder="A Journal of a Thousand Entries Begins with a Single Word"
             />
 
-            {/* Address Input */}
-
-            <EntryTitleInput
-              ref={entryLocationRef}
-              type="text"
-              placeholder="Entry Location"
+            <Autocomplete
+              disablePortal
+              id="locationInput"
+              sx={{ width: 300 }}
+              freeSolo={true}
+              options={geoSearchResult.filter((location, i) => {
+                if (i < 4) return location;
+              })}
+              open={true}
+              onInputChange={(e) => handleAddressInputChange(e)}
               onChange={handleAddressChange}
-            ></EntryTitleInput>
+              renderInput={(params) => <TextField {...params} />}
+              limitTags={3}
+              noOptionsText="none"
+              renderOption={(props, option) => {
+                return (
+                  <li {...props} value={JSON.stringify(option)} key={option.x}>
+                    {option.label}
+                  </li>
+                );
+              }}
+            />
 
-            <div id="autoCompleteDisplay"></div>
-            {/**/}
+            <button
+              onClick={() => {
+                const locationInputElement =
+                  document.getElementById('locationInput');
+                navigator.geolocation.getCurrentPosition((position) => {
+                  console.dir(locationInputElement);
+                  locationInputElement.value = position.timestamp;
+                });
+              }}
+            >
+              hello
+            </button>
 
             <ButtonGroup variant="contained" sx={{ my: 2 }}>
               {feelingList.map((item) => {
