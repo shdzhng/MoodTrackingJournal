@@ -11,6 +11,21 @@ const GlobalStyle = createGlobalStyle`
     height: 100vh;
     background-color: ${colors.background};
 };
+
+#input{
+  z-index: 99999;
+}
+
+ .pac-container {
+    z-index: 20;
+}
+.modal{
+    z-index: 20;
+}
+.modal-backdrop{
+    z-index: 10;
+}
+
 #map {
   width:75vw;
   height: 75vh;

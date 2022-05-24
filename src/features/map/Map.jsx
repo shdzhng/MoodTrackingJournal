@@ -1,30 +1,31 @@
 import React from 'react';
-import { Map, TileLayer, Marker, Popup } from 'leaflet';
-import L from 'leaflet';
-import { GeoSearchControl, MapBoxProvider } from 'leaflet-geosearch';
+import mapStyles from './mapStyles';
+import { useSelector } from 'react-redux';
+import { GoogleMap } from '@react-google-maps/api';
 
-const LeafletMap = (props) => {
-  const container = document.getElementById('map');
+export default function Map() {
+  const options = {
+    styles: mapStyles,
+    disableDefaultUI: true,
+  };
 
-  if (container) {
-    let map = L.map('map').setView([51.505, -0.09], 13);
+  const containerStyle = {
+    width: '50vw',
+    height: '50vh',
+  };
 
-    L.tileLayer(
-      'https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}',
-      {
-        attribution:
-          'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-        maxZoom: 18,
-        id: 'mapbox/satellite-v9',
-        tileSize: 512,
-        zoomOffset: -1,
-        accessToken:
-          'pk.eyJ1Ijoic2hkemhuZyIsImEiOiJjbDNmMGRvYWkwMjM1M2pucHZiMjc5MGFuIn0.Hpe_d8gzMiXhSbV9QE2YAw',
-      }
-    ).addTo(map);
-  }
+  const startLocation = {
+    lat: 37.776596,
+    lng: -122.391953,
+  };
 
-  return <div id="map"></div>;
-};
-
-export default LeafletMap;
+  return (
+    <GoogleMap
+      id="mapContainer"
+      mapContainerStyle={containerStyle}
+      center={startLocation}
+      zoom={15}
+      options={options}
+    ></GoogleMap>
+  );
+}

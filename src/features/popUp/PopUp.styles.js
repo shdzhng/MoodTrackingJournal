@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import colors from '../../constants/Colors';
 import Button from '@mui/material/Button';
-import { experimental_sx as sx } from '@mui/system';
+import { Modal } from '@mui/material';
 
 const EntryWindow = styled.div`
   position: absolute;
@@ -15,6 +15,7 @@ const EntryWindow = styled.div`
   border-radius: 2rem;
   padding: 2rem;
   display: flex;
+  z-index: -1;
 `;
 
 const InputContainer = styled.div`
@@ -29,6 +30,10 @@ const PopUpButton = styled(Button)({
   borderRadius: `4rem !important`,
   padding: `1rem !important`,
   color: `white !important`,
+});
+
+const StyledModal = styled(Modal)({
+  root: { zIndex: -45 },
 });
 
 const EntryTitleInput = styled.input`
@@ -110,6 +115,7 @@ export {
   SubmitEntryButton,
   CenterButton,
   EntryTitleInput,
+  StyledModal,
   EntryInput,
   InputContainer,
   EntryWindow,

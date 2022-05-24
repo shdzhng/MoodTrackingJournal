@@ -11,15 +11,14 @@ import {
   PopUpButtonContainer,
   EntryInput,
   EntryWindow,
+  StyledModal,
 } from './PopUp.styles';
 import { addEntry } from '../journal/journalSlice';
 import { v4 as uuidv4 } from 'uuid';
 import ButtonGroup from '@mui/material/ButtonGroup';
-import LocationInput from './LocationInput';
-import TextField from '@mui/material/TextField';
 import { OpenStreetMapProvider } from 'leaflet-geosearch';
-import { Autocomplete } from '@mui/material';
-import { Box } from '@mui/material';
+import SearchBar from './LocationInput';
+import { Autocomplete } from '@react-google-maps/api';
 
 const feelingList = [
   { key: 'loved', label: 'Loved', variant: 'loved' },
@@ -34,15 +33,55 @@ export default function EntryPopUp() {
   const dispatch = useDispatch();
   const entryContentRef = useRef('');
   const entryTitleRef = useRef('');
-  const entryLocationRef = useRef('');
-  const provider = new OpenStreetMapProvider();
-
   const [feeling, setFeeling] = useState('');
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [open, setOpen] = React.useState(false);
-  const [geoSearchResult, setGeoSearchResult] = useState([]);
   const [selectedLocation, setSelectedLocation] = useState({});
+
+  //////
+
+  const handleAddressInputChange = useCallback(async (e) => {
+    e.preventDefault();
+    // const results = await provider.search({ query: e.target.value });
+    // await setGeoSearchResult(results);
+  }, []);
+
+  const handleAddressChange = useCallback((e) => {
+    e.preventDefault();
+    const newSelectedLocation = JSON.parse(e.target.getAttribute('value'));
+    setSelectedLocation(newSelectedLocation);
+    // setGeoSearchResult([]);
+  }, []);
+
+  const input = document.getElementById('input');
+  const options = {
+    componentRestrictions: { country: 'us' },
+    fields: ['address_components', 'geometry', 'icon', 'name'],
+  };
+  const autocomplete = new window.google.maps.places.Autocomplete(
+    input,
+    options
+  );
+
+  const handleGetCurrentLocation = (e) => {
+    e.preventDefault();
+    const locationInputElement = document.getElementById('input');
+    navigator.geolocation.getCurrentPosition((position) => {
+      const KEY = 'AIzaSyAKdW7KHxurf0MqG2goZ9d1Z01Sefs6Uck';
+      const LAT = position.coords.latitude;
+      const LNG = position.coords.longitude;
+      let url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${LAT},${LNG}&key=${KEY}`;
+
+      fetch(url)
+        .then((response) => response.json())
+        .then((data) => {
+          locationInputElement.value = data.results[0].formatted_address;
+          setSelectedLocation(data);
+        });
+    });
+  };
+  /////////
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -59,7 +98,7 @@ export default function EntryPopUp() {
       name: title,
       feeling,
       date,
-      location: selectedLocation,
+      location: selectedLocation.results[0],
     };
     setTitle(null);
     setContent(null);
@@ -78,24 +117,6 @@ export default function EntryPopUp() {
   const handleTitleChange = useCallback(({ target }) => {
     setTitle(target.value);
   });
-
-  useEffect(() => {
-    console.log(geoSearchResult);
-  }, [geoSearchResult]);
-
-  ///geo-searching
-  const handleAddressInputChange = useCallback(async (e) => {
-    e.preventDefault();
-    const results = await provider.search({ query: e.target.value });
-    await setGeoSearchResult(results);
-  }, []);
-
-  const handleAddressChange = useCallback((e) => {
-    e.preventDefault();
-    const newSelectedLocation = JSON.parse(e.target.getAttribute('value'));
-    setSelectedLocation(newSelectedLocation);
-    setGeoSearchResult([]);
-  }, []);
 
   const disableButtonCheck = !feeling || !title || !content ? false : true;
 
@@ -120,7 +141,7 @@ export default function EntryPopUp() {
         <PopUpButton onClick={handleOpen}>Add New Entry</PopUpButton>
       </PopUpButtonContainer>
 
-      <Modal open={open} onClose={handleClose}>
+      <StyledModal open={open} onClose={handleClose}>
         <EntryWindow>
           <InputContainer>
             <EntryTitleInput
@@ -135,45 +156,14 @@ export default function EntryPopUp() {
               type="textarea"
               placeholder="A Journal of a Thousand Entries Begins with a Single Word"
             />
-
-            <LocationInput></LocationInput>
-
-            {/* <Autocomplete
-              disablePortal
-              id="locationInput"
-              sx={{ width: 300 }}
-              freeSolo={true}
-              options={geoSearchResult.filter((location, i) => {
-                if (i < 4) return location;
-              })}
-              open={true}
-              onInputChange={(e) => handleAddressInputChange(e)}
-              onChange={handleAddressChange}
-              renderInput={(params) => <TextField {...params} />}
-              limitTags={3}
-              noOptionsText="none"
-              renderOption={(props, option) => {
-                return (
-                  <li {...props} value={JSON.stringify(option)} key={option.x}>
-                    {option.label}
-                  </li>
-                );
-              }}
-            /> */}
-
+            <input id="input"></input>
             <button
-              onClick={() => {
-                const locationInputElement =
-                  document.getElementById('locationInput');
-                navigator.geolocation.getCurrentPosition((position) => {
-                  console.dir(locationInputElement);
-                  locationInputElement.value = position.timestamp;
-                });
+              onClick={(e) => {
+                handleGetCurrentLocation(e);
               }}
             >
-              hello
+              Use My Location
             </button>
-
             <ButtonGroup variant="contained" sx={{ my: 2 }}>
               {feelingList.map((item) => {
                 return renderFeelingButtons(item);
@@ -194,7 +184,7 @@ export default function EntryPopUp() {
             </CenterButton>
           </InputContainer>
         </EntryWindow>
-      </Modal>
+      </StyledModal>
     </div>
   );
 }

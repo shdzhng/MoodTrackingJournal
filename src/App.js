@@ -5,9 +5,16 @@ import { importEntries } from './features/journal/journalSlice';
 import GlobalStyles from './Global.styles';
 import JournalView from './views/JournalView';
 import AnalyticView from './views/AnalyticsView';
+import { Loader } from '@googlemaps/js-api-loader';
 import { GoogleApiWrapper } from 'google-maps-react';
 
 const LOCAL_STORAGE_KEY = 'todoApp.todos';
+
+const loader = new Loader({
+  apiKey: 'AIzaSyAKdW7KHxurf0MqG2goZ9d1Z01Sefs6Uck',
+  version: 'weekly',
+  libraries: ['places'],
+}).load();
 
 function App() {
   const todoList = useSelector((state) => state.journal.entries);
@@ -33,4 +40,6 @@ function App() {
   );
 }
 
-export default App;
+export default GoogleApiWrapper({
+  apiKey: 'AIzaSyAKdW7KHxurf0MqG2goZ9d1Z01Sefs6Uck',
+})(App);
