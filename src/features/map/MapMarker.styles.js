@@ -3,6 +3,14 @@ import colors from '../../constants/Colors';
 
 const InfoWindowText = styled.p`
   color: ${colors.blue1};
+  overflow-wrap: break-all;
+  word-wrap: break-all;
+  -ms-word-break: break-all;
+  word-break: break-all;
+  -ms-hyphens: auto;
+  -moz-hyphens: auto;
+  -webkit-hyphens: auto;
+  hyphens: auto;
 `;
 
 const InfoWindowTitle = styled.p`
@@ -10,6 +18,14 @@ const InfoWindowTitle = styled.p`
   font-size: 1.25rem;
   font-weight: 600;
   margin: 0;
+  overflow-wrap: break-all;
+  word-wrap: break-all;
+  -ms-word-break: break-all;
+  word-break: break-all;
+  -ms-hyphens: auto;
+  -moz-hyphens: auto;
+  -webkit-hyphens: auto;
+  hyphens: auto;
 `;
 
 const InfoWindowDate = styled.p`
