@@ -7,6 +7,8 @@ import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import BarChart from '../features/analytics/BarChart';
+import LineChart from '../features/analytics/LineChart';
+import colors from '../constants/Colors';
 
 function AnalyticView() {
   const Item = styled(Paper)(({ theme }) => ({
@@ -22,15 +24,12 @@ function AnalyticView() {
       <NavigationBar />
 
       <Box sx={{ flexGrow: 1, mx: '3rem', my: '2rem' }}>
-        <Grid container spacing={2}>
-          <Grid item xs={4}>
+        <Grid container spacing={3}>
+          <Grid item xs={5} sx={{ height: 250 }}>
             <BarChart />
           </Grid>
-          <Grid item xs={4}>
-            <Item>PLACEHOLDER</Item>
-          </Grid>
-          <Grid item xs={4}>
-            <Item>PLACEHOLDER</Item>
+          <Grid item xs={7} sx={{ height: 250 }}>
+            <LineChart />
           </Grid>
           <Grid item xs={12}>
             <GoogleMap />

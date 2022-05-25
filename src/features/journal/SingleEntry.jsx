@@ -8,9 +8,11 @@ import {
   ButtonContainer,
 } from './Journal.style';
 import { useDispatch } from 'react-redux';
+
 import DeleteIcon from '@mui/icons-material/Delete';
 import { removeEntry } from '../journal/journalSlice';
 import EditPopUp from '../popUp/EditPopUp';
+import moment from 'moment';
 
 export default function SingleEntryCard({ entry }) {
   const dispatch = useDispatch();
@@ -21,11 +23,7 @@ export default function SingleEntryCard({ entry }) {
   return (
     <EntryContainer>
       <EntryName variant={entry.feeling}>{entry.name}</EntryName>
-      <EntryDate>posted on: {entry.date.split(', ')[0]}</EntryDate>
-      {entry.editDate ? (
-        <EntryDate>last edited on: {entry.editDate.split(', ')[0]}</EntryDate>
-      ) : null}
-
+      <EntryDate>posted on: {entry.date.split(',')[0]}</EntryDate>
       <Entry>{entry.entry}</Entry>
       <FeelingBubble variant={entry.feeling}> </FeelingBubble>
       <Entry>

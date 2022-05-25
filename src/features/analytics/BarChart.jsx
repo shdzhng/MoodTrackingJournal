@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useSelector } from 'react-redux';
+import colors from '../../constants/Colors';
 
 import {
   Chart as ChartJS,
@@ -33,46 +34,35 @@ let emotionCounter = {
 export default function BarChart() {
   const entries = useSelector(({ journal }) => journal.entries);
 
-  const fetchEmotionData = useCallback(() => {
-    entries.forEach((entry) => {
-      emotionCounter[entry.feeling] += 1;
-    });
-  }, []);
-
-  fetchEmotionData();
-
-  const [chartData, setChartData] = useState({
-    datasets: [],
+  entries.forEach((entry) => {
+    emotionCounter[entry.feeling] += 1;
   });
 
-  const [chartOptions, setChartOptions] = useState({});
+  return (
+    <Bar
+      data={{
+        labels: Object.keys(emotionCounter),
+        datasets: [
+          {
+            data: Object.values(emotionCounter),
+            borderColor: Object.values(colors.variantMap),
+            backgroundColor: Object.values(colors.variantMap),
+            borderWidth: 1,
+          },
+        ],
+      }}
+      options={{
+        plugins: {
+          responsive: true,
+          maintainAspectRatio: false,
+          offset: true,
 
-  useEffect(() => {
-    setChartData({
-      labels: Object.keys(emotionCounter),
-      datasets: [
-        {
-          label: 'Emotion Count',
-          data: Object.values(emotionCounter),
-          borderColor: 'rgb(53,162,235)',
-          backgroundColor: `rgba(53,162,234,0.4)`,
+          legend: {
+            display: false,
+          },
         },
-      ],
-    });
-
-    setChartOptions({
-      responsive: true,
-      plugins: {
-        legends: {
-          position: 'top',
-        },
-        title: {
-          display: true,
-          text: 'Emotion Count',
-        },
-      },
-    });
-  }, []);
-
-  return <Bar options={chartOptions} data={chartData} />;
+        maintainAspectRatio: false,
+      }}
+    />
+  );
 }
