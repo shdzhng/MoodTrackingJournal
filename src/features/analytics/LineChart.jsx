@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import colors from '../../constants/Colors';
+import moment from 'moment';
 
 import {
   Chart as ChartJS,
@@ -24,60 +25,77 @@ ChartJS.register(
   PointElement
 );
 
-let emotionCounter = {
-  loved: 0,
-  happy: 0,
-  calm: 0,
-  sad: 0,
-  anxious: 0,
-  angry: 0,
-};
-
-let monthCounter = {
-  January: 0,
-  February: 0,
-  March: 0,
-  April: 0,
-  May: 0,
-  June: 0,
-  July: 0,
-  August: 0,
-  September: 0,
-  October: 0,
-  November: 0,
-  December: 0,
-};
-
-const MONTHS = [
-  'June',
-  'July',
-  'August',
-  'September',
-  'October',
-  'November',
-  'December',
-];
-
 export default function LineChart() {
   const entries = useSelector(({ journal }) => journal.entries);
+  const records = {};
 
-  const calculateData = (entries) => {
+  const invertData = (entries) => {
     entries.forEach((entry) => {
-      emotionCounter[entry.feeling] += 1;
-    });
-
-    entries.forEach((entry) => {
-      const monthOfEntry = entry.date.split(',')[0].split(' ')[0];
-      monthCounter[monthOfEntry] += 1;
+      const monthOfEntry = moment(entry.date).format('M');
+      const yearOfEntry = moment(entry.date).format('YYYY');
+      const feeling = entry.feeling;
+      if (!records[feeling]) records[feeling] = {};
+      if (!records[feeling][yearOfEntry]) records[feeling][yearOfEntry] = {};
+      if (!records[feeling][yearOfEntry][monthOfEntry])
+        records[feeling][yearOfEntry][monthOfEntry] = 0;
+      records[feeling][yearOfEntry][monthOfEntry]++;
     });
   };
 
-  calculateData(entries);
+  const formatData = (entries) => {
+    entries.forEach((entry) => {
+      const monthOfEntry = entry.date.split('/')[0];
+      const yearOfEntry = entry.date.split('/')[2];
+      const feeling = entry.feeling;
+
+      if (!records[yearOfEntry]) records[yearOfEntry] = {};
+      if (!records[yearOfEntry][monthOfEntry]) {
+        records[yearOfEntry][monthOfEntry] = {
+          loved: 0,
+          happy: 0,
+          calm: 0,
+          sad: 0,
+          anxious: 0,
+          angry: 0,
+        };
+      }
+
+      records[yearOfEntry][monthOfEntry][feeling]++;
+    });
+
+    Object.keys(records).map((year) => {
+      Object.keys(records[year]).map((month) => {
+        records[year][month].cumulative = 0;
+        Object.values(records[year][month]).forEach(
+          (count) => (records[year][month].cumulative += count)
+        );
+      });
+    });
+  };
+
+  invertData(entries);
+  // console.log(Object.valuesrecords.loved[2022]);
+  // formatData(entries);
+  // need to fix display months, to make it adaptive to current month.. maybe show up to 6 months at a time?
+  //need to find out how to connect the monthly count with each feeling
 
   return (
     <Line
       data={{
-        labels: MONTHS,
+        labels: [
+          'January',
+          'February',
+          'March',
+          'April',
+          'May',
+          'June',
+          'July',
+          'August',
+          'September',
+          'October',
+          'November',
+          'December',
+        ],
         datasets: [
           {
             label: 'Loved',

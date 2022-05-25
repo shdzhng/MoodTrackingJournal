@@ -10,11 +10,11 @@ import { GoogleApiWrapper } from 'google-maps-react';
 
 const LOCAL_STORAGE_KEY = 'todoApp.todos';
 
-const loader = new Loader({
-  apiKey: 'AIzaSyAKdW7KHxurf0MqG2goZ9d1Z01Sefs6Uck',
-  version: 'weekly',
-  libraries: ['places'],
-}).load();
+// const loader = new Loader({
+//   apiKey: 'AIzaSyAKdW7KHxurf0MqG2goZ9d1Z01Sefs6Uck',
+//   version: 'weekly',
+//   libraries: ['places'],
+// }).load();
 
 function App() {
   const todoList = useSelector((state) => state.journal.entries);

@@ -82,7 +82,8 @@ export default function EntryPopUp() {
   const handleSubmit = useCallback(async (e) => {
     e.preventDefault();
 
-    const date = moment().format('MMMM Do YYYY, h:mm:ss a');
+    const date = Date.now();
+
     const geoLocationInfo = await getGeocode(locationRef.current.value);
 
     const newEntry = {

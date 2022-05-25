@@ -20,10 +20,12 @@ export default function SingleEntryCard({ entry }) {
     dispatch(removeEntry(entry));
   };
 
+  const formattedDate = moment(entry.date).format('MMM Do YYYY');
+
   return (
     <EntryContainer>
       <EntryName variant={entry.feeling}>{entry.name}</EntryName>
-      <EntryDate>posted on: {entry.date.split(',')[0]}</EntryDate>
+      <EntryDate>posted on: {formattedDate}</EntryDate>
       <Entry>{entry.entry}</Entry>
       <FeelingBubble variant={entry.feeling}> </FeelingBubble>
       <Entry>
