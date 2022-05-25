@@ -40,17 +40,21 @@ export default function EntryPopUp() {
   const [content, setContent] = useState('');
   const [open, setOpen] = React.useState(false);
   const [inputRendered, setInputRendered] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   const locationInput = document.getElementById('locationInput');
-  const options = {
-    componentRestrictions: { country: 'us' },
-    fields: ['address_components', 'geometry', 'icon', 'name'],
-  };
 
-  const autocomplete = new window.google.maps.places.Autocomplete(
-    locationInput,
-    options
-  );
+  useEffect(() => {
+    const options = {
+      componentRestrictions: { country: 'us' },
+      fields: ['address_components', 'geometry', 'icon', 'name'],
+    };
+    const autocomplete = new window.google.maps.places.Autocomplete(
+      locationInput,
+      options
+    );
+  }, [inputRendered]);
 
   const handleGetCurrentLocation = (e) => {
     e.preventDefault();
@@ -60,7 +64,6 @@ export default function EntryPopUp() {
       const LNG = position.coords.longitude;
       let url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${LAT},${LNG}&key=${KEY}`;
 
-      console.log();
       fetch(url)
         .then((response) => response.json())
         .then((data) => {
@@ -70,24 +73,19 @@ export default function EntryPopUp() {
   };
 
   const geocoder = new window.google.maps.Geocoder();
-
   const getGeocode = async (address) => {
     return await geocoder.geocode({ address });
   };
 
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
-
   const handleSubmit = useCallback(async (e) => {
     e.preventDefault();
-    const date = Date.now();
     const geoLocationInfo = await getGeocode(locationRef.current.value);
     const newEntry = {
       id: uuidv4(),
       entry: content,
       name: title,
       feeling,
-      date,
+      date: Date.now(),
       location: JSON.stringify(geoLocationInfo.results[0]),
     };
 
