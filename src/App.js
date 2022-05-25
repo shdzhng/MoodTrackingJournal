@@ -8,7 +8,7 @@ import AnalyticView from './views/AnalyticsView';
 import { Loader } from '@googlemaps/js-api-loader';
 import { GoogleApiWrapper } from 'google-maps-react';
 
-const LOCAL_STORAGE_KEY = 'todoApp.todos';
+const LOCAL_STORAGE_KEY = 'journal.entries';
 
 // const loader = new Loader({
 //   apiKey: 'AIzaSyAKdW7KHxurf0MqG2goZ9d1Z01Sefs6Uck',

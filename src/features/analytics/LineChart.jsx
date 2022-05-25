@@ -31,8 +31,8 @@ export default function LineChart() {
 
   const invertData = (entries) => {
     entries.forEach((entry) => {
-      const monthOfEntry = moment(entry.date).format('M');
-      const yearOfEntry = moment(entry.date).format('YYYY');
+      const monthOfEntry = moment.unix(entry.date).format('M');
+      const yearOfEntry = moment.unix(entry.date).format('YYYY');
       const feeling = entry.feeling;
       if (!records[feeling]) records[feeling] = {};
       if (!records[feeling][yearOfEntry]) records[feeling][yearOfEntry] = {};
@@ -41,6 +41,9 @@ export default function LineChart() {
       records[feeling][yearOfEntry][monthOfEntry]++;
     });
   };
+
+  invertData(entries);
+  console.log(Object.values(records.loved[2022]));
 
   const formatData = (entries) => {
     entries.forEach((entry) => {
@@ -73,7 +76,6 @@ export default function LineChart() {
     });
   };
 
-  invertData(entries);
   // console.log(Object.valuesrecords.loved[2022]);
   // formatData(entries);
   // need to fix display months, to make it adaptive to current month.. maybe show up to 6 months at a time?
@@ -99,37 +101,37 @@ export default function LineChart() {
         datasets: [
           {
             label: 'Loved',
-            data: [0, 3, 5, 6, 3, 6, 7],
+            data: Object.values(records.loved[2022]),
             backgroundColor: colors.variantMap.loved,
             borderColor: `${colors.variantMap.loved}50`,
           },
           {
             label: 'Happy',
-            data: [3, 2, 3, 5, 7, 3, 2],
+            data: Object.values(records.happy[2022]),
             backgroundColor: colors.variantMap.happy,
             borderColor: `${colors.variantMap.happy}50`,
           },
           {
             label: 'Calm',
-            data: [9, 2, 4, 5, 7, 4, 5],
+            data: Object.values(records.calm[2022]),
             backgroundColor: colors.variantMap.calm,
             borderColor: `${colors.variantMap.calm}50`,
           },
           {
             label: 'Sad',
-            data: [8, 2, 3, 5, 6, 2, 1],
+            data: Object.values(records.sad[2022]),
             backgroundColor: colors.variantMap.sad,
             borderColor: `${colors.variantMap.sad}50`,
           },
           {
             label: 'Anxious',
-            data: [9, 8, 9, 6, 8, 9, 6],
+            data: Object.values(records.anxious[2022]),
             backgroundColor: colors.variantMap.anxious,
             borderColor: `${colors.variantMap.anxious}50`,
           },
           {
             label: 'Angry',
-            data: [1, 2, 3, 4, 1, 3, 2],
+            data: Object.values(records.angry[2022]),
             backgroundColor: colors.variantMap.angry,
             borderColor: `${colors.variantMap.angry}50`,
           },

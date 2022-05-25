@@ -20,8 +20,7 @@ export default function SingleEntryCard({ entry }) {
     dispatch(removeEntry(entry));
   };
 
-  const formattedDate = moment(entry.date).format('MMM Do YYYY');
-
+  const formattedDate = moment.unix(entry.date).format('MMM Do YYYY');
   return (
     <EntryContainer>
       <EntryName variant={entry.feeling}>{entry.name}</EntryName>
