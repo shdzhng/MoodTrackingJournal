@@ -22,7 +22,6 @@ function AnalyticView() {
   return (
     <>
       <NavigationBar />
-
       <Box sx={{ flexGrow: 1, mx: '3rem', my: '2rem' }}>
         <Grid container spacing={3}>
           <Grid item xs={5} sx={{ height: 250 }}>

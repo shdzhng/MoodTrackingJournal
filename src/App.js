@@ -8,26 +8,19 @@ import AnalyticView from './views/AnalyticsView';
 import { Loader } from '@googlemaps/js-api-loader';
 import { GoogleApiWrapper } from 'google-maps-react';
 
-const LOCAL_STORAGE_KEY = 'journal.entries';
-
-// const loader = new Loader({
-//   apiKey: 'AIzaSyAKdW7KHxurf0MqG2goZ9d1Z01Sefs6Uck',
-//   version: 'weekly',
-//   libraries: ['places'],
-// }).load();
-
 function App() {
-  const todoList = useSelector((state) => state.journal.entries);
+  const LOCAL_STORAGE_KEY = 'journal.entries';
+  const entries = useSelector((state) => state.journal.entries);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const storedTodoList = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
-    dispatch(importEntries(storedTodoList));
+    const storedEntries = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
+    dispatch(importEntries(storedEntries));
   }, []);
 
   useEffect(() => {
-    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(todoList));
-  }, [todoList]);
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(entries));
+  }, [entries]);
 
   return (
     <Router>

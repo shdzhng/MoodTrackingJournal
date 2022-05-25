@@ -23,22 +23,9 @@ ChartJS.register(
   Legend
 );
 
-let emotionCounter = {
-  loved: 0,
-  happy: 0,
-  calm: 0,
-  sad: 0,
-  anxious: 0,
-  angry: 0,
-};
-
 export default function BarChart() {
+  const [selectedYear, setSelectedYear] = useState(2022);
   const entries = useSelector(({ journal }) => journal.entries);
-  const selectedYear = 2022;
-
-  entries.forEach((entry) => {
-    emotionCounter[entry.feeling] += 1;
-  });
 
   const records = {};
 
@@ -57,6 +44,12 @@ export default function BarChart() {
   };
 
   formatData(entries);
+
+  if (Object.keys(records).length < 1) {
+    console.log('BAR GRAPH cant find record');
+    console.log(Object.keys(records));
+    return <p>can't find data</p>;
+  }
 
   return (
     <Bar

@@ -12,6 +12,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { IconButtonStyled, ButtonContainer } from '../../journal/Journal.style';
 import { useDispatch } from 'react-redux';
 import { removeEntry } from '../../journal/journalSlice';
+import moment from 'moment';
 
 export default function MapMarker({ entry }) {
   const dispatch = useDispatch();
@@ -24,7 +25,7 @@ export default function MapMarker({ entry }) {
     scale: 0.5,
     anchor: new window.google.maps.Point(15, 30),
   };
-
+  const formattedDate = moment.unix(entry.date).format('MMM Do YYYY');
   const [showInfoWindow, setShowInfoWindow] = useState(false);
 
   const { lat, lng } = JSON.parse(entry.location).geometry.location;
@@ -63,7 +64,7 @@ export default function MapMarker({ entry }) {
           >
             <div>
               <InfoWindowTitle>{entry.name}</InfoWindowTitle>
-              <InfoWindowDate>{entry.date.split(',')[0]}</InfoWindowDate>
+              <InfoWindowDate>Posted on: {formattedDate}</InfoWindowDate>
               <InfoWindowText>{entry.entry}</InfoWindowText>
               <ButtonContainer>
                 <EditPopUp entry={entry}></EditPopUp>

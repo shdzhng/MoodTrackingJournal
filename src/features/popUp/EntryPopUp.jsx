@@ -11,7 +11,6 @@ import {
   AddressContainer,
   PopUpButtonContainer,
   EntryInput,
-  AddressInput,
   EntryWindow,
 } from './PopUp.styles';
 import { addEntry } from '../journal/journalSlice';
@@ -40,32 +39,32 @@ export default function EntryPopUp() {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [open, setOpen] = React.useState(false);
+  const [inputRendered, setInputRendered] = React.useState(false);
 
-  //////
-
-  const input = document.getElementById('input');
+  const locationInput = document.getElementById('locationInput');
   const options = {
     componentRestrictions: { country: 'us' },
     fields: ['address_components', 'geometry', 'icon', 'name'],
   };
+
   const autocomplete = new window.google.maps.places.Autocomplete(
-    input,
+    locationInput,
     options
   );
 
   const handleGetCurrentLocation = (e) => {
     e.preventDefault();
-    const locationInputElement = document.getElementById('input');
     navigator.geolocation.getCurrentPosition((position) => {
       const KEY = 'AIzaSyAKdW7KHxurf0MqG2goZ9d1Z01Sefs6Uck';
       const LAT = position.coords.latitude;
       const LNG = position.coords.longitude;
       let url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${LAT},${LNG}&key=${KEY}`;
 
+      console.log();
       fetch(url)
         .then((response) => response.json())
         .then((data) => {
-          locationInputElement.value = data.results[0].formatted_address;
+          locationInput.value = data.results[0].formatted_address;
         });
     });
   };
@@ -81,11 +80,8 @@ export default function EntryPopUp() {
 
   const handleSubmit = useCallback(async (e) => {
     e.preventDefault();
-
     const date = Date.now();
-
     const geoLocationInfo = await getGeocode(locationRef.current.value);
-
     const newEntry = {
       id: uuidv4(),
       entry: content,
@@ -152,7 +148,14 @@ export default function EntryPopUp() {
               placeholder="A Journal of a Thousand Entries Begins with a Single Word"
             />
             <AddressContainer>
-              <input id="input" ref={locationRef}></input>
+              <input
+                id="locationInput"
+                ref={locationRef}
+                onFocus={() => {
+                  setInputRendered(true);
+                }}
+                placeholder="Enter a Location"
+              ></input>
               <IconButton
                 aria-label="use my location"
                 onClick={(e) => {

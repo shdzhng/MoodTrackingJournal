@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import colors from '../../constants/Colors';
 import feelingsEnums from '../../constants/months';
@@ -29,8 +29,9 @@ ChartJS.register(
 
 export default function LineChart() {
   const entries = useSelector(({ journal }) => journal.entries);
-  const records = {};
   const selectedYear = 2022;
+
+  const records = {};
 
   const formatData = (entries) => {
     entries.forEach((entry) => {
@@ -51,6 +52,11 @@ export default function LineChart() {
   // need to fix display months, to make it adaptive to current month.. maybe show up to 6 months at a time?
   //need to find out how to connect the monthly count with each feeling
 
+  if (Object.keys(records).length < 1) {
+    console.log('LINE GRAPH cant find record');
+    console.log(Object.keys(records));
+    return <p>can't find data</p>;
+  }
   return (
     <Line
       data={{
