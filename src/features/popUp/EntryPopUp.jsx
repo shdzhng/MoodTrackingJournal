@@ -11,7 +11,6 @@ import {
   AddressContainer,
   PopUpButtonContainer,
   EntryInput,
-  AddressInput,
   EntryWindow,
 } from './PopUp.styles';
 import { addEntry } from '../journal/journalSlice';
@@ -40,22 +39,25 @@ export default function EntryPopUp() {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [open, setOpen] = React.useState(false);
+  const [inputRendered, setInputRendered] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
-  //////
+  const locationInput = document.getElementById('locationInput');
 
-  const input = document.getElementById('input');
-  const options = {
-    componentRestrictions: { country: 'us' },
-    fields: ['address_components', 'geometry', 'icon', 'name'],
-  };
-  const autocomplete = new window.google.maps.places.Autocomplete(
-    input,
-    options
-  );
+  useEffect(() => {
+    const options = {
+      componentRestrictions: { country: 'us' },
+      fields: ['address_components', 'geometry', 'icon', 'name'],
+    };
+    const autocomplete = new window.google.maps.places.Autocomplete(
+      locationInput,
+      options
+    );
+  }, [inputRendered]);
 
   const handleGetCurrentLocation = (e) => {
     e.preventDefault();
-    const locationInputElement = document.getElementById('input');
     navigator.geolocation.getCurrentPosition((position) => {
       const KEY = 'AIzaSyAKdW7KHxurf0MqG2goZ9d1Z01Sefs6Uck';
       const LAT = position.coords.latitude;
@@ -65,33 +67,25 @@ export default function EntryPopUp() {
       fetch(url)
         .then((response) => response.json())
         .then((data) => {
-          locationInputElement.value = data.results[0].formatted_address;
+          locationInput.value = data.results[0].formatted_address;
         });
     });
   };
 
   const geocoder = new window.google.maps.Geocoder();
-
   const getGeocode = async (address) => {
     return await geocoder.geocode({ address });
   };
 
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
-
   const handleSubmit = useCallback(async (e) => {
     e.preventDefault();
-
-    const date = Date.now();
-
     const geoLocationInfo = await getGeocode(locationRef.current.value);
-
     const newEntry = {
       id: uuidv4(),
       entry: content,
       name: title,
       feeling,
-      date,
+      date: Date.now(),
       location: JSON.stringify(geoLocationInfo.results[0]),
     };
 
@@ -152,7 +146,14 @@ export default function EntryPopUp() {
               placeholder="A Journal of a Thousand Entries Begins with a Single Word"
             />
             <AddressContainer>
-              <input id="input" ref={locationRef}></input>
+              <input
+                id="locationInput"
+                ref={locationRef}
+                onFocus={() => {
+                  setInputRendered(true);
+                }}
+                placeholder="Enter a Location"
+              ></input>
               <IconButton
                 aria-label="use my location"
                 onClick={(e) => {

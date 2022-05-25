@@ -53,10 +53,10 @@ const EntryInput = styled.textarea`
   margin: 0.5rem auto;
   width: 100%;
   height: 80%;
+  resize: none;
   word-wrap: break-word;
   word-break: break-all;
   font-size: 1rem;
-  resize: vertical;
   &:focus-visible {
     outline: 1px double ${colors.orange2};
     color: ${colors.blue1};
