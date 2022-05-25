@@ -33,6 +33,21 @@ let emotionCounter = {
   angry: 0,
 };
 
+let monthCounter = {
+  January: 0,
+  February: 0,
+  March: 0,
+  April: 0,
+  May: 0,
+  June: 0,
+  July: 0,
+  August: 0,
+  September: 0,
+  October: 0,
+  November: 0,
+  December: 0,
+};
+
 const MONTHS = [
   'June',
   'July',
@@ -45,9 +60,19 @@ const MONTHS = [
 
 export default function LineChart() {
   const entries = useSelector(({ journal }) => journal.entries);
-  entries.forEach((entry) => {
-    emotionCounter[entry.feeling] += 1;
-  });
+
+  const calculateData = (entries) => {
+    entries.forEach((entry) => {
+      emotionCounter[entry.feeling] += 1;
+    });
+
+    entries.forEach((entry) => {
+      const monthOfEntry = entry.date.split(',')[0].split(' ')[0];
+      monthCounter[monthOfEntry] += 1;
+    });
+  };
+
+  calculateData(entries);
 
   return (
     <Line
