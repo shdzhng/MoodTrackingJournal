@@ -1,8 +1,10 @@
 import React from 'react';
-import mapStyles from './Map.styles';
 import { useSelector } from 'react-redux';
+
+import mapStyles from './Map.styles';
 import MapMarker from './MapMarker';
 import { GoogleMap, Marker, InfoWindow } from '@react-google-maps/api';
+import colors from '../../../constants/Colors';
 
 const MapComponent = () => {
   const options = {
@@ -15,9 +17,10 @@ const MapComponent = () => {
   const entries = useSelector(({ journal }) => journal.entries);
 
   const containerStyle = {
-    width: '75vw',
-    height: '75vh',
-    margin: '2rem auto 0 auto',
+    width: '100%',
+    height: '50vh',
+    margin: '0 auto',
+    border: `1px solid ${colors.blue2}`,
   };
 
   const startLocation = {

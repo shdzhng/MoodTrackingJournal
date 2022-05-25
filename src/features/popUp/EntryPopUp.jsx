@@ -20,6 +20,7 @@ import ButtonGroup from '@mui/material/ButtonGroup';
 import { Autocomplete } from '@react-google-maps/api';
 import GpsFixedIcon from '@mui/icons-material/GpsFixed';
 import IconButton from '@mui/material/IconButton';
+import moment from 'moment';
 
 const feelingList = [
   { key: 'loved', label: 'Loved', variant: 'loved' },
@@ -81,7 +82,8 @@ export default function EntryPopUp() {
   const handleSubmit = useCallback(async (e) => {
     e.preventDefault();
 
-    const date = new Date().toLocaleString();
+    const date = Date.now();
+
     const geoLocationInfo = await getGeocode(locationRef.current.value);
 
     const newEntry = {
