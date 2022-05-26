@@ -16,6 +16,7 @@ import {
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
 import { months, monthsObj } from '../../constants/months';
+import CircularProgress from '@mui/material/CircularProgress';
 
 ChartJS.register(
   CategoryScale,
@@ -29,6 +30,7 @@ ChartJS.register(
 
 export default function LineChart() {
   const entries = useSelector(({ journal }) => journal.entries);
+
   const selectedYear = '2022';
 
   const records = {};
@@ -56,8 +58,9 @@ export default function LineChart() {
   //need to find out how to connect the monthly count with each feeling
 
   if (Object.keys(records).length < 1) {
-    return <p>can't find data</p>;
+    return <CircularProgress></CircularProgress>;
   }
+
   return (
     <Line
       data={{
@@ -104,8 +107,12 @@ export default function LineChart() {
       options={{
         plugins: {
           responsive: true,
+          maintainAspectRatio: false,
+          title: {
+            display: true,
+            text: 'Trends',
+          },
           legend: {
-            // display: false,
             position: 'top',
           },
         },

@@ -13,6 +13,7 @@ import {
 } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
 import { months } from '../../constants/months';
+import CircularProgress from '@mui/material/CircularProgress';
 
 ChartJS.register(
   CategoryScale,
@@ -54,7 +55,7 @@ export default function BarChart() {
   formatData(entries);
 
   if (Object.keys(records).length < 1) {
-    return <p>can't find data</p>;
+    return <CircularProgress />;
   }
 
   return (
@@ -107,6 +108,10 @@ export default function BarChart() {
           responsive: true,
           maintainAspectRatio: false,
           offset: true,
+          title: {
+            display: true,
+            text: 'Mood by Month',
+          },
           legend: {
             display: true,
           },

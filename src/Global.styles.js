@@ -36,6 +36,17 @@ const GlobalStyle = createGlobalStyle`
 .relativeContainer{
   position: relative;
 }
+
+.greenhighlight{
+  color:green;
+  font-weight: 500;
+text-decoration: underline;
+}
+
+.redhighlight{
+  color:red;
+}
+
 `;
 
 export default GlobalStyle;
