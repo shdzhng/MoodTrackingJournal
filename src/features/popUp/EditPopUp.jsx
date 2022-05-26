@@ -1,4 +1,4 @@
-import React, { useRef, useCallback } from 'react';
+import React, { useRef, useEffect, useCallback, useState } from 'react';
 import Modal from '@mui/material/Modal';
 import { useDispatch } from 'react-redux';
 import {
@@ -10,38 +10,42 @@ import {
   EntryWindow,
 } from './PopUp.styles';
 import { IconButtonStyled } from '../journal/Journal.style';
-import { updateEntry } from '../journal/journalSlice';
+import { addEntry } from '../journal/journalSlice';
 import EditIcon from '@mui/icons-material/Edit';
 import colors from '../../constants/Colors';
+import FeelingButtons from './FeelingButtons';
 
-export default function EditPopUp({ entry }) {
+export default function EditPopUp({ entry, handleMarkerRemove }) {
   const dispatch = useDispatch();
-  const entryContent = useRef('');
-  const todoNameRef = useRef('');
+  const entryContentRef = useRef('');
+  const entryTitleRef = useRef('');
   const [open, setOpen] = React.useState(false);
   const [newEntry, setNewEntry] = React.useState(entry.entry);
   const [newName, setNewName] = React.useState(entry.name);
+  const [feeling, setFeeling] = useState('');
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
+  const handleFeelingChange = (e) => {
+    const selectedFeeling = e.target.innerText.toLowerCase();
+    setFeeling(selectedFeeling);
+  };
 
   const handleSubmit = useCallback((e) => {
     e.preventDefault();
 
-    const newName = todoNameRef.current.value;
-    const newEntry = entryContent.current.value;
-    const editDate = new Date().toLocaleString();
-    entryContent.current.value = '';
-    todoNameRef.current.value = '';
-    const editedEntry = {
+    const newEntry = {
       id: entry.id,
-      entry: newEntry,
-      name: newName,
-      feeling: entry.feeling,
+      entry: entryContentRef.current.value,
+      name: entryTitleRef.current.value,
+      feeling: feeling,
       date: entry.date,
-      editDate,
       location: entry.location,
     };
-    dispatch(updateEntry(editedEntry));
+
+    dispatch(addEntry(newEntry));
+
+    if (handleMarkerRemove !== undefined) handleMarkerRemove();
   });
 
   const handleEntryChange = useCallback(({ target }) => {
@@ -67,18 +71,22 @@ export default function EditPopUp({ entry }) {
         >
           <InputContainer>
             <EntryTitleInput
-              ref={todoNameRef}
+              ref={entryTitleRef}
               onChange={handleNameChange}
               type="text"
               value={newName}
             />
             <EntryInput
-              ref={entryContent}
+              ref={entryContentRef}
               type="textarea"
               value={newEntry}
               onChange={(e) => {
                 handleEntryChange(e);
               }}
+            />
+            <FeelingButtons
+              feeling={feeling}
+              handleFeelingChange={handleFeelingChange}
             />
             <CenterButton>
               <SubmitEntryButton

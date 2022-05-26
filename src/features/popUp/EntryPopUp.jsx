@@ -20,15 +20,7 @@ import { Autocomplete } from '@react-google-maps/api';
 import GpsFixedIcon from '@mui/icons-material/GpsFixed';
 import IconButton from '@mui/material/IconButton';
 import moment from 'moment';
-
-const feelingList = [
-  { key: 'loved', label: 'Loved', variant: 'loved' },
-  { key: 'happy', label: 'Happy', variant: 'happy' },
-  { key: 'calm', label: 'Calm', variant: 'calm' },
-  { key: 'anxious', label: 'Anxious', variant: 'anxious' },
-  { key: 'sad', label: 'Sad', variant: 'sad' },
-  { key: 'angry', label: 'Angry', variant: 'angry' },
-];
+import { feelingList } from '../../constants/feelings';
 
 export default function EntryPopUp() {
   const dispatch = useDispatch();
