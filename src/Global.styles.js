@@ -40,11 +40,15 @@ const GlobalStyle = createGlobalStyle`
 .greenhighlight{
   color:green;
   font-weight: 500;
+  font-size: 1rem;
 text-decoration: underline;
 }
 
 .redhighlight{
   color:red;
+   font-weight: 500;
+     font-size: 1rem;
+text-decoration: underline;
 }
 
 `;
