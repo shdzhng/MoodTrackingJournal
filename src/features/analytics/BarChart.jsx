@@ -46,8 +46,6 @@ export default function BarChart() {
   formatData(entries);
 
   if (Object.keys(records).length < 1) {
-    console.log('BAR GRAPH cant find record');
-    console.log(Object.keys(records));
     return <p>can't find data</p>;
   }
 

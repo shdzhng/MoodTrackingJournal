@@ -5,7 +5,7 @@ import mapStyles from './Map.styles';
 import MapMarker from './MapMarker';
 import { GoogleMap, Marker, InfoWindow } from '@react-google-maps/api';
 import colors from '../../../constants/Colors';
-import MapJournalEntryMarker from './MapJournalEntryMarker';
+import MapJournalEntryMarker from '../../popUp/MapJournalEntryMarker';
 
 const options = {
   styles: mapStyles,

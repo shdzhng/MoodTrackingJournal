@@ -1,21 +1,23 @@
 import React from 'react';
 import { GoogleMap, Marker, InfoWindow } from '@react-google-maps/api';
-import { useState } from 'react';
-import colors from '../../../constants/Colors';
+import { useState, useCallback } from 'react';
+import colors from '../../constants/Colors';
 import {
   InfoWindowText,
   InfoWindowDate,
   InfoWindowTitle,
-} from './MapMarker.styles';
-import EditPopUp from '../../popUp/EditPopUp';
+} from '../analytics/map/MapMarker.styles';
+import EditPopUp from './EditPopUp';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { IconButtonStyled, ButtonContainer } from '../../journal/Journal.style';
+import { IconButtonStyled, ButtonContainer } from '../journal/Journal.style';
 import { useDispatch } from 'react-redux';
-import { removeEntry } from '../../journal/journalSlice';
 import moment from 'moment';
+import FeelingButtons from './FeelingButtons';
 
 export default function MapJournalEntryMarker({ entry, handleMarkerRemove }) {
   const dispatch = useDispatch();
+  const [feeling, setFeeling] = useState('');
+
   const [showInfoWindow, setShowInfoWindow] = useState(true);
   const svgMarker = {
     path: 'M44.5,15c0-8.271-6.729-15-15-15s-15,6.729-15,15c0,7.934,6.195,14.431,14,14.949V58c0,0.553,0.448,1,1,1s1-0.447,1-1V29.949C38.305,29.431,44.5,22.934,44.5,15z M24.5,15c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S26.706,15,24.5,15z',
@@ -38,10 +40,6 @@ export default function MapJournalEntryMarker({ entry, handleMarkerRemove }) {
     setShowInfoWindow(false);
   };
 
-  const handleRemove = (entry) => {
-    dispatch(removeEntry(entry));
-  };
-
   if (entry) {
     return (
       <Marker
@@ -62,15 +60,16 @@ export default function MapJournalEntryMarker({ entry, handleMarkerRemove }) {
           >
             <div>
               <ButtonContainer>
-                <EditPopUp entry={entry}></EditPopUp>
+                <EditPopUp
+                  entry={entry}
+                  handleMarkerRemove={handleMarkerRemove}
+                ></EditPopUp>
                 <IconButtonStyled
                   aria-label="delete"
-                  onClick={() => {
-                    handleRemove(entry);
-                  }}
                   size="small"
+                  onClick={handleMarkerRemove}
                 >
-                  <DeleteIcon onClick={handleMarkerRemove} fontSize="inherit" />
+                  <DeleteIcon fontSize="inherit" />
                 </IconButtonStyled>
               </ButtonContainer>
             </div>

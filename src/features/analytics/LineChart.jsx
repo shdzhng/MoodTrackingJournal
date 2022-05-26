@@ -53,8 +53,6 @@ export default function LineChart() {
   //need to find out how to connect the monthly count with each feeling
 
   if (Object.keys(records).length < 1) {
-    console.log('LINE GRAPH cant find record');
-    console.log(Object.keys(records));
     return <p>can't find data</p>;
   }
   return (
