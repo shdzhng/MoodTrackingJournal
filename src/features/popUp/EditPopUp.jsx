@@ -14,6 +14,7 @@ import { addEntry } from '../journal/journalSlice';
 import EditIcon from '@mui/icons-material/Edit';
 import colors from '../../constants/Colors';
 import FeelingButtons from './FeelingButtons';
+import moment from 'moment';
 
 export default function EditPopUp({ entry, handleMarkerRemove }) {
   const dispatch = useDispatch();
@@ -39,7 +40,7 @@ export default function EditPopUp({ entry, handleMarkerRemove }) {
       entry: entryContentRef.current.value,
       name: entryTitleRef.current.value,
       feeling: feeling,
-      date: entry.date,
+      date: moment().unix(),
       location: entry.location,
     };
 

@@ -50,6 +50,7 @@ export default function EntryPopUp() {
 
   const handleGetCurrentLocation = (e) => {
     e.preventDefault();
+    locationInput.value = '';
     navigator.geolocation.getCurrentPosition((position) => {
       const KEY = 'AIzaSyAKdW7KHxurf0MqG2goZ9d1Z01Sefs6Uck';
       const LAT = position.coords.latitude;
@@ -72,12 +73,14 @@ export default function EntryPopUp() {
   const handleSubmit = useCallback(async (e) => {
     e.preventDefault();
     const geoLocationInfo = await getGeocode(locationRef.current.value);
+    const date = moment().unix();
+
     const newEntry = {
       id: uuidv4(),
       entry: content,
       name: title,
       feeling,
-      date: Date.now(),
+      date,
       location: JSON.stringify(geoLocationInfo.results[0]),
     };
 

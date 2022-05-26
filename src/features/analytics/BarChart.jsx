@@ -12,7 +12,7 @@ import {
   Legend,
 } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
-import months from '../../constants/months';
+import { months } from '../../constants/months';
 
 ChartJS.register(
   CategoryScale,
@@ -27,7 +27,14 @@ export default function BarChart() {
   const [selectedYear, setSelectedYear] = useState(2022);
   const entries = useSelector(({ journal }) => journal.entries);
 
-  const records = {};
+  const records = {
+    // loved: {},
+    // happy: {},
+    // calm: {},
+    // anxious: {},
+    // sad: {},
+    // angry: {},
+  };
 
   const formatData = (entries) => {
     entries.forEach((entry) => {
@@ -35,9 +42,10 @@ export default function BarChart() {
       const yearOfEntry = moment.unix(entry.date).format('YYYY');
 
       const feeling = entry.feeling;
-      if (!records[feeling]) records[feeling] = {};
-      if (!records[feeling][yearOfEntry]) records[feeling][yearOfEntry] = {};
-      if (!records[feeling][yearOfEntry][monthOfEntry])
+      if (records[feeling] === undefined) records[feeling] = {};
+      if (records[feeling][yearOfEntry] === undefined)
+        records[feeling][yearOfEntry] = {};
+      if (records[feeling][yearOfEntry][monthOfEntry] === undefined)
         records[feeling][yearOfEntry][monthOfEntry] = 0;
       records[feeling][yearOfEntry][monthOfEntry]++;
     });

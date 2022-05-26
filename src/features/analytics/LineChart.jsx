@@ -15,7 +15,7 @@ import {
   PointElement,
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
-import months from '../../constants/months';
+import { months, monthsObj } from '../../constants/months';
 
 ChartJS.register(
   CategoryScale,
@@ -29,7 +29,7 @@ ChartJS.register(
 
 export default function LineChart() {
   const entries = useSelector(({ journal }) => journal.entries);
-  const selectedYear = 2022;
+  const selectedYear = '2022';
 
   const records = {};
 
@@ -48,6 +48,9 @@ export default function LineChart() {
   };
 
   formatData(entries);
+  console.log(records);
+
+  // the problem is that it wants to render all the emotions in a year even tho they are not there! find a way to do it better.
 
   // need to fix display months, to make it adaptive to current month.. maybe show up to 6 months at a time?
   //need to find out how to connect the monthly count with each feeling
