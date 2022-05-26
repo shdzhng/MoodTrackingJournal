@@ -24,7 +24,7 @@ const InputContainer = styled.div`
 `;
 
 const PopUpButton = styled(Button)({
-  height: `100%`,
+  // height: `100%`,
   backgroundColor: `${colors.blue1} !important`,
   borderRadius: `4rem !important`,
   padding: `1rem !important`,
@@ -100,9 +100,7 @@ const SubmitEntryButton = styled(Button)({
   color: `white !important`,
 });
 
-const PopUpButtonContainer = styled.div`
-  margin: 2rem;
-`;
+const PopUpButtonContainer = styled.div``;
 
 const AddressInput = styled.input`
   border: 1px solid ${colors.accent};

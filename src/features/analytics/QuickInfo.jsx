@@ -103,21 +103,13 @@ function QuickInfo() {
                       text: 'Entry Count by Month',
                     },
                     legend: {
-                      display: true,
-                      onClick: null,
-                      labels: {
-                        filter: function (legendItem, data) {
-                          const currentMonthString = moment().format('MMM');
-                          if (legendItem.text === currentMonthString)
-                            return (legendItem.text = 'Current Month');
-                        },
-                      },
+                      display: false,
                     },
                   },
                   maintainAspectRatio: false,
                 }}
                 data={{
-                  labels: ['Year'],
+                  labels: [['Total', 'Entry', 'Count']],
                   datasets: [
                     {
                       label: 'January',

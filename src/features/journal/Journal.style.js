@@ -9,7 +9,7 @@ const MasonryContainer = styled.div`
 `;
 
 const EntryContainer = styled.div`
-  padding: 2rem;
+  padding: 1rem;
   background-color: ${colors.blue3};
   border-radius: 1rem;
   -webkit-box-shadow: 2px 2px 3px 0px ${colors.blue1};
@@ -78,6 +78,7 @@ const ButtonContainer = styled.div`
 
 const FlexContainer = styled.div`
   display: flex;
+  margin: 2rem 0 2rem 5rem;
   align-items: center;
 `;
 
