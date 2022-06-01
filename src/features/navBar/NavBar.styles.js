@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import colors from '../../constants/Colors';
+import colors from '../../constants/colors';
 
 const StyledLinkWhite = styled(Link)`
   color: white;

@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from 'uuid';
 import mapStyles from './Map.styles';
 import MapMarker from './MapMarker';
 import { GoogleMap, Marker, InfoWindow } from '@react-google-maps/api';
-import colors from '../../../constants/Colors';
+import colors from '../../../constants/colors';
 import MapJournalEntryMarker from '../../popUp/MapJournalEntryMarker';
 
 const options = {

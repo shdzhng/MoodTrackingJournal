@@ -1,45 +1,32 @@
 import React from 'react';
-import NavigationBar from '../features/navBar/NavBar';
-import GoogleMap from '../features/analytics/map/Map';
+import NavigationBar from '../../features/navBar/NavBar';
+import GoogleMap from '../../features/analytics/map/Map';
 import Grid from '@mui/material/Grid';
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
-import BarChart from '../features/analytics/BarChart';
-import LineChart from '../features/analytics/LineChart';
-import QuickInfo from '../features/analytics/QuickInfo';
-import colors from '../constants/Colors';
+import BarChart from '../../features/analytics/BarChart';
+import LineChart from '../../features/analytics/LineChart';
+import QuickInfo from '../../features/analytics/QuickInfo';
 import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import moment from 'moment';
 import { useSelector } from 'react-redux';
-import { monthlyCounterObj } from '../constants/months';
+import { monthlyCounterObj } from '../../constants/months';
+import Item from './styled';
 
 function AnalyticView() {
-  const Item = styled(Paper)(({ theme }) => ({
-    backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-    ...theme.typography.body2,
-    padding: theme.spacing(1),
-    textAlign: 'center',
-    color: theme.palette.text.secondary,
-  }));
-
   const entries = useSelector(({ journal }) => journal.entries);
   const selectedYear = '2022';
 
   const records = {};
+  console.log(entries);
   const formatData = (entries) => {
     entries.forEach((entry) => {
-      console.log(entries);
-      const monthOfEntry = moment.unix(entry.date).format('MMMM');
       const yearOfEntry = moment.unix(entry.date).format('YYYY');
+      if (!records[yearOfEntry]) records[yearOfEntry] = monthlyCounterObj;
       const feeling = entry.feeling;
-
-      if (!records[yearOfEntry]) {
-        records[yearOfEntry] = monthlyCounterObj;
-      }
-
+      const monthOfEntry = moment.unix(entry.date).format('MMMM');
       records[yearOfEntry][feeling][monthOfEntry]++;
     });
   };

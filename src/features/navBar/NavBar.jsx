@@ -13,7 +13,7 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
-import colors from '../../constants/Colors';
+import colors from '../../constants/colors';
 import { StyledLinkWhite, StyledLinkBlack } from './NavBar.styles';
 import { useSelector } from 'react-redux';
 import { removeJournal } from '../journal/journalSlice';

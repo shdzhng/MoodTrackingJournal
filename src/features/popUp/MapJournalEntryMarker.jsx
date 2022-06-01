@@ -1,7 +1,7 @@
 import React from 'react';
 import { GoogleMap, Marker, InfoWindow } from '@react-google-maps/api';
 import { useState, useCallback } from 'react';
-import colors from '../../constants/Colors';
+import colors from '../../constants/colors';
 import {
   InfoWindowText,
   InfoWindowDate,

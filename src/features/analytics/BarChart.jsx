@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useSelector } from 'react-redux';
-import colors from '../../constants/Colors';
+import colors from '../../constants/colors';
 import moment from 'moment';
 import {
   Chart as ChartJS,

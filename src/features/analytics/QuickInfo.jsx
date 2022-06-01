@@ -3,7 +3,7 @@ import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
-import colors from '../../constants/Colors';
+import colors from '../../constants/colors';
 import { useSelector } from 'react-redux';
 import moment from 'moment';
 import { useState } from 'react';

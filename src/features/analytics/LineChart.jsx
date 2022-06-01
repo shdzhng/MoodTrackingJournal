@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { useSelector } from 'react-redux';
-import colors from '../../constants/Colors';
+import colors from '../../constants/colors';
 import feelingsEnums from '../../constants/months';
 import moment from 'moment';
 

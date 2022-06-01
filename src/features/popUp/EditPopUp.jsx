@@ -12,7 +12,7 @@ import {
 import { IconButtonStyled } from '../journal/Journal.style';
 import { updateEntry, addEntry, removeEntry } from '../journal/journalSlice';
 import EditIcon from '@mui/icons-material/Edit';
-import colors from '../../constants/Colors';
+import colors from '../../constants/colors';
 import FeelingButtons from './FeelingButtons';
 import moment from 'moment';
 
