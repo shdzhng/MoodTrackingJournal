@@ -18,7 +18,6 @@ function App() {
       localStorage.getItem(LOCAL_STORAGE_KEY_ENTRIES)
     );
 
-    // console.log(storedMetaData);
     dispatch(importEntries(storedEntries));
   }, []);
 

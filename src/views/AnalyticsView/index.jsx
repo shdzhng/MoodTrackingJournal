@@ -2,9 +2,7 @@ import React from 'react';
 import NavigationBar from '../../features/navBar/NavBar';
 import GoogleMap from '../../features/analytics/map/Map';
 import Grid from '@mui/material/Grid';
-import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
-import Paper from '@mui/material/Paper';
 import BarChart from '../../features/analytics/BarChart';
 import LineChart from '../../features/analytics/LineChart';
 import QuickInfo from '../../features/analytics/QuickInfo';
@@ -14,24 +12,30 @@ import moment from 'moment';
 import { useSelector } from 'react-redux';
 import { monthlyCounterObj } from '../../constants/months';
 import Item from './styled';
+import { useMemo } from 'react';
+import { useState } from 'react';
 
 function AnalyticView() {
   const entries = useSelector(({ journal }) => journal.entries);
-  const selectedYear = '2022';
+  const [selectedYear, setSelectedYear] = useState(moment().format('YYYY'));
 
-  const records = {};
-  console.log(entries);
-  const formatData = (entries) => {
+  const records = useMemo(() => {
+    const returnedRecords = {};
+
     entries.forEach((entry) => {
-      const yearOfEntry = moment.unix(entry.date).format('YYYY');
-      if (!records[yearOfEntry]) records[yearOfEntry] = monthlyCounterObj;
-      const feeling = entry.feeling;
       const monthOfEntry = moment.unix(entry.date).format('MMMM');
-      records[yearOfEntry][feeling][monthOfEntry]++;
-    });
-  };
+      const yearOfEntry = moment.unix(entry.date).format('YYYY');
+      const feeling = entry.feeling;
 
-  formatData(entries);
+      if (!returnedRecords[yearOfEntry]) {
+        returnedRecords[yearOfEntry] = monthlyCounterObj;
+      }
+
+      returnedRecords[yearOfEntry][feeling][monthOfEntry]++;
+    });
+
+    return returnedRecords;
+  }, [entries]);
 
   return (
     <>
@@ -41,7 +45,11 @@ function AnalyticView() {
           <Grid item xs={4}>
             <Card sx={{ height: 300 }}>
               <CardContent sx={{ height: 250 }}>
-                <QuickInfo />
+                <QuickInfo
+                  selectedYear={selectedYear}
+                  setSelectedYear={setSelectedYear}
+                  records={records}
+                />
               </CardContent>
             </Card>
           </Grid>

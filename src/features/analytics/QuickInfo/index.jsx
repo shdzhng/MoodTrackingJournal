@@ -1,35 +1,21 @@
 import * as React from 'react';
-import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
-import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
-import colors from '../../constants/colors';
 import { useSelector } from 'react-redux';
 import moment from 'moment';
 import { useState } from 'react';
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend,
-} from 'chart.js';
+import { Chart as ChartJS, BarElement, Title, Tooltip, Legend } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
-import { months } from '../../constants/months';
+import Item from './styled';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormHelperText from '@mui/material/FormHelperText';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
 
 ChartJS.register(Title, BarElement, Tooltip, Legend);
 
-const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: colors.background,
-  ...theme.typography.body2,
-  padding: theme.spacing(1),
-  textAlign: 'center',
-  color: colors.blue1,
-}));
-
-function QuickInfo() {
+function QuickInfo({ selectedYear, setSelectedYear, records }) {
   const currentTime = moment().format('h:mm a');
   const [clockTime, setClockTime] = useState(currentTime);
 
@@ -52,6 +38,11 @@ function QuickInfo() {
   const monthlyDifference =
     (monthObj[currentMonth] / monthObj[lastMonth]) * 100;
 
+  const handleChange = (e) => {
+    const indexNum = e.target.value / 10;
+    setSelectedYear(Object.keys(records)[indexNum]);
+  };
+
   return (
     <>
       <Box sx={{ flexGrow: 1 }}>
@@ -62,7 +53,7 @@ function QuickInfo() {
           <Grid item xs={4}>
             <Item>{clockTime}</Item>
           </Grid>
-          <Grid item xs={12}>
+          <Grid item xs={8}>
             <Item>
               {monthlyDifference > 100 ? (
                 <>
@@ -77,6 +68,21 @@ function QuickInfo() {
                   less than last month
                 </>
               )}
+            </Item>
+          </Grid>
+          <Grid item xs={4}>
+            <Item>
+              <FormControl sx={{ autoWidth: true }} size="small">
+                <Select value="0" onChange={handleChange}>
+                  {Object.keys(records)
+                    .sort()
+                    .map((year, i) => (
+                      <MenuItem key={i} value={i * 10}>
+                        {year}
+                      </MenuItem>
+                    ))}
+                </Select>
+              </FormControl>
             </Item>
           </Grid>
           <Grid item xs={12}>
