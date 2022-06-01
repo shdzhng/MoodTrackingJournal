@@ -4,7 +4,6 @@ import { monthlyCounterObj } from '../../constants/months';
 
 const initialState = {
   entries: [],
-  metaData: {},
 };
 
 export const journalSlice = createSlice({
@@ -13,42 +12,43 @@ export const journalSlice = createSlice({
   reducers: {
     addEntry: (state, { payload }) => {
       if (!payload.name || !payload.feeling || !payload.entry) return;
-      state.entries.push(payload);
-
-      const entryFeeling = payload.feeling;
-      const entryMonth = moment.unix(payload.date).format('MMMM');
-      const entryYear = moment.unix(payload.date).format('YYYY');
-
-      if (!state.metaData[entryYear]) {
-        state.metaData[entryYear] = monthlyCounterObj;
-      }
-
-      state.metaData[entryYear][entryFeeling][entryMonth]++;
+      return {
+        entries: [...state.entries, payload],
+      };
     },
 
     removeJournal: (state) => {
-      state.entries = [];
+      return {
+        entries: [],
+      };
     },
 
     importEntries: (state, { payload }) => {
-      state.entries = payload;
+      return {
+        entries: payload,
+      };
     },
 
     updateEntry: (state, { payload }) => {
       const entryId = payload.id;
-      const filteredEntry = state.entries.filter(
+      const filteredEntries = state.entries.filter(
         (entry) => entry.id !== entryId
       );
-      state.entries = filteredEntry;
-      state.entries.push(payload);
+      return {
+        entries: [...filteredEntries, payload],
+      };
     },
+
     removeEntry: (state, { payload }) => {
       const entryId = payload.id;
-      const filteredEntry = state.entries.filter(
+      const filteredEntries = state.entries.filter(
         (entry) => entry.id !== entryId
       );
-      state.entries = filteredEntry;
+      return {
+        entries: filteredEntries,
+      };
     },
+
     sortEntries: (state, { payload }) => {
       const feelingKey = {
         loved: 6,

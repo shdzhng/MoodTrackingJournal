@@ -25,8 +25,6 @@ ChartJS.register(
 );
 
 export default function BarChart({ records, selectedYear }) {
-  console.log(records);
-
   if (Object.keys(records).length < 1) {
     return <CircularProgress />;
   }

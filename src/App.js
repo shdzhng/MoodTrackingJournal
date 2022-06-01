@@ -12,15 +12,11 @@ function App() {
   const LOCAL_STORAGE_KEY_ENTRIES = 'mooday.entries';
   const LOCAL_STORAGE_KEY_METADATA = 'mooday.metaData';
   const entries = useSelector((state) => state.journal.entries);
-  const metaData = useSelector((state) => state.journal.metaData);
   const dispatch = useDispatch();
 
   useEffect(() => {
     const storedEntries = JSON.parse(
       localStorage.getItem(LOCAL_STORAGE_KEY_ENTRIES)
-    );
-    const storedMetaData = JSON.parse(
-      localStorage.getItem(LOCAL_STORAGE_KEY_METADATA)
     );
 
     // console.log(storedMetaData);
@@ -28,7 +24,6 @@ function App() {
   }, []);
 
   useEffect(() => {
-    localStorage.setItem(LOCAL_STORAGE_KEY_METADATA, JSON.stringify(metaData));
     localStorage.setItem(LOCAL_STORAGE_KEY_ENTRIES, JSON.stringify(entries));
   }, [entries]);
 

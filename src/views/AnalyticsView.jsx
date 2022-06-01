@@ -27,10 +27,11 @@ function AnalyticView() {
 
   const entries = useSelector(({ journal }) => journal.entries);
   const selectedYear = '2022';
-  const records = {};
 
+  const records = {};
   const formatData = (entries) => {
     entries.forEach((entry) => {
+      console.log(entries);
       const monthOfEntry = moment.unix(entry.date).format('MMMM');
       const yearOfEntry = moment.unix(entry.date).format('YYYY');
       const feeling = entry.feeling;

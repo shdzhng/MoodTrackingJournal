@@ -10,7 +10,7 @@ import {
   EntryWindow,
 } from './PopUp.styles';
 import { IconButtonStyled } from '../journal/Journal.style';
-import { addEntry } from '../journal/journalSlice';
+import { updateEntry, addEntry, removeEntry } from '../journal/journalSlice';
 import EditIcon from '@mui/icons-material/Edit';
 import colors from '../../constants/Colors';
 import FeelingButtons from './FeelingButtons';
@@ -20,6 +20,7 @@ export default function EditPopUp({ entry, handleMarkerRemove }) {
   const dispatch = useDispatch();
   const entryContentRef = useRef('');
   const entryTitleRef = useRef('');
+
   const [open, setOpen] = React.useState(false);
   const [newEntry, setNewEntry] = React.useState(entry.entry);
   const [newName, setNewName] = React.useState(entry.name);
@@ -44,7 +45,7 @@ export default function EditPopUp({ entry, handleMarkerRemove }) {
       location: entry.location,
     };
 
-    dispatch(addEntry(newEntry));
+    dispatch(updateEntry(newEntry));
 
     if (handleMarkerRemove !== undefined) handleMarkerRemove();
   });
