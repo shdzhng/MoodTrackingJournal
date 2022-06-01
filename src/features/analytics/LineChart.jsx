@@ -83,7 +83,7 @@ export default function LineChart({ records, selectedYear }) {
           maintainAspectRatio: false,
           title: {
             display: true,
-            text: 'Trends',
+            text: `Trends (${selectedYear})`,
           },
           legend: {
             position: 'top',

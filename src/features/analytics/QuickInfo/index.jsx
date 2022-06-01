@@ -7,11 +7,10 @@ import { useState } from 'react';
 import { Chart as ChartJS, BarElement, Title, Tooltip, Legend } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
 import Item from './styled';
-import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
-import FormHelperText from '@mui/material/FormHelperText';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import colors from '../../../constants/colors';
 
 ChartJS.register(Title, BarElement, Tooltip, Legend);
 
@@ -46,7 +45,7 @@ function QuickInfo({ selectedYear, setSelectedYear, records }) {
   return (
     <>
       <Box sx={{ flexGrow: 1 }}>
-        <Grid container spacing={2}>
+        <Grid container spacing={1}>
           <Grid item xs={8}>
             <Item>{currentDay}</Item>
           </Grid>
@@ -72,8 +71,12 @@ function QuickInfo({ selectedYear, setSelectedYear, records }) {
           </Grid>
           <Grid item xs={4}>
             <Item>
-              <FormControl sx={{ autoWidth: true }} size="small">
-                <Select value="0" onChange={handleChange}>
+              <FormControl sx={{ autoWidth: true, fontSize: 1 }} size="small">
+                <Select
+                  value="0"
+                  sx={{ fontSize: 17, color: colors.blue1 }}
+                  onChange={handleChange}
+                >
                   {Object.keys(records)
                     .sort()
                     .map((year, i) => (

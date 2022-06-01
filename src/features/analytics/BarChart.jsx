@@ -81,7 +81,7 @@ export default function BarChart({ records, selectedYear }) {
           offset: true,
           title: {
             display: true,
-            text: 'Mood by Month',
+            text: `Mood by Month  (${selectedYear})`,
           },
           legend: {
             display: true,
