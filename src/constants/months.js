@@ -13,19 +13,37 @@ const months = [
   'December',
 ];
 
-const monthsObj = {
-  1: 0,
-  2: 0,
-  3: 0,
-  4: 0,
-  5: 0,
-  6: 0,
-  7: 0,
-  8: 0,
-  9: 0,
-  10: 0,
-  11: 0,
-  12: 0,
+const feelingCounter = {
+  loved: 0,
+  happy: 0,
+  calm: 0,
+  sad: 0,
+  anxious: 0,
+  angry: 0,
 };
 
-export { months, monthsObj };
+const monthsObj = {
+  January: 0,
+  February: 0,
+  March: 0,
+  April: 0,
+  May: 0,
+  June: 0,
+  July: 0,
+  August: 0,
+  September: 0,
+  October: 0,
+  November: 0,
+  December: 0,
+};
+
+const monthlyCounterObj = {
+  loved: monthsObj,
+  happy: monthsObj,
+  calm: monthsObj,
+  sad: monthsObj,
+  anxious: monthsObj,
+  angry: monthsObj,
+};
+
+export { months, monthlyCounterObj, monthsObj };

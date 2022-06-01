@@ -1,17 +1,29 @@
 import { createSlice, current } from '@reduxjs/toolkit';
+import moment from 'moment';
+import { monthlyCounterObj } from '../../constants/months';
 
 const initialState = {
   entries: [],
+  metaData: {},
 };
 
-export const todoListSlice = createSlice({
+export const journalSlice = createSlice({
   name: 'journal',
   initialState,
-
   reducers: {
     addEntry: (state, { payload }) => {
       if (!payload.name || !payload.feeling || !payload.entry) return;
       state.entries.push(payload);
+
+      const entryFeeling = payload.feeling;
+      const entryMonth = moment.unix(payload.date).format('MMMM');
+      const entryYear = moment.unix(payload.date).format('YYYY');
+
+      if (!state.metaData[entryYear]) {
+        state.metaData[entryYear] = monthlyCounterObj;
+      }
+
+      state.metaData[entryYear][entryFeeling][entryMonth]++;
     },
 
     removeJournal: (state) => {
@@ -94,6 +106,6 @@ export const {
   importEntries,
   updateEntry,
   removeJournal,
-} = todoListSlice.actions;
+} = journalSlice.actions;
 
-export default todoListSlice.reducer;
+export default journalSlice.reducer;

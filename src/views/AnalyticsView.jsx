@@ -9,10 +9,12 @@ import BarChart from '../features/analytics/BarChart';
 import LineChart from '../features/analytics/LineChart';
 import QuickInfo from '../features/analytics/QuickInfo';
 import colors from '../constants/Colors';
-
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
+import moment from 'moment';
+import { useSelector } from 'react-redux';
+import { monthlyCounterObj } from '../constants/months';
 
 function AnalyticView() {
   const Item = styled(Paper)(({ theme }) => ({
@@ -22,6 +24,26 @@ function AnalyticView() {
     textAlign: 'center',
     color: theme.palette.text.secondary,
   }));
+
+  const entries = useSelector(({ journal }) => journal.entries);
+  const selectedYear = '2022';
+  const records = {};
+
+  const formatData = (entries) => {
+    entries.forEach((entry) => {
+      const monthOfEntry = moment.unix(entry.date).format('MMMM');
+      const yearOfEntry = moment.unix(entry.date).format('YYYY');
+      const feeling = entry.feeling;
+
+      if (!records[yearOfEntry]) {
+        records[yearOfEntry] = monthlyCounterObj;
+      }
+
+      records[yearOfEntry][feeling][monthOfEntry]++;
+    });
+  };
+
+  formatData(entries);
 
   return (
     <>
@@ -39,7 +61,7 @@ function AnalyticView() {
           <Grid item xs={8}>
             <Card sx={{ height: 300 }}>
               <CardContent sx={{ height: 275 }}>
-                <LineChart />
+                <LineChart records={records} selectedYear={selectedYear} />
               </CardContent>
             </Card>
           </Grid>
@@ -47,7 +69,7 @@ function AnalyticView() {
           <Grid item xs={5}>
             <Card sx={{ height: 430 }}>
               <CardContent sx={{ height: 400 }}>
-                <BarChart />
+                <BarChart records={records} selectedYear={selectedYear} />
               </CardContent>
             </Card>
           </Grid>

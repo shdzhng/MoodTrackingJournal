@@ -24,35 +24,8 @@ ChartJS.register(
   Legend
 );
 
-export default function BarChart() {
-  const [selectedYear, setSelectedYear] = useState(2022);
-  const entries = useSelector(({ journal }) => journal.entries);
-
-  const records = {
-    // loved: {},
-    // happy: {},
-    // calm: {},
-    // anxious: {},
-    // sad: {},
-    // angry: {},
-  };
-
-  const formatData = (entries) => {
-    entries.forEach((entry) => {
-      const monthOfEntry = moment.unix(entry.date).format('M');
-      const yearOfEntry = moment.unix(entry.date).format('YYYY');
-
-      const feeling = entry.feeling;
-      if (records[feeling] === undefined) records[feeling] = {};
-      if (records[feeling][yearOfEntry] === undefined)
-        records[feeling][yearOfEntry] = {};
-      if (records[feeling][yearOfEntry][monthOfEntry] === undefined)
-        records[feeling][yearOfEntry][monthOfEntry] = 0;
-      records[feeling][yearOfEntry][monthOfEntry]++;
-    });
-  };
-
-  formatData(entries);
+export default function BarChart({ records, selectedYear }) {
+  console.log(records);
 
   if (Object.keys(records).length < 1) {
     return <CircularProgress />;
@@ -65,32 +38,32 @@ export default function BarChart() {
         datasets: [
           {
             label: 'Loved',
-            data: Object.values(records.loved[selectedYear]),
+            data: Object.values(records[selectedYear].loved),
             backgroundColor: colors.variantMap.loved,
           },
           {
             label: 'Happy',
-            data: Object.values(records.happy[selectedYear]),
+            data: Object.values(records[selectedYear].happy),
             backgroundColor: colors.variantMap.happy,
           },
           {
             label: 'Calm',
-            data: Object.values(records.calm[selectedYear]),
+            data: Object.values(records[selectedYear].calm),
             backgroundColor: colors.variantMap.calm,
           },
           {
             label: 'Sad',
-            data: Object.values(records.sad[selectedYear]),
+            data: Object.values(records[selectedYear].sad),
             backgroundColor: colors.variantMap.sad,
           },
           {
             label: 'Anxious',
-            data: Object.values(records.anxious[selectedYear]),
+            data: Object.values(records[selectedYear].anxious),
             backgroundColor: colors.variantMap.anxious,
           },
           {
             label: 'Angry',
-            data: Object.values(records.angry[selectedYear]),
+            data: Object.values(records[selectedYear].angry),
             backgroundColor: colors.variantMap.angry,
           },
         ],
