@@ -1,7 +1,5 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { useSelector } from 'react-redux';
+import React from 'react';
 import colors from '../../constants/colors';
-import moment from 'moment';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -24,7 +22,7 @@ ChartJS.register(
   Legend
 );
 
-export default function BarChart({ records, selectedYear }) {
+export default function BarChart({ records, selectedYear, currentMonth }) {
   if (Object.keys(records).length < 1) {
     return <CircularProgress />;
   }
@@ -32,7 +30,7 @@ export default function BarChart({ records, selectedYear }) {
   return (
     <Bar
       data={{
-        labels: months,
+        labels: months.slice(0, currentMonth),
         datasets: [
           {
             label: 'Loved',

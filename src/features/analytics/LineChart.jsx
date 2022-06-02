@@ -1,9 +1,5 @@
-import React, { useState, useEffect, useCallback, useMemo } from 'react';
-import { useSelector } from 'react-redux';
+import React from 'react';
 import colors from '../../constants/colors';
-import feelingsEnums from '../../constants/months';
-import moment from 'moment';
-
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -15,8 +11,7 @@ import {
   PointElement,
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
-import { monthlyCounterObj } from '../../constants/months';
-import { months, monthsObj } from '../../constants/months';
+import { months } from '../../constants/months';
 import CircularProgress from '@mui/material/CircularProgress';
 
 ChartJS.register(
@@ -29,7 +24,7 @@ ChartJS.register(
   PointElement
 );
 
-export default function LineChart({ records, selectedYear }) {
+export default function LineChart({ records, selectedYear, currentMonth }) {
   if (Object.keys(records).length < 1) {
     return <CircularProgress></CircularProgress>;
   }
@@ -37,7 +32,7 @@ export default function LineChart({ records, selectedYear }) {
   return (
     <Line
       data={{
-        labels: months,
+        labels: months.slice(0, currentMonth),
         datasets: [
           {
             label: 'Loved',

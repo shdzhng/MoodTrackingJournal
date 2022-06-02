@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo, useState } from 'react';
 import NavigationBar from '../../features/navBar/NavBar';
 import GoogleMap from '../../features/analytics/map/Map';
 import Grid from '@mui/material/Grid';
@@ -11,13 +11,11 @@ import CardContent from '@mui/material/CardContent';
 import moment from 'moment';
 import { useSelector } from 'react-redux';
 import { monthlyCounterObj } from '../../constants/months';
-import Item from './styled';
-import { useMemo } from 'react';
-import { useState } from 'react';
 
 function AnalyticView() {
   const entries = useSelector(({ journal }) => journal.entries);
   const [selectedYear, setSelectedYear] = useState(moment().format('YYYY'));
+  const currentMonth = moment().format('M');
 
   const records = useMemo(() => {
     const returnedRecords = {};
@@ -57,7 +55,11 @@ function AnalyticView() {
           <Grid item xs={8}>
             <Card sx={{ height: 300 }}>
               <CardContent sx={{ height: 275 }}>
-                <LineChart records={records} selectedYear={selectedYear} />
+                <LineChart
+                  records={records}
+                  selectedYear={selectedYear}
+                  currentMonth={currentMonth}
+                />
               </CardContent>
             </Card>
           </Grid>
@@ -65,7 +67,11 @@ function AnalyticView() {
           <Grid item xs={5}>
             <Card sx={{ height: 430 }}>
               <CardContent sx={{ height: 400 }}>
-                <BarChart records={records} selectedYear={selectedYear} />
+                <BarChart
+                  records={records}
+                  selectedYear={selectedYear}
+                  currentMonth={currentMonth}
+                />
               </CardContent>
             </Card>
           </Grid>
