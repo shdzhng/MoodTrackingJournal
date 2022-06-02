@@ -48,6 +48,7 @@ const NavigationBar = () => {
   const pages = [
     { name: 'Journal', route: '/' },
     { name: 'Analytics', route: '/analytics' },
+    { name: 'My Word Clouds', route: `/wordclouds` },
   ];
 
   const handleOpenNavMenu = (event) => {

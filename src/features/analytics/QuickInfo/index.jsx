@@ -35,7 +35,35 @@ function QuickInfo({ selectedYear, setSelectedYear, records }) {
   });
 
   const monthlyDifference =
-    (monthObj[currentMonth] / monthObj[lastMonth]) * 100;
+    monthObj[lastMonth] !== undefined
+      ? `${(monthObj[currentMonth] / monthObj[lastMonth]) * 100} %`
+      : 'no entries last month ';
+
+  const monthDifferenceDisplay = () => {
+    if (monthObj[lastMonth] !== undefined) {
+      const difference = (monthObj[currentMonth] / monthObj[lastMonth]) * 100;
+      if (difference > 100)
+        return (
+          <>
+            YAY! You journaled{' '}
+            <span className="greenhighlight">{difference}</span> more this month
+          </>
+        );
+      return (
+        <>
+          You journaled{' '}
+          <span className="redhighlight">{monthlyDifference}</span>
+          less than last month
+        </>
+      );
+    }
+    return (
+      <>
+        No entries found <br />
+        from last month
+      </>
+    );
+  };
 
   const handleChange = (e) => {
     const indexNum = e.target.value / 10;
@@ -53,21 +81,7 @@ function QuickInfo({ selectedYear, setSelectedYear, records }) {
             <Item>{clockTime}</Item>
           </Grid>
           <Grid item xs={8}>
-            <Item>
-              {monthlyDifference > 100 ? (
-                <>
-                  YAY! You journaled{' '}
-                  <span className="greenhighlight">{monthlyDifference} %</span>{' '}
-                  more this month
-                </>
-              ) : (
-                <>
-                  You journaled{' '}
-                  <span className="redhighlight">{monthlyDifference} % </span>
-                  less than last month
-                </>
-              )}
-            </Item>
+            <Item>{monthDifferenceDisplay()}</Item>
           </Grid>
           <Grid item xs={4}>
             <Item>

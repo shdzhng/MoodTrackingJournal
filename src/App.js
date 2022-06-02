@@ -6,6 +6,7 @@ import GlobalStyles from './Global.styles';
 import JournalView from './views/JournalView';
 import AnalyticView from './views/AnalyticsView';
 import { GoogleApiWrapper } from 'google-maps-react';
+import QualitativeView from './views/QualitativeView';
 
 function App() {
   const LOCAL_STORAGE_KEY_ENTRIES = 'mooday.entries';
@@ -31,6 +32,7 @@ function App() {
       <Routes>
         <Route path="/" element={<JournalView />}></Route>
         <Route path="/analytics" element={<AnalyticView />}></Route>
+        <Route path="/wordclouds" element={<QualitativeView />}></Route>
       </Routes>
     </Router>
   );

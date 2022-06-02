@@ -78,7 +78,7 @@ export default function LineChart({ records, selectedYear, currentMonth }) {
           maintainAspectRatio: false,
           title: {
             display: true,
-            text: `Trends (${selectedYear})`,
+            text: `Year to Date Trends (${selectedYear})`,
           },
           legend: {
             position: 'top',

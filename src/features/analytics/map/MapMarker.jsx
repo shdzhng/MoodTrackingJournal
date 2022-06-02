@@ -1,5 +1,5 @@
 import React from 'react';
-import { GoogleMap, Marker, InfoWindow } from '@react-google-maps/api';
+import { Marker, InfoWindow } from '@react-google-maps/api';
 import { useState } from 'react';
 import colors from '../../../constants/colors';
 import {
@@ -27,7 +27,6 @@ export default function MapMarker({ entry }) {
   };
   const formattedDate = moment.unix(entry.date).format('MMM Do YYYY');
   const [showInfoWindow, setShowInfoWindow] = useState(false);
-
   const { lat, lng } = JSON.parse(entry.location).geometry.location;
 
   const handleOpen = () => {
