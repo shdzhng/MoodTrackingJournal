@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useCallback, useState } from 'react';
+import React, { useRef, useCallback, useState } from 'react';
 import Modal from '@mui/material/Modal';
 import { useDispatch } from 'react-redux';
 import {
@@ -10,7 +10,7 @@ import {
   EntryWindow,
 } from './PopUp.styles';
 import { IconButtonStyled } from '../journal/Journal.style';
-import { updateEntry, addEntry, removeEntry } from '../journal/journalSlice';
+import { updateEntry } from '../journal/journalSlice';
 import EditIcon from '@mui/icons-material/Edit';
 import colors from '../../constants/colors';
 import FeelingButtons from './FeelingButtons';

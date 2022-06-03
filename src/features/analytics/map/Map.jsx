@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
 import mapStyles from './Map.styles';
 import MapMarker from './MapMarker';
-import { GoogleMap, Marker, InfoWindow } from '@react-google-maps/api';
+import { GoogleMap } from '@react-google-maps/api';
 import colors from '../../../constants/colors';
 import MapJournalEntryMarker from '../../popUp/MapJournalEntryMarker';
 
@@ -21,17 +21,17 @@ const containerStyle = {
   border: `1px solid ${colors.blue2}`,
 };
 
-const startLocation = {
-  lat: 37.776596,
-  lng: -122.391953,
-};
-
 const MapComponent = () => {
+  const entries = useSelector(({ journal }) => journal.entries);
   const [selectedLocation, setSelectedLocation] = useState(false);
   const [newMarker, setNewMarker] = useState({});
   const [newEntry, setNewEntry] = useState({});
 
-  const entries = useSelector(({ journal }) => journal.entries);
+  const startLocation = useMemo(() => {
+    if (entries.length !== 0)
+      return JSON.parse(entries[entries.length - 1].location).geometry.location;
+    return { lat: 37.776596, lng: -122.391953 };
+  }, [entries]);
 
   const geocoder = new window.google.maps.Geocoder();
 
@@ -85,9 +85,7 @@ const MapComponent = () => {
           <MapJournalEntryMarker
             entry={newEntry}
             handleMarkerRemove={handleMarkerRemove}
-          >
-            {' '}
-          </MapJournalEntryMarker>
+          />
         )}
         {entries.map((entry, i) => (
           <MapMarker entry={entry} key={i} />

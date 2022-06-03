@@ -1,3 +1,6 @@
+import EditPopUp from '../popUp/EditPopUp';
+import moment from 'moment';
+import DeleteIcon from '@mui/icons-material/Delete';
 import {
   EntryContainer,
   EntryName,
@@ -8,18 +11,15 @@ import {
   ButtonContainer,
 } from './Journal.style';
 import { useDispatch } from 'react-redux';
-import DeleteIcon from '@mui/icons-material/Delete';
 import { removeEntry } from '../journal/journalSlice';
-import EditPopUp from '../popUp/EditPopUp';
-import moment from 'moment';
 
 export default function SingleEntryCard({ entry }) {
   const dispatch = useDispatch();
+  const formattedDate = moment.unix(entry.date).format('MMM Do YYYY');
+
   const handleRemove = (entry) => {
     dispatch(removeEntry(entry));
   };
-
-  const formattedDate = moment.unix(entry.date).format('MMM Do YYYY');
 
   return (
     <EntryContainer>

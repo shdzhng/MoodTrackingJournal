@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import moment from 'moment';
 import { Marker, InfoWindow } from '@react-google-maps/api';
-import { useState } from 'react';
 import colors from '../../../constants/colors';
 import {
   InfoWindowText,
@@ -10,9 +11,7 @@ import {
 import EditPopUp from '../../popUp/EditPopUp';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { IconButtonStyled, ButtonContainer } from '../../journal/Journal.style';
-import { useDispatch } from 'react-redux';
 import { removeEntry } from '../../journal/journalSlice';
-import moment from 'moment';
 
 export default function MapMarker({ entry }) {
   const dispatch = useDispatch();
@@ -25,6 +24,7 @@ export default function MapMarker({ entry }) {
     scale: 0.5,
     anchor: new window.google.maps.Point(15, 30),
   };
+
   const formattedDate = moment.unix(entry.date).format('MMM Do YYYY');
   const [showInfoWindow, setShowInfoWindow] = useState(false);
   const { lat, lng } = JSON.parse(entry.location).geometry.location;

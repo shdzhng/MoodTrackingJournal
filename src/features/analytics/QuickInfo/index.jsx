@@ -1,16 +1,11 @@
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
-import { useSelector } from 'react-redux';
+import React, { useState } from 'react';
+import colors from '../../../constants/colors';
 import moment from 'moment';
-import { useState } from 'react';
+import Item from './styled';
+import { useSelector } from 'react-redux';
 import { Chart as ChartJS, BarElement, Title, Tooltip, Legend } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
-import Item from './styled';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
-import colors from '../../../constants/colors';
+import { MenuItem, FormControl, Select, Box, Grid } from '@mui/material';
 
 ChartJS.register(Title, BarElement, Tooltip, Legend);
 

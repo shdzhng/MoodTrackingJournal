@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import Modal from '@mui/material/Modal';
+import GpsFixedIcon from '@mui/icons-material/GpsFixed';
+import moment from 'moment';
 import { useDispatch } from 'react-redux';
 import {
   FeelingButton,
@@ -15,12 +17,9 @@ import {
 } from './PopUp.styles';
 import { addEntry } from '../journal/journalSlice';
 import { v4 as uuidv4 } from 'uuid';
-import ButtonGroup from '@mui/material/ButtonGroup';
-import { Autocomplete } from '@react-google-maps/api';
-import GpsFixedIcon from '@mui/icons-material/GpsFixed';
-import IconButton from '@mui/material/IconButton';
-import moment from 'moment';
+import { ButtonGroup, IconButton } from '@mui/material';
 import { feelingList } from '../../constants/feelings';
+import { Autocomplete } from '@react-google-maps/api';
 
 export default function EntryPopUp() {
   const dispatch = useDispatch();
@@ -42,6 +41,7 @@ export default function EntryPopUp() {
       componentRestrictions: { country: 'us' },
       fields: ['address_components', 'geometry', 'icon', 'name'],
     };
+
     const autocomplete = new window.google.maps.places.Autocomplete(
       locationInput,
       options

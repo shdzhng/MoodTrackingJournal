@@ -1,7 +1,7 @@
-import styled, { css } from 'styled-components';
-import Masonry from '@mui/lab/Masonry';
+import styled from 'styled-components';
 import colors from '../../constants/colors';
-import IconButton from '@mui/material/IconButton';
+import { Masonry } from '@mui/lab';
+import { IconButton } from '@mui/material';
 
 const MasonryContainer = styled.div`
   width: 90%;

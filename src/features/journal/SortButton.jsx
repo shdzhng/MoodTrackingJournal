@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
+import { MenuItem, FormControl, InputLabel, Select } from '@mui/material';
 import { useDispatch } from 'react-redux';
 import { sortEntries } from './journalSlice';
-import InputLabel from '@mui/material/InputLabel';
 
 export default function SelectLabels() {
   const dispatch = useDispatch();

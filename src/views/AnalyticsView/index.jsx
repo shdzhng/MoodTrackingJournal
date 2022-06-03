@@ -1,14 +1,11 @@
 import React, { useMemo, useState } from 'react';
+import moment from 'moment';
 import NavigationBar from '../../features/navBar/NavBar';
 import GoogleMap from '../../features/analytics/map/Map';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
 import BarChart from '../../features/analytics/BarChart';
 import LineChart from '../../features/analytics/LineChart';
 import QuickInfo from '../../features/analytics/QuickInfo';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import moment from 'moment';
+import { Card, CardContent, Grid, Box } from '@mui/material';
 import { useSelector } from 'react-redux';
 import { monthlyCounterObj } from '../../constants/months';
 

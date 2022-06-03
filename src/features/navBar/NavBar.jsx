@@ -1,21 +1,22 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
-import Container from '@mui/material/Container';
-import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
-import MenuItem from '@mui/material/MenuItem';
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
 import colors from '../../constants/colors';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  AppBar,
+  Menu,
+  Typography,
+  IconButton,
+  Box,
+  Toolbar,
+  Container,
+  Button,
+  Tooltip,
+  MenuItem,
+} from '@mui/material';
 import { StyledLinkWhite, StyledLinkBlack } from './NavBar.styles';
-import { useSelector } from 'react-redux';
 import { removeJournal } from '../journal/journalSlice';
 
 const NavigationBar = () => {
@@ -24,8 +25,23 @@ const NavigationBar = () => {
   const journal = useSelector((state) => state.journal.entries);
   const dispatch = useDispatch();
 
-  const deleteJournal = () => {
+  const handleDeleteJournal = () => {
     dispatch(removeJournal());
+  };
+
+  const handleOpenNavMenu = (event) => {
+    setAnchorElNav(event.currentTarget);
+  };
+  const handleOpenUserMenu = (event) => {
+    setAnchorElUser(event.currentTarget);
+  };
+
+  const handleCloseNavMenu = () => {
+    setAnchorElNav(null);
+  };
+
+  const handleCloseUserMenu = () => {
+    setAnchorElUser(null);
   };
 
   const downloadJournal = () => {
@@ -42,7 +58,7 @@ const NavigationBar = () => {
 
   const settings = [
     { name: 'Download Journal', function: downloadJournal },
-    { name: 'Delete Journal', function: deleteJournal },
+    { name: 'Delete Journal', function: handleDeleteJournal },
   ];
 
   const pages = [
@@ -50,21 +66,6 @@ const NavigationBar = () => {
     { name: 'Analytics', route: '/analytics' },
     { name: 'My Word Clouds', route: `/wordclouds` },
   ];
-
-  const handleOpenNavMenu = (event) => {
-    setAnchorElNav(event.currentTarget);
-  };
-  const handleOpenUserMenu = (event) => {
-    setAnchorElUser(event.currentTarget);
-  };
-
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
-  };
-
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
-  };
 
   return (
     <AppBar position="static" style={{ background: `${colors.blue2}` }}>

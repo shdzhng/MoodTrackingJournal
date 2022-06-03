@@ -1,6 +1,4 @@
-import { createSlice, current } from '@reduxjs/toolkit';
-import moment from 'moment';
-import { monthlyCounterObj } from '../../constants/months';
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   entries: [],

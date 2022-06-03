@@ -10,7 +10,6 @@ import QualitativeView from './views/QualitativeView';
 
 function App() {
   const LOCAL_STORAGE_KEY_ENTRIES = 'mooday.entries';
-  const LOCAL_STORAGE_KEY_METADATA = 'mooday.metaData';
   const entries = useSelector((state) => state.journal.entries);
   const dispatch = useDispatch();
 
