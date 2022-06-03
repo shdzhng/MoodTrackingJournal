@@ -19,7 +19,6 @@ import { addEntry } from '../journal/journalSlice';
 import { v4 as uuidv4 } from 'uuid';
 import { ButtonGroup, IconButton } from '@mui/material';
 import { feelingList } from '../../constants/feelings';
-import { Autocomplete } from '@react-google-maps/api';
 
 export default function EntryPopUp() {
   const dispatch = useDispatch();
@@ -34,23 +33,22 @@ export default function EntryPopUp() {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  const locationInput = document.getElementById('locationInput');
+  const autocomplete = document.getElementById('autocomplete');
 
   useEffect(() => {
-    const options = {
-      componentRestrictions: { country: 'us' },
-      fields: ['address_components', 'geometry', 'icon', 'name'],
-    };
+    if (inputRendered) {
+      const options = {
+        componentRestrictions: { country: 'us' },
+        fields: ['address_components', 'geometry', 'icon', 'name'],
+      };
 
-    const autocomplete = new window.google.maps.places.Autocomplete(
-      locationInput,
-      options
-    );
+      new window.google.maps.places.Autocomplete(autocomplete, options);
+    }
   }, [inputRendered]);
 
   const handleGetCurrentLocation = (e) => {
     e.preventDefault();
-    locationInput.value = '';
+    autocomplete.value = '';
     navigator.geolocation.getCurrentPosition((position) => {
       const KEY = 'AIzaSyAKdW7KHxurf0MqG2goZ9d1Z01Sefs6Uck';
       const LAT = position.coords.latitude;
@@ -60,7 +58,7 @@ export default function EntryPopUp() {
       fetch(url)
         .then((response) => response.json())
         .then((data) => {
-          locationInput.value = data.results[0].formatted_address;
+          autocomplete.value = data.results[0].formatted_address;
         });
     });
   };
@@ -86,6 +84,7 @@ export default function EntryPopUp() {
 
     setTitle(null);
     setContent(null);
+    setInputRendered(false);
     dispatch(addEntry(newEntry));
   });
 
@@ -142,13 +141,14 @@ export default function EntryPopUp() {
             />
             <AddressContainer>
               <input
-                id="locationInput"
+                id="autocomplete"
                 ref={locationRef}
+                type="text"
                 onFocus={() => {
                   setInputRendered(true);
                 }}
                 placeholder="Enter a Location"
-              ></input>
+              />
               <IconButton
                 aria-label="use my location"
                 onClick={(e) => {
