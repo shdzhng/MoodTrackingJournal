@@ -85,7 +85,9 @@ export default function QualitativeView() {
             flexGrow: 1,
             bgcolor: colors.background,
             display: 'flex',
-            height: '100vh',
+            height: '90vh',
+            width: '100vh',
+            mt: 2,
           }}
         >
           <Tabs
@@ -96,7 +98,8 @@ export default function QualitativeView() {
             sx={{
               borderRight: 1,
               borderColor: colors.accent,
-              width: 150,
+              mt: 0,
+              p: 0,
             }}
           >
             <Tab label="Loved" {...a11yProps(0)} />
@@ -109,8 +112,6 @@ export default function QualitativeView() {
           <TabPanel value={value} index={0}>
             <img
               src={`data:image/svg+xml;base64,${btoa(wordCloud)}`}
-              alt=""
-              width="100%"
               height="100%"
             />
           </TabPanel>
@@ -118,40 +119,30 @@ export default function QualitativeView() {
           <TabPanel value={value} index={1}>
             <img
               src={`data:image/svg+xml;base64,${btoa(wordCloud)}`}
-              alt=""
-              width="100%"
               height="100%"
             />
           </TabPanel>
           <TabPanel value={value} index={2}>
             <img
               src={`data:image/svg+xml;base64,${btoa(wordCloud)}`}
-              alt=""
-              width="100%"
               height="100%"
             />
           </TabPanel>
           <TabPanel value={value} index={3}>
             <img
               src={`data:image/svg+xml;base64,${btoa(wordCloud)}`}
-              alt=""
-              width="100%"
               height="100%"
             />
           </TabPanel>
           <TabPanel value={value} index={4}>
             <img
               src={`data:image/svg+xml;base64,${btoa(wordCloud)}`}
-              alt=""
-              width="100%"
               height="100%"
             />
           </TabPanel>
           <TabPanel value={value} index={5}>
             <img
               src={`data:image/svg+xml;base64,${btoa(wordCloud)}`}
-              alt=""
-              width="100%"
               height="100%"
             />
           </TabPanel>

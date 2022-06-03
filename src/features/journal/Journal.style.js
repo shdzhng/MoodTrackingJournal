@@ -4,12 +4,15 @@ import { Masonry } from '@mui/lab';
 import { IconButton } from '@mui/material';
 
 const MasonryContainer = styled.div`
-  width: 90%;
+  width: 90vw;
+  height: 90vh;
+  padding: 0;
   margin: 2rem auto 0 auto;
 `;
 
 const EntryContainer = styled.div`
   padding: 1rem;
+  margin: 0;
   background-color: ${colors.blue3};
   border-radius: 1rem;
   -webkit-box-shadow: 2px 2px 3px 0px ${colors.blue1};
