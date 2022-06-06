@@ -27,7 +27,6 @@ export default function BarChart({ records, selectedYear, currentMonth }) {
     return <CircularProgress />;
   }
 
-  console.log(records);
   return (
     <Bar
       data={{
@@ -80,7 +79,7 @@ export default function BarChart({ records, selectedYear, currentMonth }) {
           offset: true,
           title: {
             display: true,
-            text: `Entry Count Cumulative Total Per Feeling  (${selectedYear})`,
+            text: `Entry Count Cumulative Total Per Feeling (${selectedYear})`,
           },
           legend: {
             display: true,

@@ -154,7 +154,7 @@ export default function QualitativeView() {
   return (
     <>
       <NavigationBar />
-      <p>You have not made any entries yet</p>
+      <CircularProgress></CircularProgress>
     </>
   );
 }

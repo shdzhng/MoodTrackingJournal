@@ -7,11 +7,22 @@ import JournalView from './views/JournalView';
 import AnalyticView from './views/AnalyticsView';
 import { GoogleApiWrapper } from 'google-maps-react';
 import QualitativeView from './views/QualitativeView';
+import seed from './seed';
+
+// set useSeed as false THEN click on 'DELETE JOURNAL' under app settings to wipe seed.
+
+let useSeed = true;
 
 function App() {
   const LOCAL_STORAGE_KEY_ENTRIES = 'mooday.entries';
   const entries = useSelector((state) => state.journal.entries);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (useSeed === true) {
+      localStorage.setItem(LOCAL_STORAGE_KEY_ENTRIES, JSON.stringify(seed));
+    }
+  }, []);
 
   useEffect(() => {
     const storedEntries = JSON.parse(
