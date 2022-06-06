@@ -1,5 +1,5 @@
 import { createGlobalStyle } from 'styled-components';
-import colors from './constants/colors';
+import colors from './colors';
 
 const GlobalStyle = createGlobalStyle`
   html,
@@ -9,6 +9,7 @@ const GlobalStyle = createGlobalStyle`
     margin: 0px;
     width: 100vw;
     height: 100vh;
+    position:relative;
     background-color: ${colors.background};
 };
 

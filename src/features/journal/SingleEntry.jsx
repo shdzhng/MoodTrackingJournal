@@ -15,7 +15,7 @@ import { removeEntry } from '../journal/journalSlice';
 
 export default function SingleEntryCard({ entry }) {
   const dispatch = useDispatch();
-  const formattedDate = moment.unix(entry.date).format('MMM Do YYYY');
+  const formattedDate = moment.unix(entry.date).format('MMMM Do YYYY');
 
   const handleRemove = (entry) => {
     dispatch(removeEntry(entry));
@@ -24,7 +24,7 @@ export default function SingleEntryCard({ entry }) {
   return (
     <EntryContainer>
       <EntryName variant={entry.feeling}>{entry.name}</EntryName>
-      <EntryDate>posted on: {formattedDate}</EntryDate>
+      <EntryDate>Posted on: {formattedDate}</EntryDate>
       <Entry>{entry.entry}</Entry>
       <FeelingBubble variant={entry.feeling}> </FeelingBubble>
       <ButtonContainer>

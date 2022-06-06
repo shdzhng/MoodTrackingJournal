@@ -27,6 +27,7 @@ export default function BarChart({ records, selectedYear, currentMonth }) {
     return <CircularProgress />;
   }
 
+  console.log(records);
   return (
     <Bar
       data={{
@@ -34,32 +35,32 @@ export default function BarChart({ records, selectedYear, currentMonth }) {
         datasets: [
           {
             label: 'Loved',
-            data: Object.values(records[selectedYear].loved),
+            data: Object.values(records[selectedYear].loved.entryCount),
             backgroundColor: colors.variantMap.loved,
           },
           {
             label: 'Happy',
-            data: Object.values(records[selectedYear].happy),
+            data: Object.values(records[selectedYear].happy.entryCount),
             backgroundColor: colors.variantMap.happy,
           },
           {
             label: 'Calm',
-            data: Object.values(records[selectedYear].calm),
+            data: Object.values(records[selectedYear].calm.entryCount),
             backgroundColor: colors.variantMap.calm,
           },
           {
             label: 'Sad',
-            data: Object.values(records[selectedYear].sad),
+            data: Object.values(records[selectedYear].sad.entryCount),
             backgroundColor: colors.variantMap.sad,
           },
           {
             label: 'Anxious',
-            data: Object.values(records[selectedYear].anxious),
+            data: Object.values(records[selectedYear].anxious.entryCount),
             backgroundColor: colors.variantMap.anxious,
           },
           {
             label: 'Angry',
-            data: Object.values(records[selectedYear].angry),
+            data: Object.values(records[selectedYear].angry.entryCount),
             backgroundColor: colors.variantMap.angry,
           },
         ],
@@ -79,7 +80,7 @@ export default function BarChart({ records, selectedYear, currentMonth }) {
           offset: true,
           title: {
             display: true,
-            text: `Mood by Month  (${selectedYear})`,
+            text: `Entry Count Cumulative Total Per Feeling  (${selectedYear})`,
           },
           legend: {
             display: true,

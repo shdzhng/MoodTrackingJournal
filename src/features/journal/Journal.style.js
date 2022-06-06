@@ -4,9 +4,6 @@ import { Masonry } from '@mui/lab';
 import { IconButton } from '@mui/material';
 
 const MasonryContainer = styled.div`
-  width: 90vw;
-  height: 90vh;
-  padding: 0;
   margin: 2rem auto 0 auto;
 `;
 
@@ -42,16 +39,11 @@ const FeelingBubble = styled.div`
 const EntryName = styled.p`
   font-size: 2rem;
   font-weight: 900;
-  margin-top: 0.75rem;
-  margin-bottom: 0;
+  margin: 0.75rem 0 0 0;
   color: ${colors.blue1};
   overflow-wrap: break-word;
   word-wrap: break-word;
-  -ms-word-break: break-all;
   word-break: break-word;
-  -ms-hyphens: auto;
-  -moz-hyphens: auto;
-  -webkit-hyphens: auto;
   hyphens: auto;
 `;
 

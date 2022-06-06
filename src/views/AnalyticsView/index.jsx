@@ -14,19 +14,23 @@ function AnalyticView() {
   const [selectedYear, setSelectedYear] = useState(moment().format('YYYY'));
   const currentMonth = moment().format('M');
 
-  const records = useMemo(() => {
+  const entryCountRecords = useMemo(() => {
     const returnedRecords = {};
 
     entries.forEach((entry) => {
       const monthOfEntry = moment.unix(entry.date).format('MMMM');
       const yearOfEntry = moment.unix(entry.date).format('YYYY');
       const feeling = entry.feeling;
+      const entryLength = entry.entry.split(/\b\S+\b/g).length - 1;
 
       if (!returnedRecords[yearOfEntry]) {
         returnedRecords[yearOfEntry] = monthlyCounterObj;
       }
 
-      returnedRecords[yearOfEntry][feeling][monthOfEntry]++;
+      returnedRecords[yearOfEntry][feeling].entryCount[monthOfEntry]++;
+
+      returnedRecords[yearOfEntry][feeling].wordCount[monthOfEntry] +=
+        entryLength;
     });
 
     return returnedRecords;
@@ -43,7 +47,7 @@ function AnalyticView() {
                 <QuickInfo
                   selectedYear={selectedYear}
                   setSelectedYear={setSelectedYear}
-                  records={records}
+                  records={entryCountRecords}
                 />
               </CardContent>
             </Card>
@@ -53,7 +57,7 @@ function AnalyticView() {
             <Card sx={{ height: 300 }}>
               <CardContent sx={{ height: 275 }}>
                 <LineChart
-                  records={records}
+                  records={entryCountRecords}
                   selectedYear={selectedYear}
                   currentMonth={currentMonth}
                 />
@@ -65,7 +69,7 @@ function AnalyticView() {
             <Card sx={{ height: 430 }}>
               <CardContent sx={{ height: 400 }}>
                 <BarChart
-                  records={records}
+                  records={entryCountRecords}
                   selectedYear={selectedYear}
                   currentMonth={currentMonth}
                 />

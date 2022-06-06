@@ -36,6 +36,11 @@ export default function EditPopUp({ entry, handleMarkerRemove }) {
   const handleSubmit = useCallback((e) => {
     e.preventDefault();
 
+    if (!feeling) {
+      alert("don't forget to mark down your feelings");
+      return;
+    }
+
     const newEntry = {
       id: entry.id,
       entry: entryContentRef.current.value,

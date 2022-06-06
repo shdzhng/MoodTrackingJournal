@@ -13,7 +13,11 @@ export default function Journal() {
     return (
       <>
         <MasonryContainer>
-          <Masonry columns={3} spacing={4} sx={{ px: 0, mx: 0 }}>
+          <Masonry
+            columns={{ xs: 1, sm: 2, md: 3, lg: 4 }}
+            spacing={3}
+            sx={{ p: 0, m: 0 }}
+          >
             {journal.map((entry, i) => (
               <SingleEntryCard entry={entry} key={entry.id} />
             ))}
