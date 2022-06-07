@@ -1,11 +1,11 @@
 import React from 'react';
 import { feelingList } from '../../constants/feelings';
-import { FeelingButton } from './PopUp.styles';
+import { FeelingButton, FeelingButtonContainer } from './PopUp.styles';
 import { ButtonGroup } from '@mui/material';
 
 function FeelingButtons({ handleFeelingChange, feeling }) {
   return (
-    <ButtonGroup variant="contained" sx={{ my: 2 }}>
+    <FeelingButtonContainer>
       {feelingList.map(({ key, variant, label }, i) => {
         return (
           <FeelingButton
@@ -20,7 +20,7 @@ function FeelingButtons({ handleFeelingChange, feeling }) {
           </FeelingButton>
         );
       })}
-    </ButtonGroup>
+    </FeelingButtonContainer>
   );
 }
 
