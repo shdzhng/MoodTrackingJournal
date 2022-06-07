@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import colors from '../../../constants/colors';
 import moment from 'moment';
 import Item from './styled';
@@ -18,44 +18,70 @@ function QuickInfo({ selectedYear, setSelectedYear, records }) {
   }, 1000);
 
   const entries = useSelector(({ journal }) => journal.entries);
-  const monthObj = {};
+
   const currentDay = moment().format('dddd, MMMM Do, YYYY');
   const currentMonth = moment().format('M');
   const lastMonth = currentMonth - 1;
 
-  entries.forEach((entry) => {
-    const entryMonth = moment.unix(entry.date).format('M');
-    if (monthObj[entryMonth] === undefined) monthObj[entryMonth] = 0;
-    monthObj[entryMonth]++;
-  });
+  const monthObj = useMemo(() => {
+    const returnedMonthObj = {};
 
-  const monthlyDifference =
-    monthObj[lastMonth] !== undefined
-      ? `${(monthObj[currentMonth] / monthObj[lastMonth]) * 100} %`
-      : 'no entries last month ';
+    entries.forEach((entry) => {
+      const entryMonth = moment.unix(entry.date).format('M');
+      const entryYear = moment.unix(entry.date).format('YYYY');
+
+      if (returnedMonthObj[entryYear] === undefined)
+        returnedMonthObj[entryYear] = {
+          1: 0,
+          2: 0,
+          3: 0,
+          4: 0,
+          5: 0,
+          6: 0,
+          7: 0,
+          8: 0,
+          9: 0,
+          10: 0,
+          11: 0,
+          12: 0,
+        };
+
+      returnedMonthObj[entryYear][entryMonth]++;
+    });
+    return returnedMonthObj;
+  }, [entries]);
 
   const monthDifferenceDisplay = () => {
-    if (monthObj[lastMonth] !== undefined) {
-      const difference = (monthObj[currentMonth] / monthObj[lastMonth]) * 100;
-      if (difference > 100)
+    if (monthObj[selectedYear][lastMonth] !== (undefined || 0)) {
+      const difference = Math.round(
+        (monthObj[selectedYear][currentMonth] /
+          monthObj[selectedYear][lastMonth]) *
+          100
+      );
+
+      if (difference > 100) {
         return (
           <>
-            YAY! You journaled{' '}
-            <span className="greenhighlight">{difference}</span> more this month
+            You journaled{' '}
+            <span className="greenhighlight">{difference}% MORE</span>
+            <br /> this month than the last!
           </>
         );
-      return (
-        <>
-          You journaled{' '}
-          <span className="redhighlight">{monthlyDifference}</span>
-          less than last month
-        </>
-      );
+      } else {
+        return (
+          <>
+            You journaled{' '}
+            <span className="redhighlight">{difference}% LESS</span>
+            <br /> this month than the last :c
+          </>
+        );
+      }
     }
+
     return (
       <>
-        No entries found <br />
-        from last month
+        No entries found from <br />
+        last month to compare :c <br />
       </>
     );
   };
@@ -64,6 +90,11 @@ function QuickInfo({ selectedYear, setSelectedYear, records }) {
     const indexNum = e.target.value / 10;
     setSelectedYear(Object.keys(records)[indexNum]);
   };
+
+  const valueOfSelectedYear =
+    Object.keys(records).findIndex((years) => {
+      return years === selectedYear;
+    }) * 10;
 
   return (
     <>
@@ -82,7 +113,7 @@ function QuickInfo({ selectedYear, setSelectedYear, records }) {
             <Item>
               <FormControl sx={{ autoWidth: true, fontSize: 1 }} size="small">
                 <Select
-                  value="0"
+                  value={valueOfSelectedYear}
                   sx={{ fontSize: 17, color: colors.blue1 }}
                   onChange={handleChange}
                 >
@@ -131,73 +162,73 @@ function QuickInfo({ selectedYear, setSelectedYear, records }) {
                   datasets: [
                     {
                       label: 'January',
-                      data: [monthObj[1]],
+                      data: [monthObj[selectedYear][1]],
                       backgroundColor: '#D9ED92',
                       borderWidth: 0,
                     },
                     {
                       label: 'Febuary',
-                      data: [monthObj[2]],
+                      data: [monthObj[selectedYear][2]],
                       backgroundColor: '#B5E48C',
                       borderWidth: 0,
                     },
                     {
                       label: 'March',
-                      data: [monthObj[3]],
+                      data: [monthObj[selectedYear][3]],
                       backgroundColor: '#99D98C',
                       borderWidth: 0,
                     },
                     {
                       label: 'April',
-                      data: [monthObj[4]],
+                      data: [monthObj[selectedYear][4]],
                       backgroundColor: '#76C893',
                       borderWidth: 0,
                     },
                     {
                       label: 'May',
-                      data: [monthObj[5]],
+                      data: [monthObj[selectedYear][5]],
                       backgroundColor: '#52B69A',
                       borderWidth: 0,
                     },
                     {
                       label: 'June',
-                      data: [monthObj[6]],
+                      data: [monthObj[selectedYear][6]],
                       backgroundColor: '#34a493',
                       borderWidth: 0,
                     },
                     {
                       label: 'July',
-                      data: [monthObj[7]],
+                      data: [monthObj[selectedYear][7]],
                       backgroundColor: '#34A0A4',
                       borderWidth: 0,
                     },
                     {
                       label: 'August',
-                      data: [monthObj[8]],
+                      data: [monthObj[selectedYear][8]],
                       backgroundColor: '#348fa4',
                       borderWidth: 0,
                     },
                     {
                       label: 'September',
-                      data: [monthObj[9]],
+                      data: [monthObj[selectedYear][9]],
                       backgroundColor: '#168AAD',
                       borderWidth: 0,
                     },
                     {
                       label: 'October',
-                      data: [monthObj[10]],
+                      data: [monthObj[selectedYear][10]],
                       backgroundColor: '#1A759F',
                       borderWidth: 0,
                     },
                     {
                       label: 'November',
-                      data: [monthObj[11]],
+                      data: [monthObj[selectedYear][11]],
                       backgroundColor: '#1E6091',
                       borderWidth: 0,
                     },
                     {
                       label: 'December',
-                      data: [monthObj[12]],
+                      data: [monthObj[selectedYear][12]],
                       backgroundColor: '#184E77',
                       borderWidth: 0,
                     },

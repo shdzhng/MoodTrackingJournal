@@ -3,9 +3,7 @@ import colors from '../../constants/colors';
 import { Masonry } from '@mui/lab';
 import { IconButton } from '@mui/material';
 
-const MasonryContainer = styled.div`
-  margin: 2rem auto 0 auto;
-`;
+const MasonryContainer = styled.div``;
 
 const EntryContainer = styled.div`
   padding: 1rem;
@@ -17,6 +15,7 @@ const EntryContainer = styled.div`
   box-shadow: 2px 2px 3px 0px ${colors.blue1};
   position: relative;
   word-wrap: break-word;
+  overflow: hidden;
 `;
 
 const IconButtonStyled = styled(IconButton)`
@@ -49,7 +48,6 @@ const EntryName = styled.p`
 
 const EntryDate = styled.p`
   font-size: 1rem;
-  margin: 0;
   color: ${colors.blue1};
 `;
 
