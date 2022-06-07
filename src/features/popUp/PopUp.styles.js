@@ -2,6 +2,23 @@ import styled from 'styled-components';
 import colors from '../../constants/colors';
 import Button from '@mui/material/Button';
 import { Modal } from '@mui/material';
+import { breakpoints } from '../../constants/breakpoints';
+import { styled as style } from '@mui/material/styles';
+import { ButtonGroup } from '@mui/material';
+import { createTheme } from '@mui/system';
+import { Box } from '@mui/material';
+
+const theme = createTheme({
+  breakpoints: {
+    values: {
+      xs: 0,
+      sm: 600,
+      md: 900,
+      lg: 1200,
+      xl: 1536,
+    },
+  },
+});
 
 const EntryWindow = styled.div`
   position: absolute;
@@ -24,7 +41,6 @@ const InputContainer = styled.div`
 `;
 
 const PopUpButton = styled(Button)({
-  // height: `100%`,
   backgroundColor: `${colors.blue1} !important`,
   borderRadius: `4rem !important`,
   padding: `1rem !important`,
@@ -66,13 +82,21 @@ const EntryInput = styled.textarea`
   }
 `;
 
-const FeelingButton = styled.button`
+const FeelingButtonContainer = style(Box)(({ theme }) => ({
+  marginTop: 8,
+  display: 'flex',
+  justifyContent: 'center',
+  [theme.breakpoints.down('md')]: {
+    flexWrap: 'wrap',
+  },
+}));
+
+const FeelingButton = styled('button')`
   padding: 1rem;
   border: none;
   color: white;
   opacity: 0.8;
-  width: 20%;
-
+  min-width: 95px;
   background-color: ${({ variant }) => colors.variantMap[variant]};
   transition-duration: 200ms;
   &:hover {
@@ -90,17 +114,18 @@ opacity:1; text-decoration: underline;
   }};
 `;
 
-const CenterButton = styled.div`
-  margin: 1rem auto 0 auto;
-`;
+const CenterButton = style(Box)(({ theme }) => ({
+  marginTop: 8,
+  display: 'flex',
+  justifyContent: 'center',
+}));
 
 const SubmitEntryButton = styled(Button)({
-  width: 300,
+  width: '75%',
   backgroundColor: `${colors.blue1} !important`,
   color: `white !important`,
+  margin: '1rem auto 0 auto',
 });
-
-const PopUpButtonContainer = styled.div``;
 
 const AddressInput = styled.input`
   border: 1px solid ${colors.accent};
@@ -117,21 +142,24 @@ const AddressInput = styled.input`
   }
 `;
 
-const AddressContainer = styled.div`
-  margin: 0 auto;
-  display: flex;
-  width: 100%;
-`;
+const AddressContainer = style(Box)(({ theme }) => ({
+  marginTop: 4,
+  display: 'flex',
+  justifyContent: 'center',
+  [theme.breakpoints.up('md')]: {
+    justifyContent: 'flex-start',
+  },
+}));
 
 export {
   FeelingButton,
   AddressInput,
-  PopUpButtonContainer,
   SubmitEntryButton,
   CenterButton,
   EntryTitleInput,
   EntryInput,
   InputContainer,
+  FeelingButtonContainer,
   EntryWindow,
   PopUpButton,
   AddressContainer,

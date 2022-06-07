@@ -13,8 +13,9 @@ import { IconButtonStyled } from '../journal/Journal.style';
 import { updateEntry } from '../journal/journalSlice';
 import EditIcon from '@mui/icons-material/Edit';
 import colors from '../../constants/colors';
-import FeelingButtons from './FeelingButtons';
 import moment from 'moment';
+import { feelingList } from '../../constants/feelings';
+import { FeelingButton, FeelingButtonContainer } from './PopUp.styles';
 
 export default function EditPopUp({ entry, handleMarkerRemove }) {
   const dispatch = useDispatch();
@@ -91,10 +92,22 @@ export default function EditPopUp({ entry, handleMarkerRemove }) {
                 handleEntryChange(e);
               }}
             />
-            <FeelingButtons
-              feeling={feeling}
-              handleFeelingChange={handleFeelingChange}
-            />
+            <FeelingButtonContainer>
+              {feelingList.map(({ key, variant, label }, i) => {
+                return (
+                  <FeelingButton
+                    selected={feeling === key}
+                    key={i}
+                    variant={variant}
+                    onClick={(e) => {
+                      handleFeelingChange(e);
+                    }}
+                  >
+                    {label}
+                  </FeelingButton>
+                );
+              })}
+            </FeelingButtonContainer>
             <CenterButton>
               <SubmitEntryButton
                 variant="contained"

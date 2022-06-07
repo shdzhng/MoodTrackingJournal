@@ -13,6 +13,7 @@ import {
   AddressContainer,
   PopUpButtonContainer,
   EntryInput,
+  FeelingButtonContainer,
   EntryWindow,
 } from './PopUp.styles';
 import { addEntry } from '../journal/journalSlice';
@@ -119,11 +120,8 @@ export default function EntryPopUp() {
   };
 
   return (
-    <div>
-      <PopUpButtonContainer>
-        <PopUpButton onClick={handleOpen}>Add New Entry</PopUpButton>
-      </PopUpButtonContainer>
-
+    <>
+      <PopUpButton onClick={handleOpen}>Add New Entry</PopUpButton>
       <Modal className="modal" open={open} onClose={handleClose}>
         <EntryWindow className="modal">
           <InputContainer>
@@ -158,11 +156,11 @@ export default function EntryPopUp() {
                 <GpsFixedIcon />
               </IconButton>
             </AddressContainer>
-            <ButtonGroup variant="contained" sx={{ my: 2 }}>
+            <FeelingButtonContainer variant="contained">
               {feelingList.map((item) => {
                 return renderFeelingButtons(item);
               })}
-            </ButtonGroup>
+            </FeelingButtonContainer>
             <CenterButton>
               <SubmitEntryButton
                 variant="contained"
@@ -179,6 +177,6 @@ export default function EntryPopUp() {
           </InputContainer>
         </EntryWindow>
       </Modal>
-    </div>
+    </>
   );
 }
