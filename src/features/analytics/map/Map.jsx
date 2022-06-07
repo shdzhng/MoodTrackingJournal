@@ -6,6 +6,7 @@ import MapMarker from './MapMarker';
 import { GoogleMap } from '@react-google-maps/api';
 import colors from '../../../constants/colors';
 import MapJournalEntryMarker from '../../popUp/MapJournalEntryMarker';
+import moment from 'moment';
 
 const options = {
   styles: mapStyles,
@@ -21,7 +22,7 @@ const containerStyle = {
   border: `1px solid ${colors.blue2}`,
 };
 
-const MapComponent = () => {
+const MapComponent = ({ selectedYear }) => {
   const entries = useSelector(({ journal }) => journal.entries);
   const [selectedLocation, setSelectedLocation] = useState(false);
   const [newMarker, setNewMarker] = useState({});
@@ -87,9 +88,12 @@ const MapComponent = () => {
             handleMarkerRemove={handleMarkerRemove}
           />
         )}
-        {entries.map((entry, i) => (
-          <MapMarker entry={entry} key={i} />
-        ))}
+        {entries.map((entry, i) => {
+          const yearOfEntry = moment.unix(entry.date).format('YYYY');
+          if (yearOfEntry === selectedYear) {
+            return <MapMarker entry={entry} key={i} />;
+          }
+        })}
       </GoogleMap>
     </>
   );

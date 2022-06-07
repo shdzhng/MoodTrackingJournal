@@ -14,7 +14,7 @@ function AnalyticView() {
   const [selectedYear, setSelectedYear] = useState(moment().format('YYYY'));
   const currentMonth = moment().format('M');
 
-  const entryCountRecords = useMemo(() => {
+  const records = useMemo(() => {
     const returnedRecords = {};
 
     entries.forEach((entry) => {
@@ -23,12 +23,191 @@ function AnalyticView() {
       const feeling = entry.feeling;
       const entryLength = entry.entry.split(/\b\S+\b/g).length - 1;
 
-      if (!returnedRecords[yearOfEntry]) {
-        returnedRecords[yearOfEntry] = monthlyCounterObj;
+      if (returnedRecords[yearOfEntry] === undefined) {
+        returnedRecords[yearOfEntry] = {
+          loved: {
+            entryCount: {
+              January: 0,
+              February: 0,
+              March: 0,
+              April: 0,
+              May: 0,
+              June: 0,
+              July: 0,
+              August: 0,
+              September: 0,
+              October: 0,
+              November: 0,
+              December: 0,
+            },
+            wordCount: {
+              January: 0,
+              February: 0,
+              March: 0,
+              April: 0,
+              May: 0,
+              June: 0,
+              July: 0,
+              August: 0,
+              September: 0,
+              October: 0,
+              November: 0,
+              December: 0,
+            },
+          },
+          happy: {
+            entryCount: {
+              January: 0,
+              February: 0,
+              March: 0,
+              April: 0,
+              May: 0,
+              June: 0,
+              July: 0,
+              August: 0,
+              September: 0,
+              October: 0,
+              November: 0,
+              December: 0,
+            },
+            wordCount: {
+              January: 0,
+              February: 0,
+              March: 0,
+              April: 0,
+              May: 0,
+              June: 0,
+              July: 0,
+              August: 0,
+              September: 0,
+              October: 0,
+              November: 0,
+              December: 0,
+            },
+          },
+          calm: {
+            entryCount: {
+              January: 0,
+              February: 0,
+              March: 0,
+              April: 0,
+              May: 0,
+              June: 0,
+              July: 0,
+              August: 0,
+              September: 0,
+              October: 0,
+              November: 0,
+              December: 0,
+            },
+            wordCount: {
+              January: 0,
+              February: 0,
+              March: 0,
+              April: 0,
+              May: 0,
+              June: 0,
+              July: 0,
+              August: 0,
+              September: 0,
+              October: 0,
+              November: 0,
+              December: 0,
+            },
+          },
+          sad: {
+            entryCount: {
+              January: 0,
+              February: 0,
+              March: 0,
+              April: 0,
+              May: 0,
+              June: 0,
+              July: 0,
+              August: 0,
+              September: 0,
+              October: 0,
+              November: 0,
+              December: 0,
+            },
+            wordCount: {
+              January: 0,
+              February: 0,
+              March: 0,
+              April: 0,
+              May: 0,
+              June: 0,
+              July: 0,
+              August: 0,
+              September: 0,
+              October: 0,
+              November: 0,
+              December: 0,
+            },
+          },
+          anxious: {
+            entryCount: {
+              January: 0,
+              February: 0,
+              March: 0,
+              April: 0,
+              May: 0,
+              June: 0,
+              July: 0,
+              August: 0,
+              September: 0,
+              October: 0,
+              November: 0,
+              December: 0,
+            },
+            wordCount: {
+              January: 0,
+              February: 0,
+              March: 0,
+              April: 0,
+              May: 0,
+              June: 0,
+              July: 0,
+              August: 0,
+              September: 0,
+              October: 0,
+              November: 0,
+              December: 0,
+            },
+          },
+          angry: {
+            entryCount: {
+              January: 0,
+              February: 0,
+              March: 0,
+              April: 0,
+              May: 0,
+              June: 0,
+              July: 0,
+              August: 0,
+              September: 0,
+              October: 0,
+              November: 0,
+              December: 0,
+            },
+            wordCount: {
+              January: 0,
+              February: 0,
+              March: 0,
+              April: 0,
+              May: 0,
+              June: 0,
+              July: 0,
+              August: 0,
+              September: 0,
+              October: 0,
+              November: 0,
+              December: 0,
+            },
+          },
+        };
       }
-
-      returnedRecords[yearOfEntry][feeling].entryCount[monthOfEntry]++;
-
+      returnedRecords[yearOfEntry][feeling].entryCount[monthOfEntry] += 1;
       returnedRecords[yearOfEntry][feeling].wordCount[monthOfEntry] +=
         entryLength;
     });
@@ -47,7 +226,7 @@ function AnalyticView() {
                 <QuickInfo
                   selectedYear={selectedYear}
                   setSelectedYear={setSelectedYear}
-                  records={entryCountRecords}
+                  records={records}
                 />
               </CardContent>
             </Card>
@@ -57,7 +236,7 @@ function AnalyticView() {
             <Card sx={{ height: 300 }}>
               <CardContent sx={{ height: 275 }}>
                 <LineChart
-                  records={entryCountRecords}
+                  records={records}
                   selectedYear={selectedYear}
                   currentMonth={currentMonth}
                 />
@@ -69,7 +248,7 @@ function AnalyticView() {
             <Card sx={{ height: 430 }}>
               <CardContent sx={{ height: 400 }}>
                 <BarChart
-                  records={entryCountRecords}
+                  records={records}
                   selectedYear={selectedYear}
                   currentMonth={currentMonth}
                 />
@@ -78,7 +257,7 @@ function AnalyticView() {
           </Grid>
 
           <Grid item xs={7}>
-            <GoogleMap />
+            <GoogleMap selectedYear={selectedYear} />
           </Grid>
         </Grid>
       </Box>

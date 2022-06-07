@@ -78,7 +78,7 @@ export default function LineChart({ records, selectedYear, currentMonth }) {
           maintainAspectRatio: false,
           title: {
             display: true,
-            text: `Word Count Trends Per Feeling(${selectedYear})`,
+            text: `Word Count Trends Per Feeling (${selectedYear})`,
           },
           legend: {
             position: 'top',
