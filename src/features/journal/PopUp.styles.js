@@ -1,10 +1,7 @@
 import styled from 'styled-components';
 import colors from '../../constants/colors';
 import Button from '@mui/material/Button';
-import { Modal } from '@mui/material';
-import { breakpoints } from '../../constants/breakpoints';
 import { styled as style } from '@mui/material/styles';
-import { ButtonGroup } from '@mui/material';
 import { createTheme } from '@mui/system';
 import { Box } from '@mui/material';
 

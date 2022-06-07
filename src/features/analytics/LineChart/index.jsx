@@ -1,88 +1,87 @@
 import React from 'react';
-import colors from '../../constants/colors';
+import colors from '../../../constants/colors';
 import {
   Chart as ChartJS,
   CategoryScale,
   LinearScale,
-  BarElement,
+  LineElement,
   Title,
   Tooltip,
   Legend,
+  PointElement,
 } from 'chart.js';
-import { Bar } from 'react-chartjs-2';
-import { months } from '../../constants/months';
+import { Line } from 'react-chartjs-2';
+import { months } from '../../../constants/months';
 import CircularProgress from '@mui/material/CircularProgress';
 
 ChartJS.register(
   CategoryScale,
   LinearScale,
-  BarElement,
+  LineElement,
   Title,
   Tooltip,
-  Legend
+  Legend,
+  PointElement
 );
 
-export default function BarChart({ records, selectedYear, currentMonth }) {
+export default function LineChart({ records, selectedYear, currentMonth }) {
   if (Object.keys(records).length < 1) {
-    return <CircularProgress />;
+    return <CircularProgress></CircularProgress>;
   }
 
   return (
-    <Bar
+    <Line
       data={{
         labels: months.slice(0, currentMonth),
         datasets: [
           {
             label: 'Loved',
-            data: Object.values(records[selectedYear].loved.entryCount),
+            data: Object.values(records[selectedYear].loved.wordCount),
             backgroundColor: colors.variantMap.loved,
+            borderColor: `${colors.variantMap.loved}50`,
           },
           {
             label: 'Happy',
-            data: Object.values(records[selectedYear].happy.entryCount),
+            data: Object.values(records[selectedYear].happy.wordCount),
             backgroundColor: colors.variantMap.happy,
+            borderColor: `${colors.variantMap.happy}50`,
           },
           {
             label: 'Calm',
-            data: Object.values(records[selectedYear].calm.entryCount),
+            data: Object.values(records[selectedYear].calm.wordCount),
             backgroundColor: colors.variantMap.calm,
+            borderColor: `${colors.variantMap.calm}50`,
           },
           {
             label: 'Sad',
-            data: Object.values(records[selectedYear].sad.entryCount),
+            data: Object.values(records[selectedYear].sad.wordCount),
             backgroundColor: colors.variantMap.sad,
+            borderColor: `${colors.variantMap.sad}50`,
           },
           {
             label: 'Anxious',
-            data: Object.values(records[selectedYear].anxious.entryCount),
+            data: Object.values(records[selectedYear].anxious.wordCount),
             backgroundColor: colors.variantMap.anxious,
+            borderColor: `${colors.variantMap.anxious}50`,
           },
           {
             label: 'Angry',
-            data: Object.values(records[selectedYear].angry.entryCount),
+            data: Object.values(records[selectedYear].angry.wordCount),
             backgroundColor: colors.variantMap.angry,
+            borderColor: `${colors.variantMap.angry}50`,
           },
         ],
       }}
       options={{
-        scales: {
-          x: {
-            stacked: true,
-          },
-          y: {
-            stacked: true,
-          },
-        },
         plugins: {
           responsive: true,
           maintainAspectRatio: false,
-          offset: true,
           title: {
             display: true,
-            text: `Entry Count Cumulative Total Per Feeling (${selectedYear})`,
+            text: `Word Count Trends Per Feeling (${selectedYear})`,
           },
           legend: {
-            display: true,
+            position: 'top',
           },
         },
         maintainAspectRatio: false,

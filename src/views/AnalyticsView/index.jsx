@@ -1,14 +1,12 @@
 import React, { useMemo, useState, useEffect } from 'react';
 import moment from 'moment';
 import NavigationBar from '../../features/navBar/NavBar';
-import GoogleMap from '../../features/analytics/map/Map';
+import GoogleMap from '../../features/analytics/Map';
 import BarChart from '../../features/analytics/BarChart';
 import LineChart from '../../features/analytics/LineChart';
 import QuickInfo from '../../features/analytics/QuickInfo';
 import { Card, CardContent, Grid, Box } from '@mui/material';
 import { useSelector } from 'react-redux';
-import { monthlyCounterObj } from '../../constants/months';
-import { styled } from '@mui/material/styles';
 
 function AnalyticView() {
   const entries = useSelector(({ journal }) => journal.entries);
@@ -286,7 +284,7 @@ function AnalyticView() {
     <>
       <NavigationBar />
       <Box sx={{ flexGrow: 1, mx: '3rem', my: '1rem' }}>
-        <Grid container spacing={3}>
+        <Grid container spacing={1}>
           <Grid item xs={12}>
             <Card sx={{ height: 300 }}>
               <CardContent sx={{ height: 250 }}>

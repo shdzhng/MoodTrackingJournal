@@ -5,7 +5,7 @@ import mapStyles from './Map.styles';
 import MapMarker from './MapMarker';
 import { GoogleMap } from '@react-google-maps/api';
 import colors from '../../../constants/colors';
-import MapJournalEntryMarker from '../../popUp/MapJournalEntryMarker';
+import MapJournalEntryMarker from './MapJournalEntryMarker';
 import moment from 'moment';
 
 const options = {

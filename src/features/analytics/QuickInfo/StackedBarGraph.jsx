@@ -1,12 +1,5 @@
-import React, { useState, useMemo, useEffect } from 'react';
-import colors from '../../../constants/colors';
-import moment from 'moment';
-import Item from './styled';
-import { useSelector } from 'react-redux';
-import { Chart as ChartJS, BarElement, Title, Tooltip, Legend } from 'chart.js';
+import React from 'react';
 import { Bar } from 'react-chartjs-2';
-import { MenuItem, FormControl, Select, Box, Grid } from '@mui/material';
-import { styled } from '@mui/material/styles';
 
 function StackedBarGraph({ selectedYear, monthObj }) {
   return (

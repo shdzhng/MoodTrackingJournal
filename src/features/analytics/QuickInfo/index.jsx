@@ -1,7 +1,7 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import colors from '../../../constants/colors';
 import moment from 'moment';
-import Item from './styled';
+import { Item, StyledBox } from './styled';
 import { useSelector } from 'react-redux';
 import { MenuItem, FormControl, Select, Box, Grid } from '@mui/material';
 import StackedBarGraph from './StackedBarGraph';
@@ -93,7 +93,6 @@ function QuickInfo({ selectedYear, setSelectedYear, records, w }) {
       return years === selectedYear;
     }) * 10;
 
-  console.log(w);
   if (w > 1100 || w < 500) {
     return (
       <>

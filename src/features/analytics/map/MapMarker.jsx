@@ -8,7 +8,7 @@ import {
   InfoWindowDate,
   InfoWindowTitle,
 } from './MapMarker.styles';
-import EditPopUp from '../../popUp/EditPopUp';
+import EditPopUp from '../../journal/EditPopUp';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { IconButtonStyled, ButtonContainer } from '../../journal/Journal.style';
 import { removeEntry } from '../../journal/journalSlice';

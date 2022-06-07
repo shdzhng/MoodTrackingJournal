@@ -9,8 +9,8 @@ import {
   EntryInput,
   EntryWindow,
 } from './PopUp.styles';
-import { IconButtonStyled } from '../journal/Journal.style';
-import { updateEntry } from '../journal/journalSlice';
+import { IconButtonStyled } from './Journal.style';
+import { updateEntry } from './journalSlice';
 import EditIcon from '@mui/icons-material/Edit';
 import colors from '../../constants/colors';
 import moment from 'moment';

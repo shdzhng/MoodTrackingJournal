@@ -16,9 +16,9 @@ import {
   FeelingButtonContainer,
   EntryWindow,
 } from './PopUp.styles';
-import { addEntry } from '../journal/journalSlice';
+import { addEntry } from './journalSlice';
 import { v4 as uuidv4 } from 'uuid';
-import { ButtonGroup, IconButton } from '@mui/material';
+import { IconButton } from '@mui/material';
 import { feelingList } from '../../constants/feelings';
 
 export default function EntryPopUp() {

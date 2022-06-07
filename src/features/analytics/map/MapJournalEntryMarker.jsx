@@ -4,10 +4,10 @@ import {
   InfoWindowText,
   InfoWindowDate,
   InfoWindowTitle,
-} from '../analytics/map/MapMarker.styles';
-import EditPopUp from './EditPopUp';
+} from './MapMarker.styles';
+import EditPopUp from '../../journal/EditPopUp';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { IconButtonStyled, ButtonContainer } from '../journal/Journal.style';
+import { IconButtonStyled, ButtonContainer } from '../../journal/Journal.style';
 import { useDispatch } from 'react-redux';
 
 export default function MapJournalEntryMarker({ entry, handleMarkerRemove }) {

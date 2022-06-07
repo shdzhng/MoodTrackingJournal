@@ -1,5 +1,5 @@
 import React from 'react';
-import EntryPopUp from '../popUp/EntryPopUp';
+import EntryPopUp from './EntryPopUp';
 import SelectLabels from './SortButton.jsx';
 import SingleEntryCard from './SingleEntry';
 import { Masonry } from '@mui/lab';

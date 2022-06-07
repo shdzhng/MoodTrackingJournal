@@ -1,4 +1,4 @@
-import EditPopUp from '../popUp/EditPopUp';
+import EditPopUp from './EditPopUp';
 import moment from 'moment';
 import DeleteIcon from '@mui/icons-material/Delete';
 import {
