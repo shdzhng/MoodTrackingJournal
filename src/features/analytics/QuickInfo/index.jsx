@@ -6,27 +6,13 @@ import { useSelector } from 'react-redux';
 import { MenuItem, FormControl, Select, Box, Grid } from '@mui/material';
 import StackedBarGraph from './StackedBarGraph';
 
-function QuickInfo({ selectedYear, setSelectedYear, records }) {
+function QuickInfo({ selectedYear, setSelectedYear, records, w }) {
   const currentTime = moment().format('h:mm a');
-  const [w, setW] = useState(window.innerWidth);
   const [clockTime, setClockTime] = useState(currentTime);
 
   setInterval(() => {
     setClockTime(moment().format('h:mm a'));
   }, 1000);
-
-  useEffect(() => {
-    const handleResize = () => {
-      console.log(window.innerWidth);
-      setW(window.innerWidth);
-    };
-
-    window.addEventListener('resize', handleResize);
-
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
 
   const entries = useSelector(({ journal }) => journal.entries);
 
@@ -61,7 +47,6 @@ function QuickInfo({ selectedYear, setSelectedYear, records }) {
     });
     return returnedMonthObj;
   }, [entries]);
-
 
   const monthDifferenceMessage = () => {
     if (monthObj[selectedYear][lastMonth] !== (undefined || 0)) {
@@ -108,8 +93,8 @@ function QuickInfo({ selectedYear, setSelectedYear, records }) {
       return years === selectedYear;
     }) * 10;
 
-
-  if (w > 1100) {
+  console.log(w);
+  if (w > 1100 || w < 500) {
     return (
       <>
         <Box sx={{ flexGrow: 1 }}>
@@ -155,6 +140,7 @@ function QuickInfo({ selectedYear, setSelectedYear, records }) {
       </>
     );
   }
+
   return (
     <>
       <Box sx={{ flexGrow: 1 }}>
@@ -164,7 +150,6 @@ function QuickInfo({ selectedYear, setSelectedYear, records }) {
               <FormControl sx={{ autoWidth: true, fontSize: 1 }} size="small">
                 <Select
                   value={valueOfSelectedYear}
-
                   sx={{ fontSize: 20, color: colors.blue1 }}
                   onChange={handleYearChange}
                 >

@@ -1,3 +1,5 @@
+// quotes by Jiddu Kirshnamurti
+
 const seed = [
   {
     id: 1,
