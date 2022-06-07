@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useMemo, useState, useEffect } from 'react';
 import moment from 'moment';
 import NavigationBar from '../../features/navBar/NavBar';
 import GoogleMap from '../../features/analytics/map/Map';
@@ -8,10 +8,25 @@ import QuickInfo from '../../features/analytics/QuickInfo';
 import { Card, CardContent, Grid, Box } from '@mui/material';
 import { useSelector } from 'react-redux';
 import { monthlyCounterObj } from '../../constants/months';
+import { styled } from '@mui/material/styles';
 
 function AnalyticView() {
   const entries = useSelector(({ journal }) => journal.entries);
+  const [w, setW] = useState(window.innerWidth);
   const [selectedYear, setSelectedYear] = useState(moment().format('YYYY'));
+
+  useEffect(() => {
+    const handleResize = () => {
+      setW(window.innerWidth);
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
   const currentMonth = moment().format('M');
 
   const records = useMemo(() => {
@@ -215,24 +230,77 @@ function AnalyticView() {
     return returnedRecords;
   }, [entries]);
 
+  if (w > 500) {
+    return (
+      <>
+        <NavigationBar />
+        <Box sx={{ flexGrow: 1, mx: '3rem', my: '1rem' }}>
+          <Grid container spacing={3}>
+            <Grid item xs={4}>
+              <Card sx={{ height: 300 }}>
+                <CardContent sx={{ height: 250 }}>
+                  <QuickInfo
+                    selectedYear={selectedYear}
+                    setSelectedYear={setSelectedYear}
+                    records={records}
+                    w={w}
+                  />
+                </CardContent>
+              </Card>
+            </Grid>
+
+            <Grid item xs={8}>
+              <Card sx={{ height: 300 }}>
+                <CardContent sx={{ height: 275 }}>
+                  <LineChart
+                    records={records}
+                    selectedYear={selectedYear}
+                    currentMonth={currentMonth}
+                  />
+                </CardContent>
+              </Card>
+            </Grid>
+
+            <Grid item xs={5}>
+              <Card sx={{ height: 430 }}>
+                <CardContent sx={{ height: 400 }}>
+                  <BarChart
+                    records={records}
+                    selectedYear={selectedYear}
+                    currentMonth={currentMonth}
+                  />
+                </CardContent>
+              </Card>
+            </Grid>
+
+            <Grid item xs={7}>
+              <GoogleMap selectedYear={selectedYear} />
+            </Grid>
+          </Grid>
+        </Box>
+      </>
+    );
+  }
+
   return (
     <>
       <NavigationBar />
       <Box sx={{ flexGrow: 1, mx: '3rem', my: '1rem' }}>
         <Grid container spacing={3}>
-          <Grid item xs={4}>
+          <Grid item xs={12}>
             <Card sx={{ height: 300 }}>
               <CardContent sx={{ height: 250 }}>
                 <QuickInfo
                   selectedYear={selectedYear}
                   setSelectedYear={setSelectedYear}
                   records={records}
+                  w={w}
                 />
               </CardContent>
             </Card>
           </Grid>
 
-          <Grid item xs={8}>
+          <Grid item xs={12}>
             <Card sx={{ height: 300 }}>
               <CardContent sx={{ height: 275 }}>
                 <LineChart
@@ -244,7 +312,7 @@ function AnalyticView() {
             </Card>
           </Grid>
 
-          <Grid item xs={5}>
+          <Grid item xs={12}>
             <Card sx={{ height: 430 }}>
               <CardContent sx={{ height: 400 }}>
                 <BarChart
@@ -256,7 +324,7 @@ function AnalyticView() {
             </Card>
           </Grid>
 
-          <Grid item xs={7}>
+          <Grid item xs={12}>
             <GoogleMap selectedYear={selectedYear} />
           </Grid>
         </Grid>
