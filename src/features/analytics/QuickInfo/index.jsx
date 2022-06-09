@@ -5,6 +5,7 @@ import { Item, StyledBox } from './styled';
 import { useSelector } from 'react-redux';
 import { MenuItem, FormControl, Select, Box, Grid } from '@mui/material';
 import StackedBarGraph from './StackedBarGraph';
+import { months } from '../../../constants/months';
 
 function QuickInfo({ selectedYear, setSelectedYear, records, w }) {
   const currentTime = moment().format('h:mm a');
@@ -20,15 +21,15 @@ function QuickInfo({ selectedYear, setSelectedYear, records, w }) {
   const currentMonth = moment().format('M');
   const lastMonth = currentMonth - 1;
 
-  const monthObj = useMemo(() => {
-    const returnedMonthObj = {};
+  let monthObj = {};
 
+  const calculateData = () => {
     entries.forEach((entry) => {
       const entryMonth = moment.unix(entry.date).format('M');
       const entryYear = moment.unix(entry.date).format('YYYY');
 
-      if (returnedMonthObj[entryYear] === undefined)
-        returnedMonthObj[entryYear] = {
+      if (monthObj[entryYear] === undefined)
+        monthObj[entryYear] = {
           1: 0,
           2: 0,
           3: 0,
@@ -43,10 +44,22 @@ function QuickInfo({ selectedYear, setSelectedYear, records, w }) {
           12: 0,
         };
 
-      returnedMonthObj[entryYear][entryMonth]++;
+      monthObj[entryYear][entryMonth]++;
     });
-    return returnedMonthObj;
-  }, [entries]);
+  };
+
+  const selectedData = months.map((month, i) => {
+    if (monthObj[selectedYear]?.[i + 1] === undefined) {
+      calculateData();
+    }
+
+    return {
+      label: month,
+      data: [monthObj[selectedYear][i + 1]],
+      backgroundColor: colors.variantMap[month],
+      borderWidth: 0,
+    };
+  });
 
   const monthDifferenceMessage = () => {
     if (monthObj[selectedYear][lastMonth] !== (undefined || 0)) {
@@ -128,10 +141,7 @@ function QuickInfo({ selectedYear, setSelectedYear, records, w }) {
             </Grid>
             <Grid item xs={12}>
               <Item sx={{ height: 150 }}>
-                <StackedBarGraph
-                  selectedYear={selectedYear}
-                  monthObj={monthObj}
-                />
+                <StackedBarGraph data={selectedData} />
               </Item>
             </Grid>
           </Grid>
@@ -165,10 +175,7 @@ function QuickInfo({ selectedYear, setSelectedYear, records, w }) {
           </Grid>
           <Grid item xs={12}>
             <Item sx={{ height: 'auto', mt: 2 }}>
-              <StackedBarGraph
-                selectedYear={selectedYear}
-                monthObj={monthObj}
-              />
+              <StackedBarGraph data={selectedData} />
             </Item>
           </Grid>
         </Grid>
