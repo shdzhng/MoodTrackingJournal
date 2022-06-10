@@ -78,7 +78,7 @@ const MapComponent = ({ selectedYear }) => {
         id="mapContainer"
         mapContainerStyle={containerStyle}
         center={startLocation}
-        zoom={11}
+        zoom={9}
         options={options}
         onClick={handleMapClick}
       >

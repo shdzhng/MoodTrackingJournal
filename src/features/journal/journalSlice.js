@@ -92,6 +92,8 @@ export const journalSlice = createSlice({
             return a.entry.length > b.entry.length ? 1 : -1;
           });
           break;
+        default:
+          return state.entries;
       }
     },
   },

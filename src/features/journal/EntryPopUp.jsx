@@ -92,15 +92,15 @@ export default function EntryPopUp() {
   const handleFeelingChange = useCallback((e) => {
     const selectedFeeling = e.target.innerText.toLowerCase();
     setFeeling(selectedFeeling);
-  });
+  }, []);
 
   const handleContentChange = useCallback(({ target }) => {
     setContent(target.value);
-  });
+  }, []);
 
   const handleTitleChange = useCallback(({ target }) => {
     setTitle(target.value);
-  });
+  }, []);
 
   const disableButtonCheck = !feeling || !title || !content ? false : true;
 

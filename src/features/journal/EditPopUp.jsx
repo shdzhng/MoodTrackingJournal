@@ -58,11 +58,11 @@ export default function EditPopUp({ entry, handleMarkerRemove }) {
 
   const handleEntryChange = useCallback(({ target }) => {
     setNewEntry(target.value);
-  });
+  }, []);
 
   const handleNameChange = useCallback(({ target }) => {
     setNewName(target.value);
-  });
+  }, []);
 
   return (
     <div>

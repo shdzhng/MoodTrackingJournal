@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import EntryPopUp from './EntryPopUp';
 import SelectLabels from './SortButton.jsx';
 import SingleEntryCard from './SingleEntry';
@@ -12,7 +12,10 @@ import { sortEntries } from './journalSlice';
 export default function Journal() {
   const dispatch = useDispatch();
   const journal = useSelector((state) => state.journal.entries);
-  dispatch(sortEntries('newstFirst'));
+
+  useEffect(() => {
+    dispatch(sortEntries('newstFirst'));
+  }, []);
 
   function renderEntryCards() {
     return (

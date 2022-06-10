@@ -7,8 +7,6 @@ import LineChart from '../../features/analytics/LineChart';
 import QuickInfo from '../../features/analytics/QuickInfo';
 import { Card, CardContent, Grid, Box } from '@mui/material';
 import { useSelector } from 'react-redux';
-import { months } from '../../constants/months';
-import colors from '../../constants/colors';
 
 function AnalyticView() {
   const entries = useSelector(({ journal }) => journal.entries);
