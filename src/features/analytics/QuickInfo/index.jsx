@@ -6,20 +6,16 @@ import { useSelector } from 'react-redux';
 import { MenuItem, FormControl, Select, Box, Grid } from '@mui/material';
 import StackedBarGraph from './StackedBarGraph';
 import { months } from '../../../constants/months';
+import ComparisonMessage from './ComparisonMessage';
 
 function QuickInfo({ selectedYear, setSelectedYear, records, w }) {
   const currentTime = moment().format('h:mm a');
   const [clockTime, setClockTime] = useState(currentTime);
-
   setInterval(() => {
     setClockTime(moment().format('h:mm a'));
   }, 1000);
-
   const entries = useSelector(({ journal }) => journal.entries);
-
   const currentDay = moment().format('dddd, MMMM Do, YYYY');
-  const currentMonth = moment().format('M');
-  const lastMonth = currentMonth - 1;
 
   let monthObj = {};
 
@@ -47,12 +43,9 @@ function QuickInfo({ selectedYear, setSelectedYear, records, w }) {
       monthObj[entryYear][entryMonth]++;
     });
   };
+  calculateData();
 
   const selectedData = months.map((month, i) => {
-    if (monthObj[selectedYear]?.[i + 1] === undefined) {
-      calculateData();
-    }
-
     return {
       label: month,
       data: [monthObj[selectedYear][i + 1]],
@@ -60,41 +53,6 @@ function QuickInfo({ selectedYear, setSelectedYear, records, w }) {
       borderWidth: 0,
     };
   });
-
-  const monthDifferenceMessage = () => {
-    if (monthObj[selectedYear][lastMonth] !== (undefined || 0)) {
-      const difference = Math.round(
-        (monthObj[selectedYear][currentMonth] /
-          monthObj[selectedYear][lastMonth]) *
-          100
-      );
-
-      if (difference > 100) {
-        return (
-          <>
-            You journaled{' '}
-            <span className="greenhighlight">{difference}% MORE</span>
-            <br /> this month than the last!
-          </>
-        );
-      } else {
-        return (
-          <>
-            You journaled{' '}
-            <span className="redhighlight">{difference}% LESS</span>
-            <br /> this month than the last :c
-          </>
-        );
-      }
-    }
-
-    return (
-      <>
-        No entries found from <br />
-        last month to compare :c <br />
-      </>
-    );
-  };
 
   const handleYearChange = (e) => {
     const indexNum = e.target.value / 10;
@@ -118,7 +76,12 @@ function QuickInfo({ selectedYear, setSelectedYear, records, w }) {
               <Item>{clockTime}</Item>
             </Grid>
             <Grid item xs={8}>
-              <Item>{monthDifferenceMessage()}</Item>
+              <Item>
+                <ComparisonMessage
+                  monthObj={monthObj}
+                  selectedYear={selectedYear}
+                />
+              </Item>
             </Grid>
             <Grid item xs={4}>
               <Item>
