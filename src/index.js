@@ -1,6 +1,6 @@
 import React from 'react';
 import App from './App';
-import GlobalStyles from './constants/Global.styles';
+import GlobalStyles from './constants/global.styles';
 import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { store } from './app/store';

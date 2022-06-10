@@ -11,12 +11,11 @@ import {
   EntryTitleInput,
   PopUpButton,
   AddressContainer,
-  PopUpButtonContainer,
   EntryInput,
   FeelingButtonContainer,
   EntryWindow,
 } from './PopUp.styles';
-import { addEntry } from './journalSlice';
+import { addEntry, sortEntries } from './journalSlice';
 import { v4 as uuidv4 } from 'uuid';
 import { IconButton } from '@mui/material';
 import { feelingList } from '../../constants/feelings';
@@ -87,6 +86,7 @@ export default function EntryPopUp() {
     setContent(null);
     setInputRendered(false);
     dispatch(addEntry(newEntry));
+    dispatch(sortEntries('newstFirst'));
   });
 
   const handleFeelingChange = useCallback((e) => {

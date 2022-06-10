@@ -10,7 +10,7 @@ import {
   EntryWindow,
 } from './PopUp.styles';
 import { IconButtonStyled } from './Journal.style';
-import { updateEntry } from './journalSlice';
+import { updateEntry, sortEntries } from './journalSlice';
 import EditIcon from '@mui/icons-material/Edit';
 import colors from '../../constants/colors';
 import moment from 'moment';
@@ -52,7 +52,7 @@ export default function EditPopUp({ entry, handleMarkerRemove }) {
     };
 
     dispatch(updateEntry(newEntry));
-
+    dispatch(sortEntries('newstFirst'));
     if (handleMarkerRemove !== undefined) handleMarkerRemove();
   });
 

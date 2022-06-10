@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { importEntries } from './features/journal/journalSlice';
-import GlobalStyles from './constants/Global.styles';
+import GlobalStyles from './constants/global.styles';
 import JournalView from './views/JournalView';
 import AnalyticView from './views/AnalyticsView';
 import { GoogleApiWrapper } from 'google-maps-react';

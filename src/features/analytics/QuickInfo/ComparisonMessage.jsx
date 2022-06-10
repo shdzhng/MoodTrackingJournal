@@ -5,7 +5,10 @@ function ComparisonMessage({ monthObj, selectedYear }) {
   const currentMonth = moment().format('M');
   const lastMonth = currentMonth - 1;
 
-  if (monthObj[selectedYear][lastMonth] !== (undefined || 0)) {
+  if (
+    monthObj[selectedYear] &&
+    monthObj[selectedYear][lastMonth] !== (undefined || 0)
+  ) {
     const difference = Math.round(
       (monthObj[selectedYear][currentMonth] /
         monthObj[selectedYear][lastMonth]) *

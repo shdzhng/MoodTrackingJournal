@@ -6,9 +6,13 @@ import { Masonry } from '@mui/lab';
 import { Box } from '@mui/material';
 import { useSelector } from 'react-redux';
 import { MasonryContainer, FlexContainer } from './Journal.style';
+import { useDispatch } from 'react-redux';
+import { sortEntries } from './journalSlice';
 
 export default function Journal() {
+  const dispatch = useDispatch();
   const journal = useSelector((state) => state.journal.entries);
+  dispatch(sortEntries('newstFirst'));
 
   function renderEntryCards() {
     return (

@@ -46,6 +46,10 @@ function QuickInfo({ selectedYear, setSelectedYear, records, w }) {
   calculateData();
 
   const selectedData = months.map((month, i) => {
+    if (!monthObj[selectedYear]) {
+      return {};
+    }
+
     return {
       label: month,
       data: [monthObj[selectedYear][i + 1]],
