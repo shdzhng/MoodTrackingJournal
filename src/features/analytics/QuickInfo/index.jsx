@@ -9,13 +9,24 @@ import { months } from '../../../constants/months';
 import ComparisonMessage from './ComparisonMessage';
 
 function QuickInfo({ selectedYear, setSelectedYear, records, w }) {
+  const entries = useSelector(({ journal }) => journal.entries);
+
+  const handleYearChange = (e) => {
+    const indexNum = e.target.value / 10;
+    setSelectedYear(Object.keys(records)[indexNum]);
+  };
+
+  const valueOfSelectedYear =
+    Object.keys(records).findIndex((years) => {
+      return years === selectedYear;
+    }) * 10;
+
   const currentTime = moment().format('h:mm a');
+  const currentDay = moment().format('dddd, MMMM Do, YYYY');
   const [clockTime, setClockTime] = useState(currentTime);
   setInterval(() => {
     setClockTime(moment().format('h:mm a'));
   }, 1000);
-  const entries = useSelector(({ journal }) => journal.entries);
-  const currentDay = moment().format('dddd, MMMM Do, YYYY');
 
   let monthObj = {};
 
@@ -43,6 +54,7 @@ function QuickInfo({ selectedYear, setSelectedYear, records, w }) {
       monthObj[entryYear][entryMonth]++;
     });
   };
+
   calculateData();
 
   const selectedData = months.map((month, i) => {
@@ -53,16 +65,6 @@ function QuickInfo({ selectedYear, setSelectedYear, records, w }) {
       borderWidth: 0,
     };
   });
-
-  const handleYearChange = (e) => {
-    const indexNum = e.target.value / 10;
-    setSelectedYear(Object.keys(records)[indexNum]);
-  };
-
-  const valueOfSelectedYear =
-    Object.keys(records).findIndex((years) => {
-      return years === selectedYear;
-    }) * 10;
 
   if (w > 1100 || w < 500) {
     return (
@@ -77,10 +79,10 @@ function QuickInfo({ selectedYear, setSelectedYear, records, w }) {
             </Grid>
             <Grid item xs={8}>
               <Item>
-                <ComparisonMessage
+                {/* <ComparisonMessage
                   monthObj={monthObj}
                   selectedYear={selectedYear}
-                />
+                /> */}
               </Item>
             </Grid>
             <Grid item xs={4}>
@@ -104,7 +106,7 @@ function QuickInfo({ selectedYear, setSelectedYear, records, w }) {
             </Grid>
             <Grid item xs={12}>
               <Item sx={{ height: 150 }}>
-                <StackedBarGraph data={selectedData} />
+                {/* <StackedBarGraph data={selectedData} /> */}
               </Item>
             </Grid>
           </Grid>
@@ -113,38 +115,38 @@ function QuickInfo({ selectedYear, setSelectedYear, records, w }) {
     );
   }
 
-  return (
-    <>
-      <Box sx={{ flexGrow: 1 }}>
-        <Grid container spacing={1}>
-          <Grid item xs={12}>
-            <Item>
-              <FormControl sx={{ autoWidth: true, fontSize: 1 }} size="small">
-                <Select
-                  value={valueOfSelectedYear}
-                  sx={{ fontSize: 20, color: colors.blue1 }}
-                  onChange={handleYearChange}
-                >
-                  {Object.keys(records)
-                    .sort()
-                    .map((year, i) => (
-                      <MenuItem key={i} value={i * 10}>
-                        {year}
-                      </MenuItem>
-                    ))}
-                </Select>
-              </FormControl>
-            </Item>
-          </Grid>
-          <Grid item xs={12}>
-            <Item sx={{ height: 'auto', mt: 2 }}>
-              <StackedBarGraph data={selectedData} />
-            </Item>
-          </Grid>
-        </Grid>
-      </Box>
-    </>
-  );
+  // return (
+  //   <>
+  //     <Box sx={{ flexGrow: 1 }}>
+  //       <Grid container spacing={1}>
+  //         <Grid item xs={12}>
+  //           <Item>
+  //             <FormControl sx={{ autoWidth: true, fontSize: 1 }} size="small">
+  //               <Select
+  //                 value={valueOfSelectedYear}
+  //                 sx={{ fontSize: 20, color: colors.blue1 }}
+  //                 onChange={handleYearChange}
+  //               >
+  //                 {Object.keys(records)
+  //                   .sort()
+  //                   .map((year, i) => (
+  //                     <MenuItem key={i} value={i * 10}>
+  //                       {year}
+  //                     </MenuItem>
+  //                   ))}
+  //               </Select>
+  //             </FormControl>
+  //           </Item>
+  //         </Grid>
+  //         <Grid item xs={12}>
+  //           <Item sx={{ height: 'auto', mt: 2 }}>
+  //             <StackedBarGraph data={selectedData} />
+  //           </Item>
+  //         </Grid>
+  //       </Grid>
+  //     </Box>
+  //   </>
+  // );
 }
 
 export default QuickInfo;
