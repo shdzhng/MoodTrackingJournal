@@ -10,12 +10,13 @@ import ComparisonMessage from './ComparisonMessage';
 
 function QuickInfo({ selectedYear, setSelectedYear, records, w }) {
   const currentTime = moment().format('h:mm a');
+  const currentDay = moment().format('dddd, MMMM Do, YYYY');
   const [clockTime, setClockTime] = useState(currentTime);
   setInterval(() => {
     setClockTime(moment().format('h:mm a'));
   }, 1000);
+
   const entries = useSelector(({ journal }) => journal.entries);
-  const currentDay = moment().format('dddd, MMMM Do, YYYY');
 
   let monthObj = {};
 
@@ -43,9 +44,10 @@ function QuickInfo({ selectedYear, setSelectedYear, records, w }) {
       monthObj[entryYear][entryMonth]++;
     });
   };
+
   calculateData();
 
-  const selectedData = months.map((month, i) => {
+  const data = months.map((month, i) => {
     if (!monthObj[selectedYear]) {
       return {};
     }
@@ -108,7 +110,7 @@ function QuickInfo({ selectedYear, setSelectedYear, records, w }) {
             </Grid>
             <Grid item xs={12}>
               <Item sx={{ height: 150 }}>
-                <StackedBarGraph data={selectedData} />
+                <StackedBarGraph data={data} selectedYear={selectedYear} />
               </Item>
             </Grid>
           </Grid>
@@ -142,7 +144,7 @@ function QuickInfo({ selectedYear, setSelectedYear, records, w }) {
           </Grid>
           <Grid item xs={12}>
             <Item sx={{ height: 'auto', mt: 2 }}>
-              <StackedBarGraph data={selectedData} />
+              <StackedBarGraph data={data} />
             </Item>
           </Grid>
         </Grid>

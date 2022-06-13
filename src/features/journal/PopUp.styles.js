@@ -69,6 +69,7 @@ const EntryInput = styled.textarea`
   resize: none;
   word-wrap: break-word;
   word-break: break-all;
+  hyphens: auto;
   font-size: 1rem;
   &:focus-visible {
     outline: 1px double ${colors.orange2};

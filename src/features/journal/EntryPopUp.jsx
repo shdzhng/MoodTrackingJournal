@@ -50,7 +50,7 @@ export default function EntryPopUp() {
     e.preventDefault();
     autocomplete.value = '';
     navigator.geolocation.getCurrentPosition((position) => {
-      const KEY = 'AIzaSyAKdW7KHxurf0MqG2goZ9d1Z01Sefs6Uck';
+      const KEY = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
       const LAT = position.coords.latitude;
       const LNG = position.coords.longitude;
       let url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${LAT},${LNG}&key=${KEY}`;

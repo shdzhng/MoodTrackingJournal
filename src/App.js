@@ -8,6 +8,7 @@ import AnalyticView from './views/AnalyticsView';
 import { GoogleApiWrapper } from 'google-maps-react';
 import QualitativeView from './views/QualitativeView';
 import seed from './seed';
+const apiKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
 
 // set useSeed as false THEN click on 'DELETE JOURNAL' under app settings to wipe seed.
 
@@ -49,5 +50,5 @@ function App() {
 }
 
 export default GoogleApiWrapper({
-  apiKey: 'AIzaSyAKdW7KHxurf0MqG2goZ9d1Z01Sefs6Uck',
+  apiKey,
 })(App);

@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import axios from 'axios';
 import { Box, Typography, Tab, Tabs, CircularProgress } from '@mui/material';
 import { useSelector } from 'react-redux';
@@ -75,63 +75,53 @@ export default function QualitativeView() {
     setValue(newValue);
   };
 
-  if (wordCloud !== undefined) {
-    return (
-      <>
-        <Box
-          sx={{
-            flexGrow: 1,
-            bgcolor: colors.background,
-            display: 'flex',
-            height: '90vh',
-            width: '100vh',
-            mt: 2,
-          }}
-        >
-          <Tabs
-            orientation="vertical"
-            value={value}
-            onChange={handleChange}
-            sx={{
-              borderRight: 1,
-              borderColor: colors.accent,
-              mt: 0,
-              p: 0,
-            }}
-          >
-            <Tab label="Loved" {...a11yProps(0)} />
-            <Tab label="Happy" {...a11yProps(1)} />
-            <Tab label="Calm" {...a11yProps(2)} />
-            <Tab label="Anxious" {...a11yProps(3)} />
-            <Tab label="Sad" {...a11yProps(4)} />
-            <Tab label="Angry" {...a11yProps(5)} />
-          </Tabs>
-          <TabPanel value={value} index={0}>
-            <img src={`data:image/svg+xml;base64,${btoa(wordCloud)}`} />
-          </TabPanel>
-          <TabPanel value={value} index={1}>
-            <img src={`data:image/svg+xml;base64,${btoa(wordCloud)}`} />
-          </TabPanel>
-          <TabPanel value={value} index={2}>
-            <img src={`data:image/svg+xml;base64,${btoa(wordCloud)}`} />
-          </TabPanel>
-          <TabPanel value={value} index={3}>
-            <img src={`data:image/svg+xml;base64,${btoa(wordCloud)}`} />
-          </TabPanel>
-          <TabPanel value={value} index={4}>
-            <img src={`data:image/svg+xml;base64,${btoa(wordCloud)}`} />
-          </TabPanel>
-          <TabPanel value={value} index={5}>
-            <img src={`data:image/svg+xml;base64,${btoa(wordCloud)}`} />
-          </TabPanel>
-        </Box>
-      </>
-    );
-  }
-
   return (
     <>
-      <CircularProgress></CircularProgress>
+      <Box
+        sx={{
+          flexGrow: 1,
+          bgcolor: colors.background,
+          display: 'flex',
+          height: '90vh',
+          width: '100vh',
+          mt: 2,
+        }}
+      >
+        <Tabs
+          orientation="vertical"
+          value={value}
+          onChange={handleChange}
+          sx={{
+            borderRight: 1,
+            borderColor: colors.accent,
+            mt: 0,
+            p: 0,
+          }}
+        >
+          <Tab label="Loved" {...a11yProps(0)} />
+          <Tab label="Happy" {...a11yProps(1)} />
+          <Tab label="Calm" {...a11yProps(2)} />
+          <Tab label="Anxious" {...a11yProps(3)} />
+          <Tab label="Sad" {...a11yProps(4)} />
+          <Tab label="Angry" {...a11yProps(5)} />
+        </Tabs>
+        {wordCloud !== undefined ? (
+          Object.entries(valueEnum).map((key, i) => {
+            return (
+              <TabPanel value={value} index={i} key={i}>
+                <img
+                  src={`data:image/svg+xml;base64,${window.btoa(
+                    unescape(encodeURIComponent(wordCloud))
+                  )}`}
+                />
+              </TabPanel>
+            );
+          })
+        ) : (
+          <CircularProgress />
+        )}
+        {}
+      </Box>
     </>
   );
 }

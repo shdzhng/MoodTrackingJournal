@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import EntryPopUp from './EntryPopUp';
 import SelectLabels from './SortButton.jsx';
 import SingleEntryCard from './SingleEntry';
