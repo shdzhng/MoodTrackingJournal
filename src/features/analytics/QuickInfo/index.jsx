@@ -1,7 +1,7 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import colors from '../../../constants/colors';
 import moment from 'moment';
-import { Item, StyledBox } from './styled';
+import { Item } from './styled';
 import { useSelector } from 'react-redux';
 import { MenuItem, FormControl, Select, Box, Grid } from '@mui/material';
 import StackedBarGraph from './StackedBarGraph';
