@@ -1,7 +1,7 @@
 import React from 'react';
 import { Bar } from 'react-chartjs-2';
 
-function StackedBarGraph({ data }) {
+function StackedBarGraph({ stackedBarGraphData }) {
   return (
     <Bar
       options={{
@@ -32,7 +32,7 @@ function StackedBarGraph({ data }) {
       }}
       data={{
         labels: [['Total', 'Entry', 'Count']],
-        datasets: data,
+        datasets: stackedBarGraphData,
       }}
     />
   );

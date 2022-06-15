@@ -1,32 +1,20 @@
 import React from 'react';
-import moment from 'moment';
 
-function ComparisonMessage({ monthObj, selectedYear }) {
-  const currentMonth = moment().format('M');
-  const lastMonth = currentMonth - 1;
-
-  if (
-    monthObj[selectedYear] &&
-    monthObj[selectedYear][lastMonth] !== (undefined || 0)
-  ) {
-    const difference = Math.round(
-      (monthObj[selectedYear][currentMonth] /
-        monthObj[selectedYear][lastMonth]) *
-        100
-    );
-
-    if (difference > 100) {
+function ComparisonMessage({ quickInfoMessageData }) {
+  if (typeof quickInfoMessageData === 'number') {
+    if (quickInfoMessageData > 100) {
       return (
         <>
           You journaled{' '}
-          <span className="greenhighlight">{difference}% MORE</span>
+          <span className="greenhighlight">{quickInfoMessageData}% MORE</span>
           <br /> this month than the last!
         </>
       );
     } else {
       return (
         <>
-          You journaled <span className="redhighlight">{difference}% LESS</span>
+          You journaled{' '}
+          <span className="redhighlight">{quickInfoMessageData}% LESS</span>
           <br /> this month than the last :c
         </>
       );

@@ -25,12 +25,12 @@ ChartJS.register(
 );
 
 export default function LineChart({
-  isRecordsEmpty,
+  isEntriesEmpty,
   selectedYear,
   currentMonth,
   lineGraphData,
 }) {
-  if (isRecordsEmpty) {
+  if (isEntriesEmpty) {
     return <CircularProgress></CircularProgress>;
   }
 
