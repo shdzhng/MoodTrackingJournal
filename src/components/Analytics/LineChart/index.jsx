@@ -1,5 +1,4 @@
 import React from 'react';
-import colors from '../../../constants/colors';
 import {
   Chart as ChartJS,
   CategoryScale,

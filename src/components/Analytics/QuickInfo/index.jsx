@@ -2,17 +2,14 @@ import React, { useState, useMemo, useEffect } from 'react';
 import colors from '../../../constants/colors';
 import moment from 'moment';
 import { Item } from './styled';
-import { useSelector } from 'react-redux';
 import { MenuItem, FormControl, Select, Box, Grid } from '@mui/material';
 import StackedBarGraph from './StackedBarGraph';
-import { months } from '../../../constants/months';
 import ComparisonMessage from './ComparisonMessage';
 
 function QuickInfo({
   selectedYear,
   setSelectedYear,
   w,
-  unfilteredData,
   quickInfoMessageData,
   stackedBarGraphData,
   entriesYearList,
@@ -20,17 +17,22 @@ function QuickInfo({
   const currentTime = moment().format('h:mm a');
   const currentDay = moment().format('dddd, MMMM Do, YYYY');
   const [clockTime, setClockTime] = useState(currentTime);
+  const valueOfSelectedYear = entriesYearList.indexOf(selectedYear) * 10;
 
   setInterval(() => {
     setClockTime(moment().format('h:mm a'));
   }, 1000);
 
+  const graphOrientation = useMemo(() => {
+    if (w > 750) return 'y';
+    if (w < 500) return 'y';
+    return 'x';
+  }, [w]);
+
   const handleYearChange = (e) => {
     const indexNum = e.target.value / 10;
     setSelectedYear(entriesYearList[indexNum]);
   };
-
-  const valueOfSelectedYear = entriesYearList.indexOf(selectedYear) * 10;
 
   if (w > 1100 || w < 500) {
     return (
@@ -57,7 +59,7 @@ function QuickInfo({
                   <Select
                     value={valueOfSelectedYear}
                     onChange={handleYearChange}
-                    sx={{ fontSize: 14, color: colors.blue1 }}
+                    sx={{ fontSize: 17, color: colors.blue1 }}
                   >
                     {entriesYearList.map((year, i) => (
                       <MenuItem key={i} value={i * 10}>
@@ -70,7 +72,10 @@ function QuickInfo({
             </Grid>
             <Grid item xs={12}>
               <Item sx={{ height: 150 }}>
-                <StackedBarGraph stackedBarGraphData={stackedBarGraphData} />
+                <StackedBarGraph
+                  graphOrientation={graphOrientation}
+                  stackedBarGraphData={stackedBarGraphData}
+                />
               </Item>
             </Grid>
           </Grid>
@@ -102,7 +107,10 @@ function QuickInfo({
           </Grid>
           <Grid item xs={12}>
             <Item sx={{ height: 'auto', mt: 2 }}>
-              <StackedBarGraph stackedBarGraphData={stackedBarGraphData} />
+              <StackedBarGraph
+                graphOrientation={graphOrientation}
+                stackedBarGraphData={stackedBarGraphData}
+              />
             </Item>
           </Grid>
         </Grid>

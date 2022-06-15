@@ -1,11 +1,12 @@
 import React from 'react';
+import { useMemo } from 'react';
 import { Bar } from 'react-chartjs-2';
 
-function StackedBarGraph({ stackedBarGraphData }) {
+function StackedBarGraph({ stackedBarGraphData, graphOrientation }) {
   return (
     <Bar
       options={{
-        indexAxis: 'y',
+        indexAxis: graphOrientation,
         scales: {
           xAxes: {
             stacked: true,

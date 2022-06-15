@@ -210,7 +210,7 @@ function AnalyticView() {
           <Grid container spacing={3}>
             <Grid item xs={4}>
               <Card sx={{ height: 300 }}>
-                <CardContent sx={{ height: 250 }}>
+                <CardContent sx={{ height: 275 }}>
                   <QuickInfo
                     selectedYear={selectedYear}
                     entriesYearList={entriesYearList}
