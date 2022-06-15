@@ -30,6 +30,23 @@ function entryCountTemplate() {
   };
 }
 
+function wordCountTemplate() {
+  this.wordCount = {
+    January: 0,
+    February: 0,
+    March: 0,
+    April: 0,
+    May: 0,
+    June: 0,
+    July: 0,
+    August: 0,
+    September: 0,
+    October: 0,
+    November: 0,
+    December: 0,
+  };
+}
+
 function barGraphDataTemplate() {
   this.loved = new entryCountTemplate();
   this.happy = new entryCountTemplate();
@@ -37,6 +54,15 @@ function barGraphDataTemplate() {
   this.sad = new entryCountTemplate();
   this.anxious = new entryCountTemplate();
   this.angry = new entryCountTemplate();
+}
+
+function lineGraphDataTemplate() {
+  this.loved = new wordCountTemplate();
+  this.happy = new wordCountTemplate();
+  this.calm = new wordCountTemplate();
+  this.sad = new wordCountTemplate();
+  this.anxious = new wordCountTemplate();
+  this.angry = new wordCountTemplate();
 }
 
 function FeelingCounterTemplate() {
@@ -94,4 +120,10 @@ function QuickInfoData() {
   this.December = 0;
 }
 
-export { months, CounterObj, QuickInfoData, barGraphDataTemplate };
+export {
+  months,
+  CounterObj,
+  QuickInfoData,
+  barGraphDataTemplate,
+  lineGraphDataTemplate,
+};

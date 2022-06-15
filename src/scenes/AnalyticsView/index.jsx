@@ -11,6 +11,7 @@ import {
   CounterObj,
   QuickInfoData,
   barGraphDataTemplate,
+  lineGraphDataTemplate,
 } from '../../constants/months';
 import colors from '../../constants/colors';
 
@@ -66,6 +67,29 @@ function AnalyticView() {
     return returnedData;
   }, [entries, selectedYear]);
 
+  const lineGraphData = useMemo(() => {
+    const calculatedData = new lineGraphDataTemplate();
+    const returnedDataSet = [];
+
+    filteredData.forEach((entry) => {
+      const monthOfEntry = moment.unix(entry.date).format('MMMM');
+      const feeling = entry.feeling;
+      const entryLength = entry.entry.split(/\b\S+\b/g).length - 1;
+      calculatedData[feeling].wordCount[monthOfEntry] += entryLength;
+    });
+
+    for (const feeling in calculatedData) {
+      returnedDataSet.push({
+        label: `${feeling.slice(0, 1).toUpperCase()}${feeling
+          .slice(1, feeling.length)
+          .toLowerCase()}`,
+        data: Object.values(calculatedData[feeling].wordCount),
+        backgroundColor: colors.variantMap[feeling],
+      });
+    }
+    return returnedDataSet;
+  }, [filteredData]);
+
   const barGraphData = useMemo(() => {
     const calculatedData = new barGraphDataTemplate();
     const returnedDataSet = [];
@@ -92,8 +116,6 @@ function AnalyticView() {
 
   const isRecordsEmpty = Object.keys(records).length < 1 ? true : false;
 
-  console.log(isRecordsEmpty);
-
   if (w > 500) {
     return (
       <>
@@ -117,6 +139,8 @@ function AnalyticView() {
               <Card sx={{ height: 300 }}>
                 <CardContent sx={{ height: 275 }}>
                   <LineChart
+                    lineGraphData={lineGraphData}
+                    isRecordsEmpty={isRecordsEmpty}
                     records={records}
                     selectedYear={selectedYear}
                     currentMonth={currentMonth}
@@ -169,6 +193,7 @@ function AnalyticView() {
             <Card sx={{ height: 300 }}>
               <CardContent sx={{ height: 275 }}>
                 <LineChart
+                  isRecordsEmpty={isRecordsEmpty}
                   records={records}
                   selectedYear={selectedYear}
                   currentMonth={currentMonth}
