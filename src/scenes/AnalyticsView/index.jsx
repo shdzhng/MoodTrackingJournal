@@ -8,12 +8,11 @@ import QuickInfo from '../../components/Analytics/QuickInfo';
 import { Card, CardContent, Grid, Box } from '@mui/material';
 import { useSelector } from 'react-redux';
 import {
-  CounterObj,
-  QuickInfoData,
   barGraphDataTemplate,
   lineGraphDataTemplate,
 } from '../../constants/months';
 import colors from '../../constants/colors';
+import { months } from '../../constants/months';
 
 function AnalyticView() {
   const entries = useSelector(({ journal }) => journal.entries);
@@ -34,26 +33,6 @@ function AnalyticView() {
 
   const currentMonth = moment().format('M');
 
-  const records = useMemo(() => {
-    const returnedRecords = {};
-
-    entries.forEach((entry) => {
-      const monthOfEntry = moment.unix(entry.date).format('MMMM');
-      const yearOfEntry = moment.unix(entry.date).format('YYYY');
-      const feeling = entry.feeling;
-      const entryLength = entry.entry.split(/\b\S+\b/g).length - 1;
-
-      if (returnedRecords[yearOfEntry] === undefined)
-        returnedRecords[yearOfEntry] = new CounterObj();
-
-      returnedRecords[yearOfEntry][feeling].entryCount[monthOfEntry]++;
-      returnedRecords[yearOfEntry][feeling].wordCount[monthOfEntry] +=
-        entryLength;
-    });
-
-    return returnedRecords;
-  }, [entries]);
-
   const filteredData = useMemo(() => {
     const returnedData = [];
 
@@ -66,6 +45,113 @@ function AnalyticView() {
 
     return returnedData;
   }, [entries, selectedYear]);
+
+  const unfilteredData = useMemo(() => {
+    const formattedData = {};
+
+    entries.forEach((entry) => {
+      const entryMonth = moment.unix(entry.date).format('M');
+      const entryYear = moment.unix(entry.date).format('YYYY');
+
+      if (formattedData[entryYear] === undefined)
+        formattedData[entryYear] = {
+          1: 0,
+          2: 0,
+          3: 0,
+          4: 0,
+          5: 0,
+          6: 0,
+          7: 0,
+          8: 0,
+          9: 0,
+          10: 0,
+          11: 0,
+          12: 0,
+        };
+
+      formattedData[entryYear][entryMonth]++;
+    });
+
+    return formattedData;
+  }, [entries]);
+
+  const entriesYearList = useMemo(() => {
+    const returnedList = [];
+    entries.forEach((entry) => {
+      const entryYear = moment.unix(entry.date).format('YYYY');
+      if (!returnedList.includes(entryYear)) {
+        returnedList.push(entryYear);
+      }
+    });
+
+    return returnedList;
+  }, [entries]);
+
+  const stackedBarGraphData = useMemo(() => {
+    const formattedData = {
+      1: 0,
+      2: 0,
+      3: 0,
+      4: 0,
+      5: 0,
+      6: 0,
+      7: 0,
+      8: 0,
+      9: 0,
+      10: 0,
+      11: 0,
+      12: 0,
+    };
+
+    filteredData.forEach((entry) => {
+      const entryMonth = moment.unix(entry.date).format('M');
+      formattedData[entryMonth]++;
+    });
+
+    const returnedDataSet = months.map((month, i) => {
+      return {
+        label: month,
+        data: [formattedData[i + 1]],
+        backgroundColor: colors.variantMap[month],
+        borderWidth: 0,
+      };
+    });
+
+    return returnedDataSet;
+  }, [filteredData]);
+
+  const quickInfoMessageData = useMemo(() => {
+    const currentMonth = moment().format('M');
+    const lastMonth = currentMonth - 1;
+    let monthlyDifference = undefined;
+    const countedData = {
+      1: 0,
+      2: 0,
+      3: 0,
+      4: 0,
+      5: 0,
+      6: 0,
+      7: 0,
+      8: 0,
+      9: 0,
+      10: 0,
+      11: 0,
+      12: 0,
+    };
+
+    filteredData.forEach((entry) => {
+      const monthOfEntry = moment.unix(entry.date).format('M');
+      countedData[monthOfEntry]++;
+    });
+
+    if (countedData && countedData[lastMonth] !== (undefined || 0)) {
+      monthlyDifference = Math.round(
+        (countedData[currentMonth] / countedData[lastMonth]) * 100
+      );
+    }
+
+    return monthlyDifference;
+  }, [filteredData]);
 
   const lineGraphData = useMemo(() => {
     const calculatedData = new lineGraphDataTemplate();
@@ -114,7 +200,7 @@ function AnalyticView() {
     return returnedDataSet;
   }, [filteredData]);
 
-  const isRecordsEmpty = Object.keys(records).length < 1 ? true : false;
+  const isEntriesEmpty = Object.keys(entries).length < 1 ? true : false;
 
   if (w > 500) {
     return (
@@ -127,9 +213,12 @@ function AnalyticView() {
                 <CardContent sx={{ height: 250 }}>
                   <QuickInfo
                     selectedYear={selectedYear}
+                    entriesYearList={entriesYearList}
                     setSelectedYear={setSelectedYear}
-                    records={records}
+                    unfilteredData={unfilteredData}
                     w={w}
+                    stackedBarGraphData={stackedBarGraphData}
+                    quickInfoMessageData={quickInfoMessageData}
                   />
                 </CardContent>
               </Card>
@@ -140,8 +229,7 @@ function AnalyticView() {
                 <CardContent sx={{ height: 275 }}>
                   <LineChart
                     lineGraphData={lineGraphData}
-                    isRecordsEmpty={isRecordsEmpty}
-                    records={records}
+                    isEntriesEmpty={isEntriesEmpty}
                     selectedYear={selectedYear}
                     currentMonth={currentMonth}
                   />
@@ -156,7 +244,7 @@ function AnalyticView() {
                     selectedYear={selectedYear}
                     currentMonth={currentMonth}
                     barGraphData={barGraphData}
-                    isRecordsEmpty={isRecordsEmpty}
+                    isEntriesEmpty={isEntriesEmpty}
                   />
                 </CardContent>
               </Card>
@@ -180,9 +268,12 @@ function AnalyticView() {
             <Card sx={{ height: 300 }}>
               <CardContent sx={{ height: 250 }}>
                 <QuickInfo
+                  entriesYearList={entriesYearList}
                   selectedYear={selectedYear}
                   setSelectedYear={setSelectedYear}
-                  records={records}
+                  unfilteredData={unfilteredData}
+                  stackedBarGraphData={stackedBarGraphData}
+                  quickInfoMessageData={quickInfoMessageData}
                   w={w}
                 />
               </CardContent>
@@ -193,8 +284,8 @@ function AnalyticView() {
             <Card sx={{ height: 300 }}>
               <CardContent sx={{ height: 275 }}>
                 <LineChart
-                  isRecordsEmpty={isRecordsEmpty}
-                  records={records}
+                  lineGraphData={lineGraphData}
+                  isEntriesEmpty={isEntriesEmpty}
                   selectedYear={selectedYear}
                   currentMonth={currentMonth}
                 />
@@ -207,7 +298,7 @@ function AnalyticView() {
               <CardContent sx={{ height: 400 }}>
                 <BarChart
                   barGraphData={barGraphData}
-                  isRecordsEmpty={isRecordsEmpty}
+                  isEntriesEmpty={isEntriesEmpty}
                   selectedYear={selectedYear}
                   currentMonth={currentMonth}
                 />

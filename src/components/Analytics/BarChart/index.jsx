@@ -26,9 +26,9 @@ export default function BarChart({
   selectedYear,
   currentMonth,
   barGraphData,
-  isRecordsEmpty,
+  isEntriesEmpty,
 }) {
-  if (isRecordsEmpty) {
+  if (isEntriesEmpty) {
     return <CircularProgress />;
   }
 
