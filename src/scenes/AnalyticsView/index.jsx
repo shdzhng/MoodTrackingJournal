@@ -84,7 +84,7 @@ function AnalyticView() {
       }
     });
 
-    return returnedList;
+    return returnedList.sort();
   }, [entries]);
 
   const stackedBarGraphData = useMemo(() => {
