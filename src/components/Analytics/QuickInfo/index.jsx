@@ -59,13 +59,11 @@ function QuickInfo({
                     onChange={handleYearChange}
                     sx={{ fontSize: 14, color: colors.blue1 }}
                   >
-                    {Object.keys(unfilteredData)
-                      .sort()
-                      .map((year, i) => (
-                        <MenuItem key={i} value={i * 10}>
-                          {year}
-                        </MenuItem>
-                      ))}
+                    {entriesYearList.map((year, i) => (
+                      <MenuItem key={i} value={i * 10}>
+                        {year}
+                      </MenuItem>
+                    ))}
                   </Select>
                 </FormControl>
               </Item>
@@ -93,13 +91,11 @@ function QuickInfo({
                   sx={{ fontSize: 20, color: colors.blue1 }}
                   onChange={handleYearChange}
                 >
-                  {Object.keys(unfilteredData)
-                    .sort()
-                    .map((year, i) => (
-                      <MenuItem key={i} value={i * 10}>
-                        {year}
-                      </MenuItem>
-                    ))}
+                  {entriesYearList.map((year, i) => (
+                    <MenuItem key={i} value={i * 10}>
+                      {year}
+                    </MenuItem>
+                  ))}
                 </Select>
               </FormControl>
             </Item>
