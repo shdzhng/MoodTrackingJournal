@@ -1,13 +1,18 @@
 import React, { useMemo, useState, useEffect } from 'react';
 import moment from 'moment';
-import NavigationBar from '../../features/navBar/NavBar';
-import GoogleMap from '../../features/analytics/Map';
-import BarChart from '../../features/analytics/BarChart';
-import LineChart from '../../features/analytics/LineChart';
-import QuickInfo from '../../features/analytics/QuickInfo';
+import NavigationBar from '../../components/NavBar/NavBar';
+import GoogleMap from '../../components/Analytics/Map';
+import BarChart from '../../components/Analytics/BarChart';
+import LineChart from '../../components/Analytics/LineChart';
+import QuickInfo from '../../components/Analytics/QuickInfo';
 import { Card, CardContent, Grid, Box } from '@mui/material';
 import { useSelector } from 'react-redux';
-import { CounterObj, QuickInfoData } from '../../constants/months';
+import {
+  CounterObj,
+  QuickInfoData,
+  barGraphDataTemplate,
+} from '../../constants/months';
+import colors from '../../constants/colors';
 
 function AnalyticView() {
   const entries = useSelector(({ journal }) => journal.entries);
@@ -48,6 +53,47 @@ function AnalyticView() {
     return returnedRecords;
   }, [entries]);
 
+  const filteredData = useMemo(() => {
+    const returnedData = [];
+
+    entries.forEach((entry) => {
+      const yearOfEntry = moment.unix(entry.date).format('YYYY');
+      if (yearOfEntry === selectedYear) {
+        returnedData.push(entry);
+      }
+    });
+
+    return returnedData;
+  }, [entries, selectedYear]);
+
+  const barGraphData = useMemo(() => {
+    const calculatedData = new barGraphDataTemplate();
+    const returnedDataSet = [];
+
+    filteredData.forEach((entry) => {
+      const monthOfEntry = moment.unix(entry.date).format('MMMM');
+      const feeling = entry.feeling;
+
+      calculatedData[feeling].entryCount[monthOfEntry]++;
+    });
+
+    for (const feeling in calculatedData) {
+      returnedDataSet.push({
+        label: `${feeling.slice(0, 1).toUpperCase()}${feeling
+          .slice(1, feeling.length)
+          .toLowerCase()}`,
+        data: Object.values(calculatedData[feeling].entryCount),
+        backgroundColor: colors.variantMap[feeling],
+      });
+    }
+
+    return returnedDataSet;
+  }, [filteredData]);
+
+  const isRecordsEmpty = Object.keys(records).length < 1 ? true : false;
+
+  console.log(isRecordsEmpty);
+
   if (w > 500) {
     return (
       <>
@@ -83,9 +129,10 @@ function AnalyticView() {
               <Card sx={{ height: 430 }}>
                 <CardContent sx={{ height: 400 }}>
                   <BarChart
-                    records={records}
                     selectedYear={selectedYear}
                     currentMonth={currentMonth}
+                    barGraphData={barGraphData}
+                    isRecordsEmpty={isRecordsEmpty}
                   />
                 </CardContent>
               </Card>
@@ -134,7 +181,8 @@ function AnalyticView() {
             <Card sx={{ height: 430 }}>
               <CardContent sx={{ height: 400 }}>
                 <BarChart
-                  records={records}
+                  barGraphData={barGraphData}
+                  isRecordsEmpty={isRecordsEmpty}
                   selectedYear={selectedYear}
                   currentMonth={currentMonth}
                 />

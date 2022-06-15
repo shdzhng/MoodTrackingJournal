@@ -13,6 +13,32 @@ const months = [
   'December',
 ];
 
+function entryCountTemplate() {
+  this.entryCount = {
+    January: 0,
+    February: 0,
+    March: 0,
+    April: 0,
+    May: 0,
+    June: 0,
+    July: 0,
+    August: 0,
+    September: 0,
+    October: 0,
+    November: 0,
+    December: 0,
+  };
+}
+
+function barGraphDataTemplate() {
+  this.loved = new entryCountTemplate();
+  this.happy = new entryCountTemplate();
+  this.calm = new entryCountTemplate();
+  this.sad = new entryCountTemplate();
+  this.anxious = new entryCountTemplate();
+  this.angry = new entryCountTemplate();
+}
+
 function FeelingCounterTemplate() {
   this.entryCount = {
     January: 0,
@@ -68,4 +94,4 @@ function QuickInfoData() {
   this.December = 0;
 }
 
-export { months, CounterObj, QuickInfoData };
+export { months, CounterObj, QuickInfoData, barGraphDataTemplate };

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { MenuItem, FormControl, InputLabel, Select } from '@mui/material';
 import { useDispatch } from 'react-redux';
-import { sortEntries } from './journalSlice';
+import { sortEntries } from '../../app/journalSlice';
 
 export default function SelectLabels() {
   const dispatch = useDispatch();

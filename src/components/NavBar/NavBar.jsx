@@ -17,7 +17,7 @@ import {
   MenuItem,
 } from '@mui/material';
 import { StyledLinkWhite, StyledLinkBlack } from './NavBar.styles';
-import { removeJournal } from '../journal/journalSlice';
+import { removeJournal } from '../../app/journalSlice';
 
 const NavigationBar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);

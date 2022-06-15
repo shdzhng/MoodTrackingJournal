@@ -1,3 +1,5 @@
+import colors from './colors';
+
 const feelingsEnums = {
   0: 'loved',
   1: 'happy',
@@ -8,12 +10,37 @@ const feelingsEnums = {
 };
 
 const feelingList = [
-  { key: 'loved', label: 'Loved', variant: 'loved' },
-  { key: 'happy', label: 'Happy', variant: 'happy' },
-  { key: 'calm', label: 'Calm', variant: 'calm' },
-  { key: 'anxious', label: 'Anxious', variant: 'anxious' },
-  { key: 'sad', label: 'Sad', variant: 'sad' },
-  { key: 'angry', label: 'Angry', variant: 'angry' },
+  {
+    key: 'loved',
+    label: 'Loved',
+    variant: 'loved',
+    color: colors.variantMap.loved,
+  },
+  {
+    key: 'happy',
+    label: 'Happy',
+    variant: 'happy',
+    color: colors.variantMap.happy,
+  },
+  {
+    key: 'calm',
+    label: 'Calm',
+    variant: 'calm',
+    color: colors.variantMap.calm,
+  },
+  {
+    key: 'anxious',
+    label: 'Anxious',
+    variant: 'anxious',
+    color: colors.variantMap.anxious,
+  },
+  { key: 'sad', label: 'Sad', variant: 'sad', color: colors.variantMap.sad },
+  {
+    key: 'angry',
+    label: 'Angry',
+    variant: 'angry',
+    color: colors.variantMap.angry,
+  },
 ];
 
 export { feelingsEnums, feelingList };

@@ -8,10 +8,10 @@ import {
   InfoWindowDate,
   InfoWindowTitle,
 } from './MapMarker.styles';
-import EditPopUp from '../../journal/EditPopUp';
+import EditPopUp from '../../Journal/EditEntryPopUp';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { IconButtonStyled, ButtonContainer } from '../../journal/Journal.style';
-import { removeEntry } from '../../journal/journalSlice';
+import { IconButtonStyled, ButtonContainer } from '../../Journal/Journal.style';
+import { removeEntry } from '../../../app/journalSlice';
 
 export default function MapMarker({ entry }) {
   const dispatch = useDispatch();
