@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { importEntries } from './features/journal/journalSlice';
+import { importEntries } from './app/journalSlice';
 import GlobalStyles from './constants/global.styles';
-import JournalView from './views/JournalView';
-import AnalyticView from './views/AnalyticsView';
+import JournalView from './scenes/JournalView';
+import AnalyticView from './scenes/AnalyticsView';
 import { GoogleApiWrapper } from 'google-maps-react';
-import QualitativeView from './views/QualitativeView';
+import QualitativeView from './scenes/WordCloudView';
 import seed from './seed';
 const apiKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
 

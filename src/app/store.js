@@ -1,5 +1,5 @@
 import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
-import todoListReducer from '../features/journal/journalSlice';
+import todoListReducer from './journalSlice';
 
 export const store = configureStore({
   reducer: {

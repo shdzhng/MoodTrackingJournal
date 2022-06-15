@@ -1,6 +1,6 @@
 import React from 'react';
-import Journal from '../../features/journal/Journal';
-import NavigationBar from '../../features/navBar/NavBar';
+import Journal from '../../components/Journal/Journal';
+import NavigationBar from '../../components/NavBar/NavBar';
 
 function JournalView() {
   return (

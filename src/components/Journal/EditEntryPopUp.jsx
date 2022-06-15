@@ -10,7 +10,7 @@ import {
   EntryWindow,
 } from './PopUp.styles';
 import { IconButtonStyled } from './Journal.style';
-import { updateEntry, sortEntries } from './journalSlice';
+import { updateEntry, sortEntries } from '../../app/journalSlice';
 import EditIcon from '@mui/icons-material/Edit';
 import colors from '../../constants/colors';
 import moment from 'moment';

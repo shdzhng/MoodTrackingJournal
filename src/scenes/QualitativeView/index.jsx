@@ -1,6 +1,6 @@
 import React from 'react';
-import NavigationBar from '../../features/navBar/NavBar';
-import WordCloud from '../../features/analytics/WordCloud';
+import NavigationBar from '../../components/NavBar/NavBar';
+import WordCloud from '../../components/Analytics/WordCloud';
 
 export default function QualitativeView() {
   return (

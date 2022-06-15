@@ -19,7 +19,6 @@ const colors = {
     November: '#1E6091',
     December: '#184E77',
   },
-
   background: '#f8f2e0',
   accent: '#E9D8A6',
   blue1: '#005F73',

@@ -1,4 +1,4 @@
-import EditPopUp from './EditPopUp';
+import EditPopUp from './EditEntryPopUp';
 import moment from 'moment';
 import DeleteIcon from '@mui/icons-material/Delete';
 import {
@@ -11,7 +11,7 @@ import {
   ButtonContainer,
 } from './Journal.style';
 import { useDispatch } from 'react-redux';
-import { removeEntry } from '../journal/journalSlice';
+import { removeEntry } from '../../app/journalSlice';
 
 export default function SingleEntryCard({ entry }) {
   const dispatch = useDispatch();
