@@ -46,6 +46,6 @@ REACT_APP_GOOGLE_MAPS_API_KEY = ["YOUR_API_KEY"]
 
 In Mooday journal view, users can download, post, edit, sort, delete, view and sort their journal entries. In addition to the Google Map Places autocomplete feature, users are also able to use their current location.
 
- ![Mooday Basics Demo](https://media.giphy.com/media/7GbcBZo834ZjTUzarw/giphy.gif)
+ ![Mooday Basics Demo](https://media1.giphy.com/media/7GbcBZo834ZjTUzarw/giphy.gif)
  
 <p align="right">(<a href="#top">back to top</a>)</p>
