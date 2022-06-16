@@ -8,6 +8,7 @@ import AnalyticView from './scenes/AnalyticsView';
 import { GoogleApiWrapper } from 'google-maps-react';
 import QualitativeView from './scenes/WordCloudView';
 import seed from './seed';
+import { AuthProvider } from './context/AuthContext';
 const apiKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
 
 // set useSeed as false THEN click on 'DELETE JOURNAL' under app settings to wipe seed.
@@ -38,14 +39,16 @@ function App() {
   }, [entries]);
 
   return (
-    <Router>
-      <GlobalStyles />
-      <Routes>
-        <Route path="/" element={<JournalView />}></Route>
-        <Route path="/analytics" element={<AnalyticView />}></Route>
-        <Route path="/wordclouds" element={<QualitativeView />}></Route>
-      </Routes>
-    </Router>
+    <AuthProvider>
+      <Router>
+        <GlobalStyles />
+        <Routes>
+          <Route path="/" element={<JournalView />}></Route>
+          <Route path="/analytics" element={<AnalyticView />}></Route>
+          <Route path="/wordclouds" element={<QualitativeView />}></Route>
+        </Routes>
+      </Router>
+    </AuthProvider>
   );
 }
 

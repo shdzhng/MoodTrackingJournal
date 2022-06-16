@@ -16,6 +16,7 @@ import {
   Tooltip,
   MenuItem,
 } from '@mui/material';
+
 import { StyledLinkWhite, StyledLinkBlack } from './NavBar.styles';
 import { removeJournal } from '../../app/journalSlice';
 import LogInModal from '../LogIn/LogIn';
@@ -171,7 +172,7 @@ const NavigationBar = () => {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <SettingsOutlinedIcon />
+                <SettingsOutlinedIcon sx={{ color: 'white' }} />
               </IconButton>
             </Tooltip>
             <Menu
