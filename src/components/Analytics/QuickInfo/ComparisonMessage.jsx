@@ -5,16 +5,16 @@ function ComparisonMessage({ quickInfoMessageData }) {
     if (quickInfoMessageData > 100) {
       return (
         <>
-          You journaled{' '}
-          <span className="greenhighlight">{quickInfoMessageData}% MORE</span>
-          <br /> this month than the last!
+          AWESOME! You journaled{' '}
+          <span className="greenhighlight">{quickInfoMessageData}% MORE </span>{' '}
+          this month!
         </>
       );
     } else {
       return (
         <>
           You journaled{' '}
-          <span className="redhighlight">{quickInfoMessageData}% LESS</span>
+          <span className="redhighlight">{quickInfoMessageData}% less</span>
           <br /> this month than the last :c
         </>
       );
