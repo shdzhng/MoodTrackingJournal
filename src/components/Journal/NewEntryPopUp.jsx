@@ -19,6 +19,7 @@ import { addEntry, sortEntries } from '../../app/journalSlice';
 import { v4 as uuidv4 } from 'uuid';
 import { IconButton } from '@mui/material';
 import { feelingList } from '../../constants/feelings';
+import Fade from '@mui/material/Fade';
 
 export default function EntryPopUp() {
   const dispatch = useDispatch();
@@ -123,59 +124,61 @@ export default function EntryPopUp() {
     <>
       <PopUpButton onClick={handleOpen}>Add New Entry</PopUpButton>
       <Modal className="modal" open={open} onClose={handleClose}>
-        <EntryWindow className="modal">
-          <InputContainer>
-            <EntryTitleInput
-              ref={entryTitleRef}
-              type="text"
-              placeholder="Entry Title"
-              onChange={handleTitleChange}
-            />
-            <EntryInput
-              ref={entryContentRef}
-              onChange={handleContentChange}
-              type="textarea"
-              placeholder="A Journal of a Thousand Entries Begins with a Single Word"
-            />
-            <AddressContainer>
-              <input
-                id="autocomplete"
-                ref={locationRef}
+        <Fade in={open}>
+          <EntryWindow className="modal">
+            <InputContainer>
+              <EntryTitleInput
+                ref={entryTitleRef}
                 type="text"
-                onFocus={() => {
-                  setInputRendered(true);
-                }}
-                placeholder="Enter a Location"
+                placeholder="Entry Title"
+                onChange={handleTitleChange}
               />
-              <IconButton
-                aria-label="use my location"
-                onClick={(e) => {
-                  handleGetCurrentLocation(e);
-                }}
-              >
-                <GpsFixedIcon />
-              </IconButton>
-            </AddressContainer>
-            <FeelingButtonContainer variant="contained">
-              {feelingList.map((item) => {
-                return renderFeelingButtons(item);
-              })}
-            </FeelingButtonContainer>
-            <CenterButton>
-              <SubmitEntryButton
-                variant="contained"
-                type="submit"
-                disabled={!disableButtonCheck}
-                onClick={(e) => {
-                  handleSubmit(e);
-                  handleClose();
-                }}
-              >
-                Add To Journal
-              </SubmitEntryButton>
-            </CenterButton>
-          </InputContainer>
-        </EntryWindow>
+              <EntryInput
+                ref={entryContentRef}
+                onChange={handleContentChange}
+                type="textarea"
+                placeholder="A Journal of a Thousand Entries Begins with a Single Word"
+              />
+              <AddressContainer>
+                <input
+                  id="autocomplete"
+                  ref={locationRef}
+                  type="text"
+                  onFocus={() => {
+                    setInputRendered(true);
+                  }}
+                  placeholder="Enter a Location"
+                />
+                <IconButton
+                  aria-label="use my location"
+                  onClick={(e) => {
+                    handleGetCurrentLocation(e);
+                  }}
+                >
+                  <GpsFixedIcon />
+                </IconButton>
+              </AddressContainer>
+              <FeelingButtonContainer variant="contained">
+                {feelingList.map((item) => {
+                  return renderFeelingButtons(item);
+                })}
+              </FeelingButtonContainer>
+              <CenterButton>
+                <SubmitEntryButton
+                  variant="contained"
+                  type="submit"
+                  disabled={!disableButtonCheck}
+                  onClick={(e) => {
+                    handleSubmit(e);
+                    handleClose();
+                  }}
+                >
+                  Add To Journal
+                </SubmitEntryButton>
+              </CenterButton>
+            </InputContainer>
+          </EntryWindow>
+        </Fade>
       </Modal>
     </>
   );

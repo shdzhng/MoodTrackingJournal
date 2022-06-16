@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import MenuIcon from '@mui/icons-material/Menu';
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
@@ -16,14 +16,20 @@ import {
   Tooltip,
   MenuItem,
 } from '@mui/material';
+
 import { StyledLinkWhite, StyledLinkBlack } from './NavBar.styles';
 import { removeJournal } from '../../app/journalSlice';
+import LogInModal from '../LogIn/LogIn';
 
 const NavigationBar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const [open, setOpen] = React.useState(false);
+
   const journal = useSelector((state) => state.journal.entries);
   const dispatch = useDispatch();
+  const handleOpenModal = () => setOpen(true);
+  const handleCloseModal = () => setOpen(false);
 
   const handleDeleteJournal = () => {
     dispatch(removeJournal());
@@ -44,7 +50,7 @@ const NavigationBar = () => {
     setAnchorElUser(null);
   };
 
-  const downloadJournal = () => {
+  const handleDownloadJournal = () => {
     const blob = new Blob([JSON.stringify(journal)], {
       type: 'application/json',
     });
@@ -57,7 +63,7 @@ const NavigationBar = () => {
   };
 
   const settings = [
-    { name: 'Download Journal', function: downloadJournal },
+    { name: 'Download Journal', function: handleDownloadJournal },
     { name: 'Delete Journal', function: handleDeleteJournal },
   ];
 
@@ -130,7 +136,9 @@ const NavigationBar = () => {
               ))}
             </Menu>
           </Box>
+
           <MenuBookIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
+
           <Typography
             variant="h5"
             noWrap
@@ -160,11 +168,11 @@ const NavigationBar = () => {
               </Button>
             ))}
           </Box>
-
+          <LogInModal />
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <SettingsOutlinedIcon />
+                <SettingsOutlinedIcon sx={{ color: 'white' }} />
               </IconButton>
             </Tooltip>
             <Menu
