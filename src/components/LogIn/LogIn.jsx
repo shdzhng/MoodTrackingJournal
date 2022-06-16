@@ -11,6 +11,7 @@ import colors from '../../constants/colors';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { useAuth } from '../../context/AuthContext';
 import Alert from '@mui/material/Alert';
+import { db } from '../../firebase';
 
 const style = {
   position: 'absolute',
@@ -27,26 +28,37 @@ const style = {
 
 export default function LogInModal() {
   const [open, setOpen] = React.useState(false);
-  const [isLoggedIn, setIsLoggedIn] = React.useState(false);
-  const [loading, setLoading] = useState(false);
+  const [forgotPassword, setForgotPassword] = React.useState(false);
   const [createUser, setCreateUser] = React.useState(false);
+  const [signIn, setSignIn] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = React.useState(null);
   const emailRef = useRef('');
   const passwordRef = useRef('');
   const passwordConfirmationRef = useRef('');
-  const { signup, login, currentUser } = useAuth();
+  const { signup, login, logout, currentUser, resetPassword } = useAuth();
 
-  console.log(currentUser.email);
+  // useEffect(() => {
+  //   db.collection('test')
+  //     .get()
+  //     .then((snapshot) => console.log(snapshot));
+  // }, []);
 
   const handleOpen = () => {
+    if (currentUser) {
+      logout();
+      return;
+    }
     setOpen(true);
   };
 
   const handleClose = () => {
-    setOpen(false);
     setCreateUser(false);
-    setIsLoggedIn(false);
+    setForgotPassword(false);
+    setCreateUser(false);
+    setSignIn(true);
     setError(null);
+    setOpen(false);
   };
 
   const handleLogIn = useCallback((e) => {
@@ -54,7 +66,6 @@ export default function LogInModal() {
     const email = emailRef.current.value;
     const password = passwordRef.current.value;
     login(email, password);
-    console.log(`logging in with: ${email} ${password}`);
 
     handleClose();
   }, []);
@@ -62,7 +73,20 @@ export default function LogInModal() {
   const handleCreateUserMode = useCallback((e) => {
     e.preventDefault();
     setError(null);
-    setCreateUser(!createUser);
+    setForgotPassword(false);
+    setSignIn(false);
+    setCreateUser(true);
+  }, []);
+
+  const handleChangePassword = useCallback((e) => {
+    setForgotPassword(true);
+    setSignIn(false);
+  }, []);
+
+  const handleSubmitPasswordChange = useCallback((e) => {
+    const email = emailRef.current.value;
+    resetPassword(email);
+    handleClose();
   }, []);
 
   const handleSignUp = useCallback((e) => {
@@ -95,7 +119,99 @@ export default function LogInModal() {
     handleClose();
   }, []);
 
-  const logInDisplay = isLoggedIn ? 'Log Out' : <AccountCircleIcon />;
+  const logInDisplay = currentUser ? 'Log Out' : <AccountCircleIcon />;
+
+  const inputView = () => {
+    if (signIn === true || forgotPassword === true) {
+      return;
+    }
+
+    if (createUser === true) {
+      return (
+        <TextField
+          inputRef={passwordConfirmationRef}
+          sx={{ mt: 2 }}
+          placeholder="password confirmation"
+          name="password"
+          label="Password Confirmation"
+          type="password"
+          id="passwordConfirmation"
+          required
+        ></TextField>
+      );
+    }
+  };
+
+  const buttonView = () => {
+    if (signIn === true) {
+      return (
+        <>
+          <Button
+            type="submit"
+            sx={{ mt: 2, bgcolor: colors.blue1 }}
+            size="small"
+            variant="contained"
+          >
+            Log In
+          </Button>
+          <Button
+            sx={{ mt: 2, bgcolor: colors.blue1 }}
+            type="submit"
+            size="small"
+            onClick={(e) => {
+              handleCreateUserMode(e);
+            }}
+            variant="contained"
+          >
+            Sign Up
+          </Button>
+          <Button
+            sx={{ mt: 2, bgcolor: colors.blue1 }}
+            size="small"
+            onClick={(e) => {
+              handleChangePassword(e);
+            }}
+            variant="contained"
+            disabled={loading}
+          >
+            Reset Password
+          </Button>
+        </>
+      );
+    }
+
+    if (forgotPassword === true) {
+      return (
+        <Button
+          sx={{ mt: 2, bgcolor: colors.blue1 }}
+          size="small"
+          onClick={(e) => {
+            handleSubmitPasswordChange(e);
+          }}
+          variant="contained"
+          disabled={loading}
+        >
+          Reset
+        </Button>
+      );
+    }
+
+    if (createUser === true) {
+      return (
+        <Button
+          sx={{ mt: 2, bgcolor: colors.blue1 }}
+          size="small"
+          onClick={(e) => {
+            handleSignUp(e);
+          }}
+          variant="contained"
+          disabled={loading}
+        >
+          Create New Account
+        </Button>
+      );
+    }
+  };
 
   return (
     <div>
@@ -130,25 +246,17 @@ export default function LogInModal() {
               name="email"
               required
             ></TextField>
-            <TextField
-              inputRef={passwordRef}
-              sx={{ mt: 2 }}
-              placeholder="password"
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              required
-            ></TextField>
-            {createUser === true && (
+            {inputView()}
+
+            {forgotPassword !== true && (
               <TextField
-                inputRef={passwordConfirmationRef}
+                inputRef={passwordRef}
                 sx={{ mt: 2 }}
-                placeholder="password confirmation"
+                placeholder="password"
                 name="password"
-                label="Password Confirmation"
+                label="Password"
                 type="password"
-                id="passwordConfirmation"
+                id="password"
                 required
               ></TextField>
             )}
@@ -160,46 +268,7 @@ export default function LogInModal() {
               flexDirection="column"
               sx={{ justifyContent: 'center' }}
             >
-              {createUser === true && (
-                <>
-                  <Button
-                    sx={{ mt: 2, bgcolor: colors.blue1 }}
-                    type="submit"
-                    size="small"
-                    onClick={(e) => {
-                      handleSignUp(e);
-                    }}
-                    variant="contained"
-                  >
-                    Sign Up
-                  </Button>
-                </>
-              )}
-
-              {createUser === false && (
-                <>
-                  <Button
-                    type="submit"
-                    sx={{ mt: 2, bgcolor: colors.blue1 }}
-                    size="small"
-                    variant="contained"
-                  >
-                    Log In
-                  </Button>
-                  <Button
-                    sx={{ mt: 2, bgcolor: colors.blue1 }}
-                    type="submit"
-                    size="small"
-                    onClick={(e) => {
-                      handleCreateUserMode(e);
-                    }}
-                    variant="contained"
-                    disabled={loading}
-                  >
-                    Create New Account
-                  </Button>
-                </>
-              )}
+              {buttonView()}
             </Box>
           </Box>
         </Fade>
