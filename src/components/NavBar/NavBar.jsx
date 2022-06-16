@@ -3,6 +3,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
 import colors from '../../constants/colors';
+import { useAuth } from '../../context/AuthContext';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   AppBar,
@@ -24,6 +25,7 @@ import LogInModal from '../LogIn/LogIn';
 const NavigationBar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const { logout, currentUser } = useAuth();
   const [open, setOpen] = React.useState(false);
 
   const journal = useSelector((state) => state.journal.entries);
@@ -168,7 +170,9 @@ const NavigationBar = () => {
               </Button>
             ))}
           </Box>
+
           <LogInModal />
+
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>

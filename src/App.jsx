@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { importEntries } from './app/journalSlice';
@@ -9,6 +9,9 @@ import { GoogleApiWrapper } from 'google-maps-react';
 import QualitativeView from './scenes/WordCloudView';
 import seed from './seed';
 import { AuthProvider } from './context/AuthContext';
+import { db } from './firebase';
+import { collection, getDocs } from 'firebase/firestore';
+
 const apiKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
 
 // set useSeed as false THEN click on 'DELETE JOURNAL' under app settings to wipe seed.
