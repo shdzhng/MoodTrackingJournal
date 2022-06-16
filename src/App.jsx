@@ -12,7 +12,7 @@ const apiKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
 
 // set useSeed as false THEN click on 'DELETE JOURNAL' under app settings to wipe seed.
 
-let useSeed = false;
+let useSeed = true;
 
 function App() {
   const LOCAL_STORAGE_KEY_ENTRIES = 'mooday.entries';
