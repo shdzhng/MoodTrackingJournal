@@ -10,6 +10,8 @@ export const journalSlice = createSlice({
   initialState,
   reducers: {
     importJournal: (state, { payload }) => {
+      console.log('running');
+      // console.log(payload);
       // return {
       //   entries: payload,
       // };

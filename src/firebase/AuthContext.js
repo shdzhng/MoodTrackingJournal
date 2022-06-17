@@ -56,9 +56,8 @@ export function AuthProvider({ children }) {
     get(child(dbRef, `users/${userId}`))
       .then((snapshot) => {
         if (snapshot.exists()) {
-          console.log(snapshot.val().journal);
-        } else {
-          console.log('No data available');
+          const data = snapshot.val().journal;
+          dispatch(importJournal(data));
         }
       })
       .catch((error) => {
