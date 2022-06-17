@@ -8,15 +8,13 @@ import AnalyticView from './scenes/AnalyticsView';
 import { GoogleApiWrapper } from 'google-maps-react';
 import QualitativeView from './scenes/WordCloudView';
 import seed from './seed';
-import { AuthProvider } from './context/AuthContext';
-import { db } from './firebase';
-import { collection, getDocs } from 'firebase/firestore';
+import { AuthProvider } from './firebase/AuthContext';
 
 const apiKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
 
 // set useSeed as false THEN click on 'DELETE JOURNAL' under app settings to wipe seed.
 
-let useSeed = true;
+let useSeed = false;
 
 function App() {
   const LOCAL_STORAGE_KEY_ENTRIES = 'mooday.entries';
@@ -25,21 +23,27 @@ function App() {
 
   useEffect(() => {
     if (useSeed === true) {
-      localStorage.setItem(LOCAL_STORAGE_KEY_ENTRIES, JSON.stringify(seed));
+      dispatch(importEntries(seed));
     }
   }, []);
 
-  useEffect(() => {
-    const storedEntries = JSON.parse(
-      localStorage.getItem(LOCAL_STORAGE_KEY_ENTRIES)
-    );
+  // useEffect(() => {
+  //   if (useSeed === true) {
+  //     localStorage.setItem(LOCAL_STORAGE_KEY_ENTRIES, JSON.stringify(seed));
+  //   }
+  // }, []);
 
-    dispatch(importEntries(storedEntries));
-  }, []);
+  // useEffect(() => {
+  //   const storedEntries = JSON.parse(
+  //     localStorage.getItem(LOCAL_STORAGE_KEY_ENTRIES)
+  //   );
 
-  useEffect(() => {
-    localStorage.setItem(LOCAL_STORAGE_KEY_ENTRIES, JSON.stringify(entries));
-  }, [entries]);
+  //   dispatch(importEntries(storedEntries));
+  // }, []);
+
+  // useEffect(() => {
+  //   localStorage.setItem(LOCAL_STORAGE_KEY_ENTRIES, JSON.stringify(entries));
+  // }, [entries]);
 
   return (
     <AuthProvider>

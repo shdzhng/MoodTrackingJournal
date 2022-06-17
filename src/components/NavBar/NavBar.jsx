@@ -3,7 +3,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
 import colors from '../../constants/colors';
-import { useAuth } from '../../context/AuthContext';
+import { useAuth } from '../../firebase/AuthContext';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   AppBar,

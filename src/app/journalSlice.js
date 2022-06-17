@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import seed from '../seed';
 
 const initialState = {
   entries: [],
@@ -8,16 +9,22 @@ export const journalSlice = createSlice({
   name: 'journal',
   initialState,
   reducers: {
-    addEntry: (state, { payload }) => {
-      if (!payload.name || !payload.feeling || !payload.entry) return;
-      return {
-        entries: [...state.entries, payload],
-      };
+    importJournal: (state, { payload }) => {
+      // return {
+      //   entries: payload,
+      // };
     },
 
     removeJournal: (state) => {
       return {
         entries: [],
+      };
+    },
+
+    addEntry: (state, { payload }) => {
+      if (!payload.name || !payload.feeling || !payload.entry) return;
+      return {
+        entries: [...state.entries, payload],
       };
     },
 
@@ -103,6 +110,7 @@ export const {
   addEntry,
   removeEntry,
   sortEntries,
+  importJournal,
   importEntries,
   updateEntry,
   removeJournal,
