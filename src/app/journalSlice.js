@@ -9,14 +9,6 @@ export const journalSlice = createSlice({
   name: 'journal',
   initialState,
   reducers: {
-    importJournal: (state, { payload }) => {
-      console.log('running');
-      // console.log(payload);
-      // return {
-      //   entries: payload,
-      // };
-    },
-
     removeJournal: (state) => {
       return {
         entries: [],
@@ -112,7 +104,6 @@ export const {
   addEntry,
   removeEntry,
   sortEntries,
-  importJournal,
   importEntries,
   updateEntry,
   removeJournal,
