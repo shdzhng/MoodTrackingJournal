@@ -14,7 +14,7 @@ import {
 } from 'firebase/database';
 import { collection, addDoc } from 'firebase/firestore';
 import seed from '../seed';
-import { importJournal } from '../app/journalSlice';
+import { importEntries } from '../app/journalSlice';
 import { useDispatch, useSelector } from 'react-redux';
 
 const AuthContext = React.createContext(null);
@@ -34,7 +34,7 @@ export function AuthProvider({ children }) {
   ////
   const journal = useSelector((state) => state.journal.entries);
   const database = getDatabase();
-  const userRef = userId ? ref(database, 'users/' + userId) : null;
+  const userRef = ref(database, 'users/' + userId);
 
   firebase.auth().onAuthStateChanged((user) => {
     if (user) setUserId(user.uid);
@@ -42,6 +42,7 @@ export function AuthProvider({ children }) {
 
   useEffect(() => {
     console.log(userId);
+    fetchUserEntries();
   }, [userId]);
 
   useEffect(() => {
@@ -51,24 +52,26 @@ export function AuthProvider({ children }) {
     });
   }, [userRef]);
 
-  useEffect(() => {
+  const fetchUserEntries = () => {
     const dbRef = ref(getDatabase());
     get(child(dbRef, `users/${userId}`))
       .then((snapshot) => {
         if (snapshot.exists()) {
           const data = snapshot.val().journal;
-          dispatch(importJournal(data));
+          dispatch(importEntries(data));
         }
       })
       .catch((error) => {
         console.error(error);
       });
-  }, [userRef]);
+  };
 
-  //update cloud when local journal updates
-  // useEffect(() => {
-  //   if (userId) set(userRef, journal);
-  // }, [journal]);
+  useEffect(() => {
+    if (userId) {
+      set(userRef, {});
+      // set(userRef, journal);
+    }
+  }, [journal]);
 
   const signup = (email, passsword) => {
     return auth.createUserWithEmailAndPassword(email, passsword);
@@ -76,6 +79,7 @@ export function AuthProvider({ children }) {
 
   const login = (email, password) => {
     auth.signInWithEmailAndPassword(email, password);
+    fetchUserEntries();
   };
 
   const resetPassword = (email) => {
@@ -84,6 +88,7 @@ export function AuthProvider({ children }) {
 
   const logout = () => {
     auth.signOut();
+    dispatch(importEntries([]));
   };
 
   useEffect(() => {
