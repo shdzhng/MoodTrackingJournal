@@ -59,6 +59,12 @@ export default function QualitativeView() {
     return returnedRecords;
   }, [entries]);
 
+  useEffect(() => {
+    if (entries.length === 0) {
+      setWordCloud(undefined);
+    }
+  }, [entries]);
+
   const wordCloudString = records[valueEnum[value]];
 
   if (wordCloudString !== undefined) {
