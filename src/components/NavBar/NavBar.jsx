@@ -17,7 +17,6 @@ import {
   Tooltip,
   MenuItem,
 } from '@mui/material';
-
 import { StyledLinkWhite, StyledLinkBlack } from './NavBar.styles';
 import { removeJournal } from '../../app/journalSlice';
 import LogInModal from '../LogIn/LogIn';
@@ -25,7 +24,7 @@ import LogInModal from '../LogIn/LogIn';
 const NavigationBar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
-  const { logout, currentUser } = useAuth();
+  const { logout, currentUser, upload } = useAuth();
   const [open, setOpen] = React.useState(false);
 
   const journal = useSelector((state) => state.journal.entries);
@@ -159,6 +158,7 @@ const NavigationBar = () => {
           >
             Mooday
           </Typography>
+
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
               <Button
