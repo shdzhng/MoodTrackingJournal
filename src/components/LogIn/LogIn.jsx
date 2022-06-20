@@ -112,16 +112,6 @@ export default function LogInModal() {
   }, []);
 
   const logInDisplay = currentUser ? 'Log Out' : <AccountCircleIcon />;
-  const saveDisplay = currentUser ? (
-    <Button
-      sx={{ color: 'white' }}
-      onClick={() => {
-        upload();
-      }}
-    >
-      Save
-    </Button>
-  ) : null;
 
   const inputView = () => {
     if (signIn === true || forgotPassword === true) {
@@ -220,7 +210,6 @@ export default function LogInModal() {
       <Button sx={{ color: 'white' }} onClick={handleOpen}>
         {logInDisplay}
       </Button>
-      {saveDisplay}
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
