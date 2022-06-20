@@ -1,8 +1,8 @@
-import React, { useState, useMemo, useEffect } from 'react';
-import colors from '../../../constants/colors';
-import moment from 'moment';
+import React, { useState, useMemo, memo } from 'react';
 import { Item } from './styled';
 import { MenuItem, FormControl, Select, Box, Grid } from '@mui/material';
+import colors from '../../../constants/colors';
+import moment from 'moment';
 import StackedBarGraph from './StackedBarGraph';
 import ComparisonMessage from './ComparisonMessage';
 
@@ -13,6 +13,7 @@ function QuickInfo({
   quickInfoMessageData,
   stackedBarGraphData,
   entriesYearList,
+  isEntriesEmpty,
 }) {
   const currentTime = moment().format('h:mm a');
   const currentDay = moment().format('dddd, MMMM Do, YYYY');
@@ -50,6 +51,7 @@ function QuickInfo({
                 <ComparisonMessage
                   quickInfoMessageData={quickInfoMessageData}
                   selectedYear={selectedYear}
+                  isEntriesEmpty={isEntriesEmpty}
                 />
               </Item>
             </Grid>
@@ -73,6 +75,7 @@ function QuickInfo({
             <Grid item xs={12}>
               <Item sx={{ height: 150 }}>
                 <StackedBarGraph
+                  isEntriesEmpty={isEntriesEmpty}
                   graphOrientation={graphOrientation}
                   stackedBarGraphData={stackedBarGraphData}
                 />
@@ -108,6 +111,7 @@ function QuickInfo({
           <Grid item xs={12}>
             <Item sx={{ height: 'auto', mt: 2 }}>
               <StackedBarGraph
+                isEntriesEmpty={isEntriesEmpty}
                 graphOrientation={graphOrientation}
                 stackedBarGraphData={stackedBarGraphData}
               />
@@ -119,4 +123,4 @@ function QuickInfo({
   );
 }
 
-export default QuickInfo;
+export default memo(QuickInfo);

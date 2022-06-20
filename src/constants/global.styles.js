@@ -11,6 +11,8 @@ const GlobalStyle = createGlobalStyle`
     height: 100vh;
     position:relative;
     background-color: ${colors.background};
+    min-width: 415px;
+    min-height: 790px;
 };
 
 #input{

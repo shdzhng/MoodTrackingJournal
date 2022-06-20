@@ -1,15 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, memo, useCallback } from 'react';
 import { MenuItem, FormControl, InputLabel, Select } from '@mui/material';
 import { useDispatch } from 'react-redux';
 import { sortEntries } from '../../app/journalSlice';
 
-export default function SelectLabels() {
+function SelectLabels() {
   const dispatch = useDispatch();
   const [sortMode, setSortMode] = useState('newstFirst');
 
-  const handleSort = ({ target }) => {
+  const handleSort = useCallback(({ target }) => {
     setSortMode(target.value);
-  };
+  }, []);
 
   useEffect(() => {
     dispatch(sortEntries(sortMode));
@@ -31,3 +31,5 @@ export default function SelectLabels() {
     </>
   );
 }
+
+export default memo(SelectLabels);

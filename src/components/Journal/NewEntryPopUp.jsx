@@ -1,7 +1,4 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import Modal from '@mui/material/Modal';
-import GpsFixedIcon from '@mui/icons-material/GpsFixed';
-import moment from 'moment';
 import { useDispatch } from 'react-redux';
 import {
   FeelingButton,
@@ -17,9 +14,10 @@ import {
 } from './PopUp.styles';
 import { addEntry, sortEntries } from '../../app/journalSlice';
 import { v4 as uuidv4 } from 'uuid';
-import { IconButton } from '@mui/material';
+import { IconButton, Fade, Modal } from '@mui/material';
 import { feelingList } from '../../constants/feelings';
-import Fade from '@mui/material/Fade';
+import GpsFixedIcon from '@mui/icons-material/GpsFixed';
+import moment from 'moment';
 
 export default function EntryPopUp() {
   const dispatch = useDispatch();

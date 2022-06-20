@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -10,7 +10,7 @@ import {
 } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
 import { months } from '../../../constants/months';
-import CircularProgress from '@mui/material/CircularProgress';
+import { CircularProgress, Box } from '@mui/material';
 
 ChartJS.register(
   CategoryScale,
@@ -21,14 +21,23 @@ ChartJS.register(
   Legend
 );
 
-export default function BarChart({
+function BarChart({
   selectedYear,
   currentMonth,
   barGraphData,
   isEntriesEmpty,
 }) {
   if (isEntriesEmpty) {
-    return <CircularProgress />;
+    return (
+      <Box
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+        minHeight="50%"
+      >
+        <CircularProgress />
+      </Box>
+    );
   }
 
   return (
@@ -63,3 +72,5 @@ export default function BarChart({
     />
   );
 }
+
+export default memo(BarChart);

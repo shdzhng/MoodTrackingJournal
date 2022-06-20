@@ -3,7 +3,7 @@ import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
 import firebaseConfig from './firebase.config';
-import { getDatabase, onValue, ref, set, get, child } from 'firebase/database';
+import { getDatabase, ref, set, get, child } from 'firebase/database';
 import seed from '../seed';
 import { importEntries } from '../app/journalSlice';
 import { useDispatch, useSelector } from 'react-redux';

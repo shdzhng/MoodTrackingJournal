@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { memo, useCallback } from 'react';
 import MenuIcon from '@mui/icons-material/Menu';
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
@@ -24,7 +24,6 @@ import LogInModal from '../LogIn/LogIn';
 const NavigationBar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
-  const { logout, currentUser, upload } = useAuth();
   const [open, setOpen] = React.useState(false);
 
   const journal = useSelector((state) => state.journal.entries);
@@ -36,12 +35,13 @@ const NavigationBar = () => {
     dispatch(removeJournal());
   };
 
-  const handleOpenNavMenu = (event) => {
+  const handleOpenNavMenu = useCallback((event) => {
     setAnchorElNav(event.currentTarget);
-  };
-  const handleOpenUserMenu = (event) => {
+  }, []);
+
+  const handleOpenUserMenu = useCallback((event) => {
     setAnchorElUser(event.currentTarget);
-  };
+  }, []);
 
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
@@ -207,4 +207,4 @@ const NavigationBar = () => {
     </AppBar>
   );
 };
-export default NavigationBar;
+export default memo(NavigationBar);

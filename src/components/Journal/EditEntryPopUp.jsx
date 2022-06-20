@@ -1,5 +1,4 @@
 import React, { useRef, useCallback, useState } from 'react';
-import Modal from '@mui/material/Modal';
 import { useDispatch } from 'react-redux';
 import {
   SubmitEntryButton,
@@ -11,11 +10,12 @@ import {
 } from './PopUp.styles';
 import { IconButtonStyled } from './Journal.style';
 import { updateEntry, sortEntries } from '../../app/journalSlice';
-import EditIcon from '@mui/icons-material/Edit';
-import colors from '../../constants/colors';
-import moment from 'moment';
 import { feelingList } from '../../constants/feelings';
 import { FeelingButton, FeelingButtonContainer } from './PopUp.styles';
+import EditIcon from '@mui/icons-material/Edit';
+import Modal from '@mui/material/Modal';
+import colors from '../../constants/colors';
+import moment from 'moment';
 
 export default function EditPopUp({ entry, handleMarkerRemove }) {
   const dispatch = useDispatch();

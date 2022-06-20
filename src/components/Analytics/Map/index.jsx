@@ -1,9 +1,9 @@
 import React, { useState, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
+import { GoogleMap } from '@react-google-maps/api';
 import mapStyles from './Map.styles';
 import MapMarker from './MapMarker';
-import { GoogleMap } from '@react-google-maps/api';
 import colors from '../../../constants/colors';
 import MapJournalEntryMarker from './MapJournalEntryMarker';
 import moment from 'moment';
@@ -22,7 +22,7 @@ const containerStyle = {
   border: `1px solid ${colors.blue2}`,
 };
 
-const MapComponent = ({ selectedYear }) => {
+const MapComponent = ({ selectedYear, isEntriesEmpty }) => {
   const entries = useSelector(({ journal }) => journal.entries);
   const [selectedLocation, setSelectedLocation] = useState(false);
   const [newMarker, setNewMarker] = useState({});
