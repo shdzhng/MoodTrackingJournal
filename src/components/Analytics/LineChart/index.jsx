@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -11,7 +11,7 @@ import {
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
 import { months } from '../../../constants/months';
-import CircularProgress from '@mui/material/CircularProgress';
+import { CircularProgress, Box } from '@mui/material';
 
 ChartJS.register(
   CategoryScale,
@@ -23,14 +23,23 @@ ChartJS.register(
   PointElement
 );
 
-export default function LineChart({
+function LineChart({
   isEntriesEmpty,
   selectedYear,
   currentMonth,
   lineGraphData,
 }) {
   if (isEntriesEmpty) {
-    return <CircularProgress></CircularProgress>;
+    return (
+      <Box
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+        minHeight="50%"
+      >
+        <CircularProgress />
+      </Box>
+    );
   }
 
   return (
@@ -56,3 +65,5 @@ export default function LineChart({
     />
   );
 }
+
+export default memo(LineChart);

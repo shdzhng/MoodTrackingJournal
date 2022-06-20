@@ -1,10 +1,5 @@
 import React, { useRef, useCallback, useEffect, useState } from 'react';
-import Backdrop from '@mui/material/Backdrop';
-import Box from '@mui/material/Box';
-import Modal from '@mui/material/Modal';
-import Fade from '@mui/material/Fade';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
+import { Backdrop, TextField, Button, Box, Fade, Modal } from '@mui/material';
 import colors from '../../constants/colors';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { useAuth } from '../../firebase/AuthContext';
@@ -53,27 +48,27 @@ export default function LogInModal() {
     setOpen(false);
   };
 
-  const handleLogIn = useCallback((e) => {
+  const handleLogIn = (e) => {
     e.preventDefault();
     const email = emailRef.current.value;
     const password = passwordRef.current.value;
     login(email, password);
 
     handleClose();
-  }, []);
+  };
 
-  const handleCreateUserMode = useCallback((e) => {
+  const handleCreateUserMode = (e) => {
     e.preventDefault();
     setError(null);
     setForgotPassword(false);
     setSignIn(false);
     setCreateUser(true);
-  }, []);
+  };
 
-  const handleChangePassword = useCallback((e) => {
+  const handleChangePassword = (e) => {
     setForgotPassword(true);
     setSignIn(false);
-  }, []);
+  };
 
   const handleSubmitPasswordChange = useCallback((e) => {
     const email = emailRef.current.value;

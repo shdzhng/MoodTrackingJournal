@@ -1,4 +1,5 @@
 import React, { useMemo, useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import moment from 'moment';
 import NavigationBar from '../../components/NavBar/NavBar';
 import GoogleMap from '../../components/Analytics/Map';
@@ -6,7 +7,6 @@ import BarChart from '../../components/Analytics/BarChart';
 import LineChart from '../../components/Analytics/LineChart';
 import QuickInfo from '../../components/Analytics/QuickInfo';
 import { Card, CardContent, Grid, Box } from '@mui/material';
-import { useSelector } from 'react-redux';
 import {
   barGraphDataTemplate,
   lineGraphDataTemplate,
@@ -216,6 +216,7 @@ function AnalyticView() {
                     entriesYearList={entriesYearList}
                     setSelectedYear={setSelectedYear}
                     unfilteredData={unfilteredData}
+                    isEntriesEmpty={isEntriesEmpty}
                     w={w}
                     stackedBarGraphData={stackedBarGraphData}
                     quickInfoMessageData={quickInfoMessageData}
@@ -272,6 +273,7 @@ function AnalyticView() {
                   selectedYear={selectedYear}
                   setSelectedYear={setSelectedYear}
                   unfilteredData={unfilteredData}
+                  isEntriesEmpty={isEntriesEmpty}
                   stackedBarGraphData={stackedBarGraphData}
                   quickInfoMessageData={quickInfoMessageData}
                   w={w}

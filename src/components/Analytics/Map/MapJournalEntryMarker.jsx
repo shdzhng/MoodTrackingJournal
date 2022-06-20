@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { Marker, InfoWindow } from '@react-google-maps/api';
 import {
   InfoWindowText,
   InfoWindowDate,
   InfoWindowTitle,
 } from './MapMarker.styles';
+import { IconButtonStyled, ButtonContainer } from '../../Journal/Journal.style';
 import EditPopUp from '../../Journal/EditEntryPopUp';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { IconButtonStyled, ButtonContainer } from '../../Journal/Journal.style';
-import { useDispatch } from 'react-redux';
 
 export default function MapJournalEntryMarker({ entry, handleMarkerRemove }) {
   const dispatch = useDispatch();

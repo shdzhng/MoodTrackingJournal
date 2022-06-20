@@ -1,6 +1,7 @@
 import EditPopUp from './EditEntryPopUp';
 import moment from 'moment';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { memo } from 'react';
 import {
   EntryContainer,
   EntryName,
@@ -13,7 +14,7 @@ import {
 import { useDispatch } from 'react-redux';
 import { removeEntry } from '../../app/journalSlice';
 
-export default function SingleEntryCard({ entry }) {
+function SingleEntryCard({ entry }) {
   const dispatch = useDispatch();
   const formattedDate = moment.unix(entry.date).format('MMMM Do YYYY');
 
@@ -42,3 +43,5 @@ export default function SingleEntryCard({ entry }) {
     </EntryContainer>
   );
 }
+
+export default memo(SingleEntryCard);

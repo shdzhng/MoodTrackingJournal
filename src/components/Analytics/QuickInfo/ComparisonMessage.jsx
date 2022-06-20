@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 
 function ComparisonMessage({ quickInfoMessageData }) {
   if (typeof quickInfoMessageData === 'number') {
@@ -29,4 +29,4 @@ function ComparisonMessage({ quickInfoMessageData }) {
   );
 }
 
-export default ComparisonMessage;
+export default memo(ComparisonMessage);

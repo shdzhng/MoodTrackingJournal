@@ -1,16 +1,16 @@
 import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { Masonry } from '@mui/lab';
+import { Box } from '@mui/material';
+import { MasonryContainer, FlexContainer } from './Journal.style';
+import { sortEntries } from '../../app/journalSlice';
 import EntryPopUp from './NewEntryPopUp';
 import SelectLabels from './SortButton.jsx';
 import SingleEntryCard from './EntryCard';
-import { Masonry } from '@mui/lab';
-import { Box } from '@mui/material';
-import { useSelector } from 'react-redux';
-import { MasonryContainer, FlexContainer } from './Journal.style';
-import { useDispatch } from 'react-redux';
-import { sortEntries } from '../../app/journalSlice';
 
 export default function Journal() {
   const dispatch = useDispatch();
+
   const journal = useSelector((state) => state.journal.entries);
 
   useEffect(() => {

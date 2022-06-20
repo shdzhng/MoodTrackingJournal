@@ -1,8 +1,25 @@
-import React from 'react';
-import { useMemo } from 'react';
+import React, { memo } from 'react';
 import { Bar } from 'react-chartjs-2';
+import { CircularProgress, Box } from '@mui/material';
 
-function StackedBarGraph({ stackedBarGraphData, graphOrientation }) {
+function StackedBarGraph({
+  stackedBarGraphData,
+  graphOrientation,
+  isEntriesEmpty,
+}) {
+  if (isEntriesEmpty) {
+    return (
+      <Box
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+        minHeight="50%"
+      >
+        <CircularProgress />
+      </Box>
+    );
+  }
+
   return (
     <Bar
       options={{
@@ -39,4 +56,4 @@ function StackedBarGraph({ stackedBarGraphData, graphOrientation }) {
   );
 }
 
-export default StackedBarGraph;
+export default memo(StackedBarGraph);
