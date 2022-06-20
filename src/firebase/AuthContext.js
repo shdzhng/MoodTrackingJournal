@@ -1,12 +1,12 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState, useMemo } from 'react';
+import { getDatabase, ref, set, get, child } from 'firebase/database';
+import { importEntries } from '../app/journalSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import seed from '../seed';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
 import firebaseConfig from './firebase.config';
-import { getDatabase, ref, set, get, child } from 'firebase/database';
-import seed from '../seed';
-import { importEntries } from '../app/journalSlice';
-import { useDispatch, useSelector } from 'react-redux';
 
 const AuthContext = React.createContext(null);
 const app = firebase.initializeApp(firebaseConfig);
@@ -25,7 +25,10 @@ export function AuthProvider({ children }) {
   const database = getDatabase();
 
   const journal = useSelector((state) => state.journal.entries);
-  const userRef = ref(database, 'users/' + userId);
+
+  const userRef = useMemo(() => {
+    return ref(database, 'users/' + userId);
+  }, [userId]);
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
