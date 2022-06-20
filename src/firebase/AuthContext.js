@@ -8,6 +8,8 @@ import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
 import firebaseConfig from './firebase.config';
 
+const DEMO_USER_ID = 'qxyBjaJidjfuUOBQrTYzmfhJniq1';
+
 const AuthContext = React.createContext(null);
 const app = firebase.initializeApp(firebaseConfig);
 export const auth = app.auth();
@@ -58,6 +60,10 @@ export function AuthProvider({ children }) {
 
   // fetches journal collection data based on userId and fills local redux store with data accordingly
   useEffect(() => {
+    if (DEMO_USER_ID === userId) {
+      dispatch(importEntries(seed));
+    }
+
     if (userId !== null) {
       const dbRef = ref(getDatabase());
       get(child(dbRef, `users/${userId}/journal`))

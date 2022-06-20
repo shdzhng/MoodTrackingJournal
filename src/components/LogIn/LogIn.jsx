@@ -1,5 +1,13 @@
 import React, { useRef, useCallback, useEffect, useState } from 'react';
-import { Backdrop, TextField, Button, Box, Fade, Modal } from '@mui/material';
+import {
+  Backdrop,
+  TextField,
+  Button,
+  Box,
+  Fade,
+  Modal,
+  Typography,
+} from '@mui/material';
 import colors from '../../constants/colors';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { useAuth } from '../../firebase/AuthContext';
@@ -257,6 +265,22 @@ export default function LogInModal() {
             >
               {buttonView()}
             </Box>
+
+            <Typography
+              sx={{
+                textAlign: 'center',
+                bgcolor: colors.blue3,
+                color: colors.blue1,
+                fontSize: 17,
+                mt: 2,
+              }}
+            >
+              <br />
+              DEMO ACCOUNT NAME: <br />
+              Email: demo@mooday.com <br />
+              Password: MoodayGooday <br />
+              <br />
+            </Typography>
           </Box>
         </Fade>
       </Modal>
