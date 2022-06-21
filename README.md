@@ -5,9 +5,7 @@
 
 ## About The Project
 
-**Mooday** is a mood tracking journal SPA with quantitative and qualitative analysis features to support users in their journey towards understanding their mental health strengths and needs.
-
-[**LIVE DEMO HERE**](https://mooday-demo.web.app/) Click 'Demo Start Here' to get started.
+**Mooday** is a mood tracking journal SPA with quantitative and qualitative analysis features to support users in their journey towards understanding their mental health strengths and needs. [**LIVE DEMO HERE**](https://mooday-demo.web.app/) Click 'Demo Start Here' to get started.
 
 * Employed **React**, **Router**, **Redux** with **MUI** and **styled-components** to construct three responsive views tied to a single Redux pipeline, allowing for standard storage, download, post, edit, sort, delete, and query of user journal entries.
 
@@ -44,7 +42,7 @@ REACT_APP_GOOGLE_MAPS_API_KEY = ["YOUR_API_KEY"]
  <p align="right">(<a href="#top">back to top</a>)</p>
 
 
-## Usage
+## Usage (WIP)
 
 In Mooday journal view, users can download, post, edit, sort, delete, view and sort their journal entries. In addition to the Google Map Places autocomplete feature, users are also able to use their current location.
 
