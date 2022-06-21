@@ -7,7 +7,7 @@ function ComparisonMessage({ quickInfoMessageData }) {
         <>
           AWESOME! You journaled{' '}
           <span className="greenhighlight">{quickInfoMessageData}% MORE </span>{' '}
-          this month!
+          this month compared to last month!
         </>
       );
     } else {

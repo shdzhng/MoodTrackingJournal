@@ -239,8 +239,8 @@ function AnalyticView() {
             </Grid>
 
             <Grid item xs={5}>
-              <Card sx={{ height: 430 }}>
-                <CardContent sx={{ height: 400 }}>
+              <Card sx={{ height: 470 }}>
+                <CardContent sx={{ height: 430 }}>
                   <BarChart
                     selectedYear={selectedYear}
                     currentMonth={currentMonth}
@@ -252,7 +252,9 @@ function AnalyticView() {
             </Grid>
 
             <Grid item xs={7}>
-              <GoogleMap selectedYear={selectedYear} />
+              <Card sx={{ height: 470 }}>
+                <GoogleMap selectedYear={selectedYear} />
+              </Card>
             </Grid>
           </Grid>
         </Box>
