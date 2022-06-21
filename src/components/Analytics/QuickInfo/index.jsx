@@ -47,7 +47,7 @@ function QuickInfo({
               <Item>{clockTime}</Item>
             </Grid>
             <Grid item xs={8}>
-              <Item sx={{ height: 40 }}>
+              <Item sx={{ minHeight: 40 }}>
                 <ComparisonMessage
                   quickInfoMessageData={quickInfoMessageData}
                   selectedYear={selectedYear}
