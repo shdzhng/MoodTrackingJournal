@@ -17,7 +17,7 @@ const options = {
 
 const containerStyle = {
   width: '100%',
-  height: '50vh',
+  height: '100%',
   margin: '0 auto',
   border: `1px solid ${colors.blue2}`,
 };
@@ -25,14 +25,17 @@ const containerStyle = {
 const MapComponent = ({ selectedYear, isEntriesEmpty }) => {
   const entries = useSelector(({ journal }) => journal.entries);
   const [selectedLocation, setSelectedLocation] = useState(false);
-  const [newMarker, setNewMarker] = useState({});
+  const [newMarker, setNewMarker] = useState(null);
   const [newEntry, setNewEntry] = useState({});
+  const [latestGeoCode, setLatestGeoCode] = useState(null);
 
   const startLocation = useMemo(() => {
-    if (entries.length !== 0)
-      return JSON.parse(entries[entries.length - 1].location).geometry.location;
+    if (latestGeoCode !== null) {
+      return newMarker;
+    }
+
     return { lat: 37.776596, lng: -122.391953 };
-  }, [entries]);
+  }, [newMarker]);
 
   const geocoder = new window.google.maps.Geocoder();
 
@@ -78,7 +81,7 @@ const MapComponent = ({ selectedYear, isEntriesEmpty }) => {
         id="mapContainer"
         mapContainerStyle={containerStyle}
         center={startLocation}
-        zoom={9}
+        zoom={11}
         options={options}
         onClick={handleMapClick}
       >

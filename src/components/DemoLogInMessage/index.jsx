@@ -85,7 +85,11 @@ export default function DemoLogInMessage() {
           </Typography>
 
           <Typography sx={{ mt: 2 }}>
-            For inquiries, please reach me at: shoud.zhang@gmail.com
+            ------ <br /> For inquiries, please reach me at:
+            shoud.zhang@gmail.com
+            <br />
+            <br />
+            All quotes by Jiddu Kirshnamurti (1895 - 1986)
           </Typography>
         </Box>
       </Modal>
