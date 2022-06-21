@@ -4,6 +4,7 @@ import moment from 'moment';
 import colors from '../../constants/colors';
 import DeleteIcon from '@mui/icons-material/Delete';
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 const style = {
   position: 'absolute',
@@ -54,7 +55,8 @@ export default function DemoLogInMessage() {
             Thank you for checking out Mooday :)
           </Typography>
           <Typography sx={{ mt: 2 }}>
-            Please create your own user account* OR use the following demo
+            Please create your own user account* by clicking{' '}
+            <AccountCircleIcon fontSize="inherit" /> OR use the following demo
             credentials** to get started:
           </Typography>
 
