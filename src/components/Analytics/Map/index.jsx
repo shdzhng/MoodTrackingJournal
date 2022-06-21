@@ -17,7 +17,7 @@ const options = {
 
 const containerStyle = {
   width: '100%',
-  height: '50vh',
+  height: '100%',
   margin: '0 auto',
   border: `1px solid ${colors.blue2}`,
 };
