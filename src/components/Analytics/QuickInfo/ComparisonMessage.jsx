@@ -2,31 +2,34 @@ import React, { memo } from 'react';
 
 function ComparisonMessage({ quickInfoMessageData }) {
   if (typeof quickInfoMessageData === 'number') {
-    if (quickInfoMessageData > 100) {
+    console.log(quickInfoMessageData);
+
+    if (quickInfoMessageData === 0) {
       return (
         <>
-          AWESOME! You journaled{' '}
+          No entries found from <br />
+          this/last month to compare :c <br />
+        </>
+      );
+    } else if (quickInfoMessageData > 100) {
+      return (
+        <>
+          AWESOME! You journaled{' '}``
           <span className="greenhighlight">{quickInfoMessageData}% MORE </span>{' '}
           this month compared to last month!
         </>
       );
-    } else {
+    }
+    {
       return (
         <>
           You journaled{' '}
           <span className="redhighlight">{quickInfoMessageData}% less</span>
-          <br /> this month than the last :c
+          <br /> this month than the last.
         </>
       );
     }
   }
-
-  return (
-    <>
-      No entries found from <br />
-      last month to compare :c <br />
-    </>
-  );
 }
 
 export default memo(ComparisonMessage);

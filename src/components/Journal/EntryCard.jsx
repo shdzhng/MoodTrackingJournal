@@ -13,6 +13,7 @@ import {
 } from './Journal.style';
 import { useDispatch } from 'react-redux';
 import { removeEntry } from '../../app/journalSlice';
+import { Fade } from '@mui/material';
 
 function SingleEntryCard({ entry }) {
   const dispatch = useDispatch();
@@ -23,24 +24,26 @@ function SingleEntryCard({ entry }) {
   };
 
   return (
-    <EntryContainer>
-      <EntryName variant={entry.feeling}>{entry.name}</EntryName>
-      <EntryDate>Posted on: {formattedDate}</EntryDate>
-      <Entry>{entry.entry}</Entry>
-      <FeelingBubble variant={entry.feeling}> </FeelingBubble>
-      <ButtonContainer>
-        <EditPopUp entry={entry}></EditPopUp>
-        <IconButtonStyled
-          aria-label="delete"
-          onClick={() => {
-            handleRemove(entry);
-          }}
-          size="small"
-        >
-          <DeleteIcon fontSize="inherit" />
-        </IconButtonStyled>
-      </ButtonContainer>
-    </EntryContainer>
+    <Fade in={true}>
+      <EntryContainer>
+        <EntryName variant={entry.feeling}>{entry.name}</EntryName>
+        <EntryDate>Posted on: {formattedDate}</EntryDate>
+        <Entry>{entry.entry}</Entry>
+        <FeelingBubble variant={entry.feeling}> </FeelingBubble>
+        <ButtonContainer>
+          <EditPopUp entry={entry}></EditPopUp>
+          <IconButtonStyled
+            aria-label="delete"
+            onClick={() => {
+              handleRemove(entry);
+            }}
+            size="small"
+          >
+            <DeleteIcon fontSize="inherit" />
+          </IconButtonStyled>
+        </ButtonContainer>
+      </EntryContainer>
+    </Fade>
   );
 }
 

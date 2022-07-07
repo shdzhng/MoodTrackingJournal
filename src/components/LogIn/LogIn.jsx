@@ -24,7 +24,7 @@ import Alert from '@mui/material/Alert';
 import firebase from 'firebase/compat/app';
 
 export default function LogInModal() {
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = React.useState(false);
   const [forgotPassword, setForgotPassword] = React.useState(false);
   const [createUser, setCreateUser] = React.useState(false);
   const [signIn, setSignIn] = useState(true);
@@ -35,6 +35,15 @@ export default function LogInModal() {
   const passwordConfirmationRef = useRef('');
   const { signup, login, logout, currentUser, upload, resetPassword } =
     useAuth();
+
+  useEffect(() => {
+    const user = firebase.auth().currentUser;
+    if (user) {
+      setOpen(false);
+    } else {
+      setOpen(true);
+    }
+  }, []);
 
   const day = moment().format('HH');
   const messageHeader = useMemo(() => {
