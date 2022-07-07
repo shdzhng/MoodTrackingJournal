@@ -20,7 +20,6 @@ import {
 import { StyledLinkWhite, StyledLinkBlack } from './NavBar.styles';
 import { removeJournal } from '../../app/journalSlice';
 import LogInModal from '../LogIn/LogIn';
-import DemoLogInMessage from '../DemoLogInMessage';
 
 const NavigationBar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -172,7 +171,6 @@ const NavigationBar = () => {
             ))}
           </Box>
 
-          <DemoLogInMessage />
           <LogInModal />
 
           <Box sx={{ flexGrow: 0 }}>

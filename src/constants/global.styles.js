@@ -47,6 +47,10 @@ const GlobalStyle = createGlobalStyle`
 text-decoration: underline;
 }
 
+.bold{
+  font-weight:500;
+}
+
 .redhighlight{
   color:red;
    font-weight: 500;

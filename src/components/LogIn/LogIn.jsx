@@ -1,4 +1,10 @@
-import React, { useRef, useCallback, useEffect, useState } from 'react';
+import React, {
+  useRef,
+  useCallback,
+  useMemo,
+  useEffect,
+  useState,
+} from 'react';
 import {
   Backdrop,
   TextField,
@@ -8,23 +14,14 @@ import {
   Modal,
   Typography,
 } from '@mui/material';
+import moment from 'moment';
 import colors from '../../constants/colors';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import DeleteIcon from '@mui/icons-material/Delete';
+import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 import { useAuth } from '../../firebase/AuthContext';
 import Alert from '@mui/material/Alert';
-
-const style = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 400,
-  bgcolor: 'background.paper',
-  boxShadow: 24,
-  p: 4,
-  display: 'flex',
-  flexDirection: 'column',
-};
+import firebase from 'firebase/compat/app';
 
 export default function LogInModal() {
   const [open, setOpen] = React.useState(false);
@@ -39,6 +36,27 @@ export default function LogInModal() {
   const { signup, login, logout, currentUser, upload, resetPassword } =
     useAuth();
 
+  useEffect(() => {
+    const user = firebase.auth().currentUser;
+    if (user) {
+      setOpen(false);
+    } else {
+      setOpen(true);
+    }
+  }, []);
+
+  const day = moment().format('HH');
+  const messageHeader = useMemo(() => {
+    switch (day) {
+      case day < 12:
+        return 'Good Morning!';
+      case day < 17:
+        return 'Good Afternoon!';
+      default:
+        return 'Good Evening!';
+    }
+  }, [day]);
+
   const handleOpen = () => {
     if (currentUser) {
       logout();
@@ -47,7 +65,7 @@ export default function LogInModal() {
     setOpen(true);
   };
 
-  const handleClose = () => {
+  const resetAll = () => {
     setCreateUser(false);
     setForgotPassword(false);
     setCreateUser(false);
@@ -56,13 +74,22 @@ export default function LogInModal() {
     setOpen(false);
   };
 
+  const handleClose = async (message) => {
+    const user = await firebase.auth().currentUser;
+    if (user) {
+      resetAll();
+    } else {
+      setError('please log in to proceed with demo');
+    }
+  };
+
   const handleLogIn = (e) => {
     e.preventDefault();
     const email = emailRef.current.value;
     const password = passwordRef.current.value;
     login(email, password);
-
-    handleClose();
+    setError(null);
+    resetAll();
   };
 
   const handleCreateUserMode = (e) => {
@@ -177,33 +204,61 @@ export default function LogInModal() {
 
     if (forgotPassword === true) {
       return (
-        <Button
-          sx={{ mt: 2, bgcolor: colors.blue1 }}
-          size="small"
-          onClick={(e) => {
-            handleSubmitPasswordChange(e);
-          }}
-          variant="contained"
-          disabled={loading}
-        >
-          Reset
-        </Button>
+        <>
+          <Button
+            sx={{ mt: 2, bgcolor: colors.blue1 }}
+            size="small"
+            onClick={(e) => {
+              handleSubmitPasswordChange(e);
+            }}
+            variant="contained"
+            disabled={loading}
+          >
+            Reset
+          </Button>
+          <Button
+            sx={{ mt: 2, bgcolor: colors.blue1 }}
+            size="small"
+            onClick={(e) => {
+              setForgotPassword(false);
+              setSignIn(true);
+            }}
+            variant="contained"
+            disabled={loading}
+          >
+            Back
+          </Button>
+        </>
       );
     }
 
     if (createUser === true) {
       return (
-        <Button
-          sx={{ mt: 2, bgcolor: colors.blue1 }}
-          size="small"
-          onClick={(e) => {
-            handleSignUp(e);
-          }}
-          variant="contained"
-          disabled={loading}
-        >
-          Create New Account
-        </Button>
+        <>
+          <Button
+            sx={{ mt: 2, bgcolor: colors.blue1 }}
+            size="small"
+            onClick={(e) => {
+              handleSignUp(e);
+            }}
+            variant="contained"
+            disabled={loading}
+          >
+            Create New Account
+          </Button>
+          <Button
+            sx={{ mt: 2, bgcolor: colors.blue1 }}
+            size="small"
+            onClick={(e) => {
+              setCreateUser(false);
+              setSignIn(true);
+            }}
+            variant="contained"
+            disabled={loading}
+          >
+            Back
+          </Button>
+        </>
       );
     }
   };
@@ -214,8 +269,6 @@ export default function LogInModal() {
         {logInDisplay}
       </Button>
       <Modal
-        aria-labelledby="transition-modal-title"
-        aria-describedby="transition-modal-description"
         open={open}
         onClose={handleClose}
         closeAfterTransition
@@ -230,57 +283,128 @@ export default function LogInModal() {
             onSubmit={(e) => {
               handleLogIn(e);
             }}
-            sx={style}
+            sx={{
+              position: 'absolute',
+              top: '50%',
+              left: '50%',
+              transform: 'translate(-50%, -50%)',
+              width: 800,
+              bgcolor: 'background.paper',
+              boxShadow: 24,
+              p: 4,
+              display: 'flex',
+              flexDirection: 'row',
+            }}
           >
-            <TextField
-              inputRef={emailRef}
-              sx={{ mt: 2 }}
-              placeholder="hello@mooday.com"
-              id="email"
-              label="Email"
-              name="email"
-              required
-            ></TextField>
-            {inputView()}
+            <Box sx={{ width: '48%', bgcolor: colors.background, p: 3 }}>
+              <Typography variant="h6">
+                {messageHeader}
+                <br />
+                Thank you for checking out Mooday :)
+              </Typography>
+              <Typography sx={{ mt: 2 }}>
+                To proceed with demo please{' '}
+                <span className="bold">
+                  create your own user account* or use the following demo
+                  credentials{' '}
+                </span>
+                to get started:
+              </Typography>
 
-            {forgotPassword !== true && (
-              <TextField
-                inputRef={passwordRef}
-                sx={{ mt: 2 }}
-                placeholder="password"
-                name="password"
-                label="Password"
-                type="password"
-                id="password"
-                required
-              ></TextField>
-            )}
+              <Typography sx={{ mt: 2, fontSize: '0.75rem' }}>
+                *Your unique user account will automatically seeded with a dummy
+                database. Click <DeleteIcon fontSize="inherit" /> to remove
+                individually, or click{' '}
+                <SettingsOutlinedIcon fontSize="inherit" /> then select "Delete
+                Journal" to remove all.
+              </Typography>
 
-            {error && <Alert severity="error">{error}</Alert>}
-
-            <Box
-              display="flex"
-              flexDirection="column"
-              sx={{ justifyContent: 'center' }}
-            >
-              {buttonView()}
+              <Typography sx={{ mt: 2, fontSize: '0.75rem' }}>
+                ------ <br /> For inquiries, please reach me at:
+                shoud.zhang@gmail.com
+                <br />
+                <br />
+                All quotes by Jiddu Kirshnamurti (1895 - 1986)
+              </Typography>
             </Box>
 
-            <Typography
+            <Box
               sx={{
-                textAlign: 'center',
-                bgcolor: colors.blue3,
-                color: colors.blue1,
-                fontSize: 17,
-                mt: 2,
+                bgcolor: colors.accent,
+                width: '1px',
+                mx: 1,
               }}
-            >
-              <br />
-              DEMO ACCOUNT NAME: <br />
-              Email: demo@mooday.com <br />
-              Password: MoodayGooday <br />
-              <br />
-            </Typography>
+            ></Box>
+            <Box display="flex" flexDirection="column" sx={{ width: '48%' }}>
+              <TextField
+                inputRef={emailRef}
+                sx={{ mt: 2 }}
+                placeholder="hello@mooday.com"
+                id="email"
+                label="Email"
+                name="email"
+                required
+              ></TextField>
+              {inputView()}
+
+              {forgotPassword !== true && (
+                <TextField
+                  inputRef={passwordRef}
+                  sx={{ mt: 2 }}
+                  placeholder="password"
+                  name="password"
+                  label="Password"
+                  type="password"
+                  id="password"
+                  required
+                ></TextField>
+              )}
+
+              {error && (
+                <Fade in={error ? true : false}>
+                  <Alert sx={{ mt: 2 }} severity="error">
+                    {error}
+                  </Alert>
+                </Fade>
+              )}
+
+              <Box
+                display="flex"
+                flexDirection="column"
+                sx={{ justifyContent: 'center' }}
+              >
+                {buttonView()}
+              </Box>
+              <Box
+                sx={{
+                  textAlign: 'center',
+                  bgcolor: colors.blue3,
+                  color: colors.blue1,
+                  mt: 2,
+                  p: 2,
+                }}
+              >
+                <Typography
+                  sx={{
+                    fontSize: 17,
+                    mb: 2,
+                  }}
+                >
+                  DEMO ACCOUNT NAME: <br />
+                  Email: demo@mooday.com <br />
+                  Password: MoodayGooday <br />
+                </Typography>
+                <Typography
+                  sx={{
+                    px: 2,
+                    fontSize: '0.75rem',
+                  }}
+                >
+                  Feel free to make edits to the demo account but bear in mind
+                  that your changes will be erased upon refresh.
+                </Typography>
+              </Box>
+            </Box>
           </Box>
         </Fade>
       </Modal>
