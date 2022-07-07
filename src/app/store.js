@@ -1,9 +1,11 @@
 import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
-import todoListReducer from './journalSlice';
+import journalReducer from './journalSlice';
+import userReducer from './userSlice';
 
 export const store = configureStore({
   reducer: {
-    journal: todoListReducer,
+    journal: journalReducer,
+    user: userReducer,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
 });
