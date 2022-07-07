@@ -37,13 +37,12 @@ export default function LogInModal() {
     useAuth();
 
   useEffect(() => {
-    const user = firebase.auth().currentUser;
-    if (user) {
+    if (currentUser) {
       setOpen(false);
     } else {
       setOpen(true);
     }
-  }, []);
+  }, [currentUser]);
 
   const day = moment().format('HH');
   const messageHeader = useMemo(() => {
@@ -60,7 +59,6 @@ export default function LogInModal() {
   const handleOpen = () => {
     if (currentUser) {
       logout();
-      return;
     }
     setOpen(true);
   };
