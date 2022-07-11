@@ -18,7 +18,7 @@
 ## Getting Started
 
   ```sh
-  npm install npm@latest -g
+  npm install
   ```
 
 ### Installation
